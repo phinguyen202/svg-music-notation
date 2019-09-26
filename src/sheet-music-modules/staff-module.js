@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class ClefStaff extends React.Component {
+export class TrebleClef extends React.Component {
     render() {
         return (
             <Staff></Staff>
@@ -8,7 +8,14 @@ export class ClefStaff extends React.Component {
     }
 }
 
-class Staff extends React.Component {
+export class BassClef extends React.Component {
+    render() {
+        return (
+            <Staff></Staff>
+        )
+    }
+}
+export class Staff extends React.Component {
     render() {
         return (
             <svg height="80" width="500">
