@@ -1,0 +1,36 @@
+{
+  "name": "svg-sheet-music",
+  "version": "1.0.0",
+  "description": "draw sheet music on browser using svg",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phinguyen202/svg-sheet-music.git"
+  },
+  "keywords": [
+    "svg",
+    "sheet",
+    "music"
+  ],
+  "author": "Phi Trung Nguyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phinguyen202/svg-sheet-music/issues"
+  },
+  "homepage": "https://github.com/phinguyen202/svg-sheet-music#readme",
+  "peerDependencies": {
+    "@emotion/core": "^10.x",
+    "@emotion/styled": "^10.x",
+    "react": "^16.x",
+    "react-dom": "^16.x"
+  },
+  "devDependencies": {
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}
