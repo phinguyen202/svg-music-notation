@@ -2,7 +2,7 @@ import React from "react";
 
 export function Staff(props: any) {
     return (
-        <g stroke="black" stroke-width="0.5">
+        <g stroke="black" strokeWidth="0.5">
             <line x1="10" y1="10" x2="800" y2="10" ></line>
             <line x1="10" y1="20" x2="800" y2="20" ></line>
             <line x1="10" y1="30" x2="800" y2="30" ></line>
