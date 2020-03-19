@@ -11,6 +11,9 @@ export class SVGMusicNotation extends React.Component<Configuration & MusicNotat
     render() {
         // loop staves
         const staves = this.props.staves.map((stave: StaveProps, index: number) => {
+            if (!index) {
+                return (<Stave clef={this.props.clef} meansures={stave.meansures} x={0} y={100 * index} key={index} />);
+            }
             return (<Stave meansures={stave.meansures} x={0} y={100 * index} key={index} />);
         });
 

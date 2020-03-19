@@ -1,12 +1,12 @@
-export interface NoteRest {
+export interface NoteRestProps {
 	duration: string;
 }
 
-export interface Rest extends NoteRest {
+export interface RestProps extends NoteRestProps {
 
 }
 
-export interface Note extends NoteRest {
+export interface NoteProps extends NoteRestProps {
 	note: string;
 	accidental: string;
 	dot: boolean;
@@ -14,18 +14,24 @@ export interface Note extends NoteRest {
 	lyrics?: string;
 }
 
-export interface Meansure {
-	clef: string;
-	timeSignature: string;
-	noteAndRest: Note[];
+export interface MeansureProps {
+	timeSignature?: TimeSignatureProps;
+	noteAndRest: NoteProps[];
 	barline: string;
 }
 
+export interface TimeSignatureProps {
+	upper: number;
+	lower: number;
+}
+
 export interface MusicNotation {
+	clef: 'treble' | 'bass' | 'grand';
 	staves: StaveProps[];
 }
 
 export interface StaveProps {
-	meansures: Meansure[];
+	meansures: MeansureProps[];
+	clef?: 'treble' | 'bass' | 'grand';
 }
 

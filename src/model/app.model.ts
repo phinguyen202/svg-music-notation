@@ -1,4 +1,4 @@
-export interface Position {
+export interface PositionProps {
 	x: number;
 	y: number;
 }

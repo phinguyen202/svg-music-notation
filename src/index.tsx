@@ -12,12 +12,15 @@ You make me hap -py, when sky are gray
 `;
 // sample source
 const source: MusicNotation = {
+    clef: 'treble', // Treble, Bass, Grand
     staves: [
         { // stave
             meansures: [
                 { // meansure
-                    clef: 'Treble', // Treble, Bass, Grand
-                    timeSignature: '4/4', // 2/4, 3/4, 4/4, 6/8
+                    timeSignature: {
+                        upper: 4,
+                        lower: 4
+                    }, // 2/4, 3/4, 4/4, 6/8
                     noteAndRest: [
                         {
                             note: 'G', // C, D, E, F, G, A, B
@@ -35,8 +38,6 @@ const source: MusicNotation = {
         { // stave
             meansures: [
                 { // meansure
-                    clef: 'Treble', // Treble, Bass, Grand
-                    timeSignature: '4/4', // 2/4, 3/4, 4/4, 6/8
                     noteAndRest: [
                         {
                             note: 'G', // C, D, E, F, G, A, B
@@ -55,6 +56,6 @@ const source: MusicNotation = {
 };
 
 ReactDOM.render(
-    <SVGMusicNotation height={500} width={800} staves={source.staves} />,
+    <SVGMusicNotation height={500} width={800} staves={source.staves} clef={source.clef} />,
     document.getElementById("root")
 );
