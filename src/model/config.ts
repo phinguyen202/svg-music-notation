@@ -1,5 +1,5 @@
 export interface Configuration {
-    height: number;
-    width: number;
+    height: string;
+    width: string;
     enableLyric?: boolean;
 }
