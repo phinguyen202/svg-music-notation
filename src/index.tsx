@@ -21,7 +21,75 @@ const source: MusicNotation = {
                         upper: 4,
                         lower: 4
                     }, // 2/4, 3/4, 4/4, 6/8
-                    noteAndRest: [
+                    notes: [
+                        {
+                            note: 'C', // C, D, E, F, G, A, B
+                            accidental: '', // flat, sharp, Double flat, Double sharp, nature (differ with null)
+                            duration: 'sixteenth', // whole, half, quater, eighth, sixteenth
+                            dot: true,
+                            tie: false,
+                            lyrics: 'You'
+                        },
+                        {
+                            note: 'D',
+                            accidental: '',
+                            duration: 'half',
+                            dot: true,
+                            tie: false,
+                            lyrics: 'You'
+                        },
+                        {
+                            note: 'E',
+                            accidental: '',
+                            duration: 'quater',
+                            dot: true,
+                            tie: false,
+                            lyrics: 'You'
+                        },
+                        {
+                            note: 'F',
+                            accidental: '',
+                            duration: 'eighth',
+                            dot: true,
+                            tie: false,
+                            lyrics: 'You'
+                        },
+                        {
+                            note: 'G',
+                            accidental: '',
+                            duration: 'sixteenth',
+                            dot: true,
+                            tie: false,
+                            lyrics: 'You'
+                        },
+                        {
+                            note: 'A',
+                            accidental: '',
+                            duration: 'whole',
+                            dot: true,
+                            tie: false,
+                            lyrics: 'You'
+                        },
+                        {
+                            note: 'B',
+                            accidental: '',
+                            duration: 'half',
+                            dot: true,
+                            tie: false,
+                            lyrics: 'You'
+                        },
+                        // {
+                        //     duration: 'quater'
+                        // }
+                    ],
+                    barline: 'standard', // double, end, beginRepeat, endRepeat, beginEndRepeat
+                },
+                { // meansure
+                    timeSignature: {
+                        upper: 3,
+                        lower: 4
+                    }, // 2/4, 3/4, 4/4, 6/8
+                    notes: [
                         {
                             note: 'G', // C, D, E, F, G, A, B
                             accidental: '', // flat, sharp, Double flat, Double sharp, nature (differ with null)
@@ -38,7 +106,11 @@ const source: MusicNotation = {
         { // stave
             meansures: [
                 { // meansure
-                    noteAndRest: [
+                    timeSignature: {
+                        upper: 6,
+                        lower: 8
+                    },
+                    notes: [
                         {
                             note: 'G', // C, D, E, F, G, A, B
                             accidental: '', // flat, sharp, Double flat, Double sharp, nature (differ with null)
@@ -49,13 +121,13 @@ const source: MusicNotation = {
                         }
                     ],
                     barline: 'standard', // double, end, beginRepeat, endRepeat, beginEndRepeat
-                },
+                }
             ],
         }
     ]
 };
 
 ReactDOM.render(
-    <SVGMusicNotation height={'100%'} width={'100%'} staves={source.staves} clef={source.clef} />,
+    <SVGMusicNotation height={'1000'} width={'1000'} staves={source.staves} clef={source.clef} />,
     document.getElementById("root")
 );

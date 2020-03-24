@@ -8,15 +8,15 @@ export interface RestProps extends NoteRestProps {
 
 export interface NoteProps extends NoteRestProps {
 	note: string;
-	accidental: string;
-	dot: boolean;
-	tie: boolean;
+	accidental?: string;
+	dot?: boolean;
+	tie?: boolean;
 	lyrics?: string;
 }
 
 export interface MeansureProps {
 	timeSignature?: TimeSignatureProps;
-	noteAndRest: NoteProps[];
+	notes: Array<NoteProps|RestProps>;
 	barline: string;
 }
 

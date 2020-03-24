@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
+import { XCoordinate } from "../../model/app.model";
 
 export function BarLine(props: BarProperties) {
     return (
-        <line transform={`translate(${250}, ${0})`} y2="40" stroke="black"/>
+        <line transform={`translate(${props.x}, ${0})`} y2="40" stroke="black"/>
     );
 }
 
@@ -24,6 +25,5 @@ export function BoldDoubleBarLine(props: BarProperties) {
     );
 }
 
-interface BarProperties {
-    transform?: string;
+interface BarProperties extends XCoordinate{
 }

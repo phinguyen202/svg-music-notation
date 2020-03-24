@@ -1,29 +1,39 @@
 import React, { useEffect } from "react";
-import { WholeNote, QuarterNote, HaflNote, EighthNote, SixteenthNote } from "./note";
-import { PositionProps } from "../../model/app.model";
+import { Note } from "./note";
+import { CoordinateModel, WidthDemension } from "../../model/app.model";
 import { BarLine, DoubleBarLine, BoldDoubleBarLine } from "./bar";
 import { WholeRest, HalfRest, QuarterRest, EighthRest, SixteenthRest } from "./rest";
-import { MeansureProps } from "../../model/business.model";
+import { MeansureProps, NoteProps } from "../../model/business.model";
 import { TimeSignature } from "./time-signature";
 
-export function Meansure(props: MeansureProps & PositionProps) {
-    const startPositionTranslated = `translate(${props.x}, ${props.y})`;
+export function Meansure(props: MeansureProps & CoordinateModel & WidthDemension) {
+    // render time signature
+    const timeSignature = props.timeSignature && <TimeSignature upper={props.timeSignature.upper} lower={props.timeSignature.lower} />;
+    const timeSigOffset = timeSignature ? 0 : 0;
+    const spaceBetweenNote = (props.width - timeSigOffset) / (props.notes.length + 1);
+    const mensureElements = props.notes.map((ele: NoteProps, index: number) => {
+        if (ele.note) { //this is note
+            return <Note x={timeSigOffset + (spaceBetweenNote * (index + 1))} duration={ele.duration} note={ele.note} accidental={ele.accidental} dot={ele.dot} tie={ele.tie} lyrics={ele.lyrics} key={index} />
+        } else { // rest
+            
+        }
+    })
     return (
-        <g transform={startPositionTranslated}>
-            { props.timeSignature && <TimeSignature upper={props.timeSignature.upper} lower={props.timeSignature.lower}/>}
-            <WholeNote />
-            <HaflNote isStemUp={true}/>
-            <QuarterNote isStemUp={false}/>
-            <EighthNote isStemUp={false}/>
-            <SixteenthNote isStemUp={true}/>
-            <BarLine />
-            <DoubleBarLine />
+        <g transform={`translate(${props.x}, ${props.y})`}>
+            {timeSignature}
+            {mensureElements}
+            <BarLine x={props.width - 0.5} />
+            {/* <DoubleBarLine />
             <BoldDoubleBarLine />
             <WholeRest />
             <HalfRest />
             <QuarterRest />
             <EighthRest />
-            <SixteenthRest />
+            <SixteenthRest /> */}
         </g>
     );
+}
+
+interface DemensionProps {
+    height?: number;
 }
