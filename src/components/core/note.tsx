@@ -8,7 +8,7 @@ function WholeNote(props: NoteProperties) {
     );
 }
 
-function HaflNote(props: NoteProperties) {
+function HalfNote(props: NoteProperties) {
     const stem = props.isStemUp ? <path stroke="black" strokeWidth="1" d="M 12.076271,2.9131353 V -30" /> : <path stroke="black" strokeWidth="1" d="M 0.6,7 V 39.9131353" />;
     return (
         <g transform={`translate(${props.x}, ${props.y})`}>
@@ -100,9 +100,9 @@ export function Note(props: NoteProps & XCoordinate) {
             jsxNote = <WholeNote x={props.x} y={baseNote.height} />
             break;
         case 'half':
-            jsxNote = <HaflNote x={props.x} y={baseNote.height} isStemUp={baseNote.isStemUp} />
+            jsxNote = <HalfNote x={props.x} y={baseNote.height} isStemUp={baseNote.isStemUp} />
             break;
-        case 'quater':
+        case 'quarter':
             jsxNote = <QuarterNote x={props.x} y={baseNote.height} isStemUp={baseNote.isStemUp} />
             break;
         case 'eighth':

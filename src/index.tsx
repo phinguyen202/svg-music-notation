@@ -41,7 +41,7 @@ const source: MusicNotation = {
                         {
                             note: 'E',
                             accidental: '',
-                            duration: 'quater',
+                            duration: 'quarter',
                             dot: true,
                             tie: false,
                             lyrics: 'You'
@@ -97,7 +97,22 @@ const source: MusicNotation = {
                             dot: true,
                             tie: false,
                             lyrics: 'You'
-                        }
+                        },
+                        {
+                            duration: 'whole'
+                        },
+                        {
+                            duration: 'half'
+                        },
+                        {
+                            duration: 'quarter'
+                        },
+                        {
+                            duration: 'eighth'
+                        },
+                        {
+                            duration: 'sixteenth'
+                        },
                     ],
                     barline: 'standard', // double, end, beginRepeat, endRepeat, beginEndRepeat
                 },

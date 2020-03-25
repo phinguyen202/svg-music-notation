@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Note } from "./note";
 import { CoordinateModel, WidthDemension } from "../../model/app.model";
 import { BarLine, DoubleBarLine, BoldDoubleBarLine } from "./bar";
-import { WholeRest, HalfRest, QuarterRest, EighthRest, SixteenthRest } from "./rest";
+import { Rest } from "./rest";
 import { MeansureProps, NoteProps } from "../../model/business.model";
 import { TimeSignature } from "./time-signature";
 
@@ -15,7 +15,7 @@ export function Meansure(props: MeansureProps & CoordinateModel & WidthDemension
         if (ele.note) { //this is note
             return <Note x={timeSigOffset + (spaceBetweenNote * (index + 1))} duration={ele.duration} note={ele.note} accidental={ele.accidental} dot={ele.dot} tie={ele.tie} lyrics={ele.lyrics} key={index} />
         } else { // rest
-            
+            return <Rest x={timeSigOffset + (spaceBetweenNote * (index + 1))} duration={ele.duration}/>
         }
     })
     return (
