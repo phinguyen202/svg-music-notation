@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { XCoordinate, YCoordinate } from "../../model/app.model";
 import { NoteProps } from "../../model/business.model";
 
@@ -19,7 +19,6 @@ function HalfNote(props: NoteProperties) {
 }
 
 function QuarterNote(props: NoteProperties) {
-    useEffect(() => { });
     const stem = props.isStemUp ? <path stroke="black" strokeWidth="1" d="M 12.076271,2.9131353 V -30" /> : <path stroke="black" strokeWidth="1" d="M 0.6,7 V 39.9131353" />;
     return (
         <g transform={`translate(${props.x}, ${props.y})`}>
@@ -30,7 +29,6 @@ function QuarterNote(props: NoteProperties) {
 }
 
 function EighthNote(props: NoteProperties) {
-    useEffect(() => { });
     const stem = props.isStemUp ? <path stroke="black" strokeWidth="1" d="M 12.076271,2.9131353 V -30" /> : <path stroke="black" strokeWidth="1" d="M 0.6,7 V 39.9131353" />;
     const flag = <path transform={props.isStemUp ? '' : `scale(-1,1) rotate(180 5.7 5)`} d="m 12.076271,-30 v 10.780751 l 0.931029,0.0021 c -0.04788,-0.0038 3.281295,1.170981 4.487907,2.403689 2.30337,2.353334 3.807649,5.922146 3.096942,9.886492 C 20.079849,-4.069345 19.166386,-2.27136 18.24941,0 l 0.658289,-0.06954 c 1.318139,-2.980759 3.50909,-7.198046 2.937903,-11.620154 -0.529419,-4.099068 -3.385629,-6.953998 -5.242445,-9.272145 -1.920664,-2.397778 -3.358806,-3.96373 -3.712738,-8.995332 z" />;
     return (
@@ -43,7 +41,6 @@ function EighthNote(props: NoteProperties) {
 }
 
 function SixteenthNote(props: NoteProperties) {
-    useEffect(() => { });
     const stem = props.isStemUp ? <path stroke="black" strokeWidth="1" d="M 12.076271,2.9131353 V -30" /> : <path stroke="black" strokeWidth="1" d="M 0.6,7 V 39.9131353" />;
     const flag = <path transform={props.isStemUp ? '' : `scale(-1,1) rotate(180 5.7 5)`} d="m 13.208101,-29.999998 -1.172101,0.0071 c 0,4.14154 0.04287,11.100109 0.04287,14.527927 l 1.129232,0.246552 c 1.314636,0.936575 3.041083,1.995936 4.31368,2.956479 1.768183,1.334617 2.96056,2.547871 3.446571,4.667922 0.425896,1.857982 0.01965,4.830127 -1.257783,7.588018 L 20.209582,0 c 1.100768,-2.402743 1.804513,-3.980906 1.618978,-7.317324 -0.05946,-1.06877 -0.367393,-2.095868 -0.844435,-3.084418 1.222914,-4.564472 0.371727,-7.819117 -4.288082,-13.09846 -1.091698,-1.236831 -3.487941,-2.39846 -3.487941,-6.499496 z m 0.01663,6.821336 c 1.450777,0.930551 3.411953,2.349022 4.462281,3.609985 1.850419,2.221536 3.264865,3.808572 2.765551,8.19033 -1.0467,-1.728728 -2.563235,-3.335159 -4.121746,-4.83431 -1.132413,-1.089279 -2.936675,-3.510969 -3.106086,-6.966005 z" />
     return (
@@ -55,37 +52,36 @@ function SixteenthNote(props: NoteProperties) {
     );
 }
 
-interface NoteMapProps {
-    height: number,
+interface NoteMapProps extends YCoordinate{
     isStemUp: boolean,
 }
 const noteMap: Map<string, NoteMapProps> = new Map<string, NoteMapProps>([
     ['C', {
-        height: 0,
+        y: 0,
         isStemUp: false
     }],
     ['D', {
-        height: 10,
+        y: 10,
         isStemUp: false
     }],
     ['E', {
-        height: 15,
+        y: 15,
         isStemUp: false
     }],
     ['F', {
-        height: 20,
+        y: 20,
         isStemUp: true
     }],
     ['G', {
-        height: 25,
+        y: 25,
         isStemUp: true
     }],
     ['A', {
-        height: 30,
+        y: 30,
         isStemUp: true
     }],
     ['B', {
-        height: 40,
+        y: 40,
         isStemUp: true
     }],
 ]);
@@ -97,19 +93,19 @@ export function Note(props: NoteProps & XCoordinate) {
     let jsxNote;
     switch (duration) {
         case 'whole':
-            jsxNote = <WholeNote x={props.x} y={baseNote.height} />
+            jsxNote = <WholeNote x={props.x} y={baseNote.y} />
             break;
         case 'half':
-            jsxNote = <HalfNote x={props.x} y={baseNote.height} isStemUp={baseNote.isStemUp} />
+            jsxNote = <HalfNote x={props.x} y={baseNote.y} isStemUp={baseNote.isStemUp} />
             break;
         case 'quarter':
-            jsxNote = <QuarterNote x={props.x} y={baseNote.height} isStemUp={baseNote.isStemUp} />
+            jsxNote = <QuarterNote x={props.x} y={baseNote.y} isStemUp={baseNote.isStemUp} />
             break;
         case 'eighth':
-            jsxNote = <EighthNote x={props.x} y={baseNote.height} isStemUp={baseNote.isStemUp} />
+            jsxNote = <EighthNote x={props.x} y={baseNote.y} isStemUp={baseNote.isStemUp} />
             break;
         case 'sixteenth':
-            jsxNote = <SixteenthNote x={props.x} y={baseNote.height} isStemUp={baseNote.isStemUp} />
+            jsxNote = <SixteenthNote x={props.x} y={baseNote.y} isStemUp={baseNote.isStemUp} />
             break;
         default:
             break;
@@ -118,7 +114,7 @@ export function Note(props: NoteProps & XCoordinate) {
         <>
             {jsxNote}
             {/* Plus 6 for align center of note */}
-            <text transform={`translate(${props.x + 6}, ${80})`} dominant-baseline="middle" text-anchor="middle">{props.lyrics}</text>
+            <text transform={`translate(${props.x + 6}, ${80})`} dominantBaseline="middle" textAnchor="middle">{props.lyrics}</text>
         </>
     )
 }

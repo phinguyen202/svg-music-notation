@@ -17,7 +17,7 @@ export interface NoteProps extends NoteRestProps {
 export interface MeansureProps {
 	timeSignature?: TimeSignatureProps;
 	notes: Array<NoteProps|RestProps>;
-	barline: string;
+	barline?: 'barline' | 'double' | 'bold double';
 }
 
 export interface TimeSignatureProps {

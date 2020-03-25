@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { XCoordinate, YCoordinate } from "../../model/app.model";
 import { RestProps } from "../../model/business.model";
 
@@ -32,24 +32,23 @@ function SixteenthRest(props: RestProperties) {
     );
 }
 
-interface RestMapProps {
-    height: number,
+interface RestMapProps extends YCoordinate{
 }
 const restMap: Map<string, RestMapProps> = new Map<string, RestMapProps>([
     ['whole', {
-        height: 10
+        y: 10
     }],
     ['half', {
-        height: 16
+        y: 16
     }],
     ['quarter', {
-        height: 4
+        y: 4
     }],
     ['eighth', {
-        height: 10
+        y: 10
     }],
     ['sixteenth', {
-        height: 0
+        y: 0
     }]
 ]);
 
@@ -59,19 +58,19 @@ export function Rest(props: RestProps & XCoordinate) {
     let jsxRest;
     switch (duration) {
         case 'whole':
-            jsxRest = <WholeRest x={props.x} y={baseRest.height} />
+            jsxRest = <WholeRest x={props.x} y={baseRest.y} />
             break;
         case 'half':
-            jsxRest = <HalfRest x={props.x} y={baseRest.height}/>
+            jsxRest = <HalfRest x={props.x} y={baseRest.y}/>
             break;
         case 'quarter':
-            jsxRest = <QuarterRest x={props.x} y={baseRest.height}/>
+            jsxRest = <QuarterRest x={props.x} y={baseRest.y}/>
             break;
         case 'eighth':
-            jsxRest = <EighthRest x={props.x} y={baseRest.height}/>
+            jsxRest = <EighthRest x={props.x} y={baseRest.y}/>
             break;
         case 'sixteenth':
-            jsxRest = <SixteenthRest x={props.x} y={baseRest.height}/>
+            jsxRest = <SixteenthRest x={props.x} y={baseRest.y}/>
             break;
         default:
             break;

@@ -82,7 +82,7 @@ const source: MusicNotation = {
                         //     duration: 'quater'
                         // }
                     ],
-                    barline: 'standard', // double, end, beginRepeat, endRepeat, beginEndRepeat
+                    barline: 'barline', // double, end, bold
                 },
                 { // meansure
                     timeSignature: {
@@ -114,7 +114,6 @@ const source: MusicNotation = {
                             duration: 'sixteenth'
                         },
                     ],
-                    barline: 'standard', // double, end, beginRepeat, endRepeat, beginEndRepeat
                 },
             ],
         },
@@ -135,7 +134,6 @@ const source: MusicNotation = {
                             lyrics: 'You'
                         }
                     ],
-                    barline: 'standard', // double, end, beginRepeat, endRepeat, beginEndRepeat
                 }
             ],
         }
