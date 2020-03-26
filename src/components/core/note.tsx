@@ -54,35 +54,72 @@ function SixteenthNote(props: NoteProperties) {
 
 interface NoteMapProps extends YCoordinate{
     isStemUp: boolean,
+    ledgers?: Array<number>
 }
 const noteMap: Map<string, NoteMapProps> = new Map<string, NoteMapProps>([
-    ['C', {
-        y: 0,
-        isStemUp: false
+    ['C4', {
+        y: 45,
+        isStemUp: true,
+        ledgers: [5]
     }],
-    ['D', {
-        y: 10,
-        isStemUp: false
-    }],
-    ['E', {
-        y: 15,
-        isStemUp: false
-    }],
-    ['F', {
-        y: 20,
+    ['D4', {
+        y: 40,
         isStemUp: true
     }],
-    ['G', {
-        y: 25,
+    ['E4', {
+        y: 35,
         isStemUp: true
     }],
-    ['A', {
+    ['F4', {
         y: 30,
         isStemUp: true
     }],
-    ['B', {
-        y: 40,
+    ['G4', {
+        y: 25,
         isStemUp: true
+    }],
+    ['A4', {
+        y: 20,
+        isStemUp: true
+    }],
+    ['B4', {
+        y: 15,
+        isStemUp: false
+    }],
+    ['C5', {
+        y: 10,
+        isStemUp: false
+    }],
+    ['D5', {
+        y: 5,
+        isStemUp: false
+    }],
+    ['E5', {
+        y: 0,
+        isStemUp: false
+    }],
+    ['F5', {
+        y: -5,
+        isStemUp: false
+    }],
+    ['G5', {
+        y: -10,
+        isStemUp: false
+    }],
+    ['A5', {
+        y: -15,
+        isStemUp: false,
+        ledgers: [5]
+    }],
+    ['B5', {
+        y: -20,
+        isStemUp: false,
+        ledgers: [10]
+    }],
+    ['C6', {
+        y: -25,
+        isStemUp: false,
+        ledgers: [5, 15]
     }],
 ]);
 
@@ -91,6 +128,9 @@ export function Note(props: NoteProps & XCoordinate) {
     const { duration, note } = props;
     const baseNote = noteMap.get(note);
     let jsxNote;
+    const ledgers = baseNote.ledgers ? baseNote.ledgers.map((ledger: number, index: number) => {
+        return <line transform={`translate(${props.x}, ${baseNote.y})`} x1='-5' y1={ledger} x2='17' y2={ledger} strokeWidth='0.5' stroke='black' key={index} />
+    }) : undefined;
     switch (duration) {
         case 'whole':
             jsxNote = <WholeNote x={props.x} y={baseNote.y} />
@@ -113,6 +153,7 @@ export function Note(props: NoteProps & XCoordinate) {
     return (
         <>
             {jsxNote}
+            {ledgers}
             {/* Plus 6 for align center of note */}
             <text transform={`translate(${props.x + 6}, ${80})`} dominantBaseline="middle" textAnchor="middle">{props.lyrics}</text>
         </>
