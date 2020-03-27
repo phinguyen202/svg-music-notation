@@ -2,6 +2,10 @@ import React from "react";
 import { XCoordinate, YCoordinate } from "../../model/app.model";
 import { RestProps } from "../../model/business.model";
 
+// rest JSX Elements
+interface RestProperties extends XCoordinate, YCoordinate {
+}
+
 function WholeRest(props: RestProperties) {
     return (
         <path transform={`translate(${props.x}, ${props.y})`} d="M 0,0 V 4 H 12 L 12,0 z" fill="black" />
@@ -32,9 +36,10 @@ function SixteenthRest(props: RestProperties) {
     );
 }
 
-interface RestMapProps extends YCoordinate{
+// mapping and rest interface
+interface RestConfig extends YCoordinate{
 }
-const restMap: Map<string, RestMapProps> = new Map<string, RestMapProps>([
+const restConfigMap: Map<string, RestConfig> = new Map<string, RestConfig>([
     ['whole', {
         y: 10
     }],
@@ -54,7 +59,7 @@ const restMap: Map<string, RestMapProps> = new Map<string, RestMapProps>([
 
 export function Rest(props: RestProps & XCoordinate) {
     const { duration } = props;
-    const baseRest = restMap.get(duration);
+    const baseRest = restConfigMap.get(duration);
     let jsxRest;
     switch (duration) {
         case 'whole':
@@ -80,7 +85,4 @@ export function Rest(props: RestProps & XCoordinate) {
             {jsxRest}
         </>
     )
-}
-
-interface RestProperties extends XCoordinate, YCoordinate {
 }

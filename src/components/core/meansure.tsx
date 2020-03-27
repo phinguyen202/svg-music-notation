@@ -18,7 +18,6 @@ export function Meansure(props: MeansureProps & CoordinateModel & WidthDemension
             return <Rest x={timeSigOffset + (spaceBetweenNote * (index + 1))} duration={ele.duration} key={index}/>
         }
     });
-    console.log(props.barline);
     return (
         <g transform={`translate(${props.x}, ${props.y})`}>
             {timeSignature}

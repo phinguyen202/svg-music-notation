@@ -51,6 +51,7 @@ export class SVGMusicNotation extends React.Component<Configuration & MusicNotat
             }
             return (<Stave meansures={stave.meansures} x={0} width={this.state.dimension.width} y={svgPaddingTop + (120 * index)} key={index} />);
         });
+        // rendering padding bottom
         // 97 is stave height wich is calculated from 0 of stave
         stavesList.push(<rect y={svgPaddingTop + 97 + (120 * (staves.length - 1))} width={this.state.dimension.width} key={staves.length} height={svgPaddingBottom} fillOpacity={0} strokeOpacity={0}/>);
         return stavesList;

@@ -261,6 +261,6 @@ const source: MusicNotation = {
 };
 
 ReactDOM.render(
-    <SVGMusicNotation height={'1000'} width={'1000'} staves={source.staves} clef={source.clef} />,
+    <SVGMusicNotation height={'100%'} width={'100%'} staves={source.staves} clef={source.clef} />,
     document.getElementById("root")
 );

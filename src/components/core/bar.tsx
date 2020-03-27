@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { XCoordinate, HeightDemension } from "../../model/app.model";
 
+// bar line JSX Elements
+interface BarProperties extends XCoordinate, HeightDemension{
+}
+
 function BarLine(props: BarProperties) {
     return (
         <line transform={`translate(${props.x}, ${0})`} y2={props.height} stroke="black"/>
@@ -25,17 +29,22 @@ function BoldDoubleBarLine(props: BarProperties) {
     );
 }
 
-interface BarLineMapProps extends HeightDemension{
+// mapping and Bar interface
+interface BarLineConfig extends HeightDemension{
 }
 
-const restMap: Map<string, BarLineMapProps> = new Map<string, BarLineMapProps>([
+const barLineConfigMap: Map<string, BarLineConfig> = new Map<string, BarLineConfig>([
     ['treble', {
         height: 40
     }]
 ]);
 
+interface BarLineProps {
+    type: string;
+}
+
 export function Bar(props: BarLineProps & XCoordinate) {
-    const baseBarLine = restMap.get('treble');
+    const baseBarLine = barLineConfigMap.get('treble');
     let jsxBar;
     switch (props.type) {
         case 'barline':
@@ -55,11 +64,4 @@ export function Bar(props: BarLineProps & XCoordinate) {
             {jsxBar}
         </>
     )
-}
-
-interface BarLineProps {
-    type: string;
-}
-
-interface BarProperties extends XCoordinate, HeightDemension{
 }
