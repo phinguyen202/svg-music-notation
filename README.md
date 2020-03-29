@@ -1,8 +1,8 @@
 # SVG Music Notation ♪♫..
 
 There are some case you want to have a music notation on your website. This library brings that capacibility to you.
-Using it by input a simple like:
 
+Using it by input a simple like:
 const userSource = `
 TrebleClef 4/4 C5 D5 E5 D5 | C5 D5 F5 E5 | C5 D5 E5 D5 C5 |
 I don't know you, | but I want you | all the more for that
