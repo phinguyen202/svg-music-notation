@@ -5,10 +5,10 @@ import { MusicNotation } from "./model/business.model";
 
 // for using interface, should be move to interface
 const userSource = `
-TrebleClef 4/4 G C D# Bb G | G C D# Bb G
-You are my sun -shine, my on -ly sun -shine
-A | G C D# Bb G | G C D# Bb G
-You make me hap -py, when sky are gray
+TrebleClef 4/4 C5 D5 E5 D5 | C5 D5 F5 E5 | C5 D5 E5 D5 C5 |
+I don't know you, | but I want you | all the more for that
+Rest A4 G4 A4 G4 A4 G4 | C5 D5 E5 D5 C5 | C5 D5 F5 E5 |
+\E \E \E \E \E \E | Words fall through me and | al -ways fool me,
 `;
 // sample source
 const source: MusicNotation = {
@@ -26,7 +26,7 @@ const source: MusicNotation = {
                             note: 'C5', // C, D, E, F, G, A, B
                             accidental: '', // flat, sharp, Double flat, Double sharp, nature (differ with null)
                             duration: 'sixteenth', // whole, half, quarter, eighth, sixteenth
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'You'
                         },
@@ -34,7 +34,7 @@ const source: MusicNotation = {
                             note: 'D5',
                             accidental: '',
                             duration: 'half',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'You'
                         },
@@ -42,7 +42,7 @@ const source: MusicNotation = {
                             note: 'E5',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'You'
                         },
@@ -50,7 +50,7 @@ const source: MusicNotation = {
                             note: 'F5',
                             accidental: '',
                             duration: 'eighth',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'You'
                         },
@@ -58,7 +58,7 @@ const source: MusicNotation = {
                             note: 'G5',
                             accidental: '',
                             duration: 'sixteenth',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'You'
                         },
@@ -66,7 +66,7 @@ const source: MusicNotation = {
                             note: 'A5',
                             accidental: '',
                             duration: 'whole',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'You'
                         },
@@ -74,7 +74,7 @@ const source: MusicNotation = {
                             note: 'B5',
                             accidental: '',
                             duration: 'half',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'You'
                         },
@@ -94,7 +94,7 @@ const source: MusicNotation = {
                             note: 'G5', // C, D, E, F, G, A, B
                             accidental: '', // flat, sharp, Double flat, Double sharp, nature (differ with null)
                             duration: 'whole', // whole, half, quarter, eighth, sixteenth
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'You'
                         },
@@ -117,7 +117,7 @@ const source: MusicNotation = {
                             note: 'C4',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'C6'
                         }
@@ -137,7 +137,7 @@ const source: MusicNotation = {
                             note: 'C4',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'C4'
                         },
@@ -145,7 +145,7 @@ const source: MusicNotation = {
                             note: 'D4',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'D4'
                         },
@@ -153,7 +153,7 @@ const source: MusicNotation = {
                             note: 'E4',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'E4'
                         },
@@ -161,7 +161,7 @@ const source: MusicNotation = {
                             note: 'F4',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'F4'
                         },
@@ -169,7 +169,7 @@ const source: MusicNotation = {
                             note: 'G4',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'G4'
                         },
@@ -177,7 +177,7 @@ const source: MusicNotation = {
                             note: 'A4',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'A4'
                         },
@@ -185,7 +185,7 @@ const source: MusicNotation = {
                             note: 'B4',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'B4'
                         },
@@ -193,7 +193,7 @@ const source: MusicNotation = {
                             note: 'C5',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'C5'
                         },
@@ -201,7 +201,7 @@ const source: MusicNotation = {
                             note: 'D5',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'D5'
                         },
@@ -209,7 +209,7 @@ const source: MusicNotation = {
                             note: 'E5',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'E5'
                         },
@@ -217,7 +217,7 @@ const source: MusicNotation = {
                             note: 'F5',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'F5'
                         },
@@ -225,7 +225,7 @@ const source: MusicNotation = {
                             note: 'G5',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'G5'
                         },
@@ -233,7 +233,7 @@ const source: MusicNotation = {
                             note: 'A5',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'A5'
                         },
@@ -241,7 +241,7 @@ const source: MusicNotation = {
                             note: 'B5',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'B5'
                         },
@@ -249,7 +249,7 @@ const source: MusicNotation = {
                             note: 'C6',
                             accidental: '',
                             duration: 'quarter',
-                            dot: true,
+                            dot: 'single',
                             tie: false,
                             lyrics: 'C6'
                         },
