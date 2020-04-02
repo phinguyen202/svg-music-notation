@@ -9,13 +9,14 @@ import { TimeSignature } from "./time-signature";
 export function Meansure(props: MeansureProps & CoordinateModel & WidthDemension) {
     // render time signature
     const timeSignature = props.timeSignature && <TimeSignature upper={props.timeSignature.upper} lower={props.timeSignature.lower} />;
-    const timeSigOffset = timeSignature ? 0 : 0;
-    const spaceBetweenNote = (props.width - timeSigOffset) / (props.notes.length + 1);
+    // -12 (width of whole, half, quarter note) to balance meansure
+    let offsetX = -12 + (timeSignature ? 17 : 0);
+    const spaceBetweenNote = (props.width - offsetX) / (props.notes.length + 1);
     const mensureElements = props.notes.map((ele: NoteProps, index: number) => {
         if (ele.note) { //this is note
-            return <Note x={timeSigOffset + (spaceBetweenNote * (index + 1))} duration={ele.duration} note={ele.note} accidental={ele.accidental} dot={ele.dot} tie={ele.tie} lyrics={ele.lyrics} key={index} />
+            return <Note x={offsetX + (spaceBetweenNote * (index + 1))} duration={ele.duration} note={ele.note} accidental={ele.accidental} dot={ele.dot} tie={ele.tie} lyrics={ele.lyrics} key={index} />
         } else { // rest
-            return <Rest x={timeSigOffset + (spaceBetweenNote * (index + 1))} duration={ele.duration} key={index}/>
+            return <Rest x={offsetX + (spaceBetweenNote * (index + 1))} duration={ele.duration} key={index}/>
         }
     });
     return (
@@ -25,8 +26,4 @@ export function Meansure(props: MeansureProps & CoordinateModel & WidthDemension
             <Bar x={props.width} type={(props.barline ? props.barline : 'barline')}/>
         </g>
     );
-}
-
-interface DemensionProps {
-    height?: number;
 }

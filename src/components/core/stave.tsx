@@ -39,7 +39,7 @@ export class Stave extends React.Component<StaveProps & CoordinateModel & WidthD
     renderClef(clef: string): JSX.Element {
         if (!clef) { return; }
         if (clef === 'treble') {
-            return <TrebleClef />;
+            return <TrebleClef x={10} y={0}/>;
         }
     }
 }
