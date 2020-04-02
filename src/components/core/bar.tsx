@@ -6,14 +6,14 @@ interface BarProperties extends XCoordinate, HeightDemension{
 }
 
 function BarLine(props: BarProperties) {
-    return (
-        <line transform={`translate(${props.x}, ${0})`} y2={props.height} stroke="black"/>
+    return ( // props.x - 0.5 to make Bar within measure
+        <line transform={`translate(${props.x - 0.5}, ${0})`} y2={props.height} stroke="black"/>
     );
 }
 
 function DoubleBarLine(props: BarProperties) {
     return (
-        <g transform={`translate(${props.x}, ${0})`}>
+        <g transform={`translate(${props.x - 0.5}, ${0})`}>
             <line y2={props.height} stroke="black"/>
             <line x1="-5" x2="-5" y2={props.height} stroke="black"/>
         </g>
@@ -21,9 +21,9 @@ function DoubleBarLine(props: BarProperties) {
 }
 
 function BoldDoubleBarLine(props: BarProperties) {
-    return (
-        <g transform={`translate(${props.x}, ${0})`}>
-            <line y2={props.height} stroke="black" strokeWidth="4"/>
+    return ( //props.x - 1.5 (3/2)
+        <g transform={`translate(${props.x - 1.5}, ${0})`}>
+            <line y2={props.height} stroke="black" strokeWidth="3"/>
             <line x1="-5" x2="-5" y2={props.height} stroke="black"/>
         </g>
     );

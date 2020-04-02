@@ -22,7 +22,7 @@ export function Meansure(props: MeansureProps & CoordinateModel & WidthDemension
         <g transform={`translate(${props.x}, ${props.y})`}>
             {timeSignature}
             {mensureElements}
-            <Bar x={props.width - 0.5} type={(props.barline ? props.barline : 'barline')}/>
+            <Bar x={props.width} type={(props.barline ? props.barline : 'barline')}/>
         </g>
     );
 }
