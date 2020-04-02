@@ -1,11 +1,13 @@
 {
-  "name": "svg-sheet-music",
-  "version": "1.0.0",
+  "name": "svg-music-notation",
+  "version": "0.1.0",
   "description": "draw sheet music on browser using svg",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "module": "lib/index.es.js",
   "scripts": {
-    "build": "./node_modules/.bin/webpack && cp src/index.html dist/index.html",
-    "start": "./node_modules/.bin/webpack-dev-server --port 9000 --open --hot --inline --content-base src"
+    "build": "rollup -c",
+    "start": "./node_modules/.bin/webpack-dev-server --port 9000 --open --hot --inline --content-base src",
+    "prepublishOnly": "rm -rf lib && npm run build"
   },
   "repository": {
     "type": "git",
@@ -13,11 +15,11 @@
   },
   "keywords": [
     "svg",
-    "sheet",
-    "music"
+    "music",
+    "notation"
   ],
   "author": "Phi Trung Nguyen",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/phinguyen202/svg-sheet-music/issues"
   },
@@ -45,6 +47,13 @@
     "jest": "^25.1.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "rollup": "^2.3.2",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-peer-deps-external": "^2.2.2",
+    "rollup-plugin-terser": "^5.3.0",
+    "rollup-plugin-typescript": "^1.0.1",
+    "rollup-plugin-uglify": "^6.0.4",
     "source-map-loader": "^0.2.4",
     "ts-loader": "^6.2.1",
     "typescript": "^3.8.3",

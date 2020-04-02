@@ -1,5 +1,5 @@
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: "./src/test.tsx",
   output: {
     filename: "bundle.js",
     path: __dirname + "/dist"
