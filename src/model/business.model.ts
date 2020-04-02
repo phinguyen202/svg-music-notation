@@ -31,7 +31,7 @@ export interface MusicNotation {
 }
 
 export interface StaveProps {
-	meansures: MeansureProps[];
+	measures: MeansureProps[];
 	clef?: 'treble' | 'bass' | 'grand';
 }
 

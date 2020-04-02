@@ -13,11 +13,11 @@ export class Stave extends React.Component<StaveProps & CoordinateModel & WidthD
     render() {
         // render clef
         const clef = this.renderClef(this.props.clef);
-        // render meansures
+        // render measures
         // offetX is long number in pixel that the stave need to render stuff like staff, accidentals, etc
         const offsetX = clef ? 30 : 0;
-        const meansureHeight = (this.props.width - offsetX) / this.props.meansures.length;
-        const meansure = this.props.meansures.map((meansure, index) => {
+        const meansureHeight = (this.props.width - offsetX) / this.props.measures.length;
+        const meansure = this.props.measures.map((meansure, index) => {
             return <Meansure timeSignature={meansure.timeSignature} notes={meansure.notes} barline={meansure.barline} width={meansureHeight} x={offsetX + meansureHeight*index} y={10} key={index} />
         });
         return (

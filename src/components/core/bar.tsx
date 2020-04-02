@@ -13,7 +13,7 @@ function BarLine(props: BarProperties) {
 
 function DoubleBarLine(props: BarProperties) {
     return (
-        <g transform={`translate(${300}, ${0})`}>
+        <g transform={`translate(${props.x}, ${0})`}>
             <line y2={props.height} stroke="black"/>
             <line x1="-5" x2="-5" y2={props.height} stroke="black"/>
         </g>
@@ -22,7 +22,7 @@ function DoubleBarLine(props: BarProperties) {
 
 function BoldDoubleBarLine(props: BarProperties) {
     return (
-        <g transform={`translate(${350}, ${0})`}>
+        <g transform={`translate(${props.x}, ${0})`}>
             <line y2={props.height} stroke="black" strokeWidth="4"/>
             <line x1="-5" x2="-5" y2={props.height} stroke="black"/>
         </g>
