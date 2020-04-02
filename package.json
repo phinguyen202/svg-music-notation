@@ -7,7 +7,7 @@
   "scripts": {
     "build": "rollup -c",
     "start": "./node_modules/.bin/webpack-dev-server --port 9000 --open --hot --inline --content-base src",
-    "prepublishOnly": "rm -rf lib && npm run build"
+    "prepublishOnly": "rmdir /Q /S lib && npm run build"
   },
   "repository": {
     "type": "git",
