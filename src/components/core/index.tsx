@@ -7,7 +7,7 @@ import { DemensionModel } from "../../model/app.model";
 
 const svgPaddingTop = 30, svgPaddingBottom = 20;
 
-export class SVGMusicNotation extends React.Component<Configuration & MusicNotation, SVGMusicNotationState> {
+export class RootSVGMusicNotation extends React.Component<Configuration & MusicNotation, RootSVGMusicNotationState> {
     myRef: React.RefObject<SVGSVGElement>;
     constructor(props: Configuration & MusicNotation) {
         super(props);
@@ -42,7 +42,7 @@ export class SVGMusicNotation extends React.Component<Configuration & MusicNotat
      * @author Phi Nguyen - phinguyen202@gmail.com
      * @param {StaveProps[]} staves
      * @returns {JSX.Element[]}
-     * @memberof SVGMusicNotation
+     * @memberof RootSVGMusicNotation
      */
     renderStaves(staves: StaveProps[]): JSX.Element[] {
         const stavesList = staves.map((stave: StaveProps, index: number) => {
@@ -58,6 +58,6 @@ export class SVGMusicNotation extends React.Component<Configuration & MusicNotat
     }
 }
 
-interface SVGMusicNotationState {
+interface RootSVGMusicNotationState {
     dimension: DemensionModel;
 }
