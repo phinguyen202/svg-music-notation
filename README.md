@@ -8,7 +8,7 @@ The library is developing but we decided to release the first one because it's u
 npm install svg-music-notation
 ```
 ### Required
-The library is developed using react so you need read and react-dom
+The library is developed using react so you need react and react-dom
 
 ### How to use it?
 Using by input a string like:
@@ -28,16 +28,16 @@ ReactDOM.render(
 
 And the library will render something like this on your web:
 ![Falling slowly by Glen Hansard & Marketa Irglova](https://user-images.githubusercontent.com/23725530/78373263-9164e500-75f4-11ea-9494-49d8a1c44976.png)
-* *Falling slowly by Glen Hansard & Marketa Irglova ( The barlines are changed )
+*Falling slowly by Glen Hansard & Marketa Irglova ( The barlines are changed )*
 
 There are another way to put data into by using json:
 updating...
 
 ### Supported range
-Pitch (note) range: C4 to C6
-Duration (note and rest) range: 1n (whole), 2n (half), 4n (quarter), 8n (eighth), 16n(sixteenth)
-Barline: | (barline), || (double barline), |B (bold double barline)
+- Pitch (note) range: C4 to C6
+- Duration (note and rest) range: 1n (whole), 2n (half), 4n (quarter), 8n (eighth), 16n(sixteenth)
+-Barline: | (barline), || (double barline), |B (bold double barline)
 
 ### Lyrics rules
-\\E: empty
-* *if you don't need lyrics, just let the line empty
+- \\E: empty
+*if you don't need lyrics, just let the line empty*
