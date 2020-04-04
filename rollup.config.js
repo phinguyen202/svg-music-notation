@@ -21,7 +21,7 @@ export default [
         exclude: "node_modules/**"
       }),
       commonjs(),
-      typescript({importHelpers: false})
+      typescript()
     ]
   },
   {
@@ -35,7 +35,7 @@ export default [
         exclude: "node_modules/**"
       }),
       commonjs(),
-      typescript({importHelpers: false}),
+      typescript(),
       uglify()
     ]
   },
@@ -52,7 +52,7 @@ export default [
         exclude: "node_modules/**"
       }),
       commonjs(),
-      typescript({importHelpers: false})
+      typescript()
     ]
   },
   {
@@ -67,7 +67,7 @@ export default [
         exclude: "node_modules/**"
       }),
       commonjs(),
-      typescript({importHelpers: false}),
+      typescript(),
       terser()
     ]
   }
