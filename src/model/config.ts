@@ -1,5 +1,7 @@
 export interface Configuration {
-    height: string;
-    width: string;
-    enableLyric?: boolean;
+    lyric?: boolean;
+}
+
+export const defaultConfig: Configuration = {
+    lyric: true
 }

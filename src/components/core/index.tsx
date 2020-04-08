@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Configuration } from "../../model/config";
 import { Stave } from "./stave";
 import { MusicNotation, StaveProps } from "../../model/business.model";
 import ReactDOM from "react-dom";
@@ -7,10 +6,12 @@ import { DemensionModel } from "../../model/app.model";
 
 const svgPaddingTop = 30, svgPaddingBottom = 20;
 
-export class RootSVGMusicNotation extends React.Component<Configuration & MusicNotation, RootSVGMusicNotationState> {
+export class RootSVGMusicNotation extends React.Component<MusicNotation, RootSVGMusicNotationState> {
     myRef: React.RefObject<SVGSVGElement>;
-    constructor(props: Configuration & MusicNotation) {
+    constructor(props: MusicNotation) {
         super(props);
+        // props demension for render root svg
+        // state demension for render stave
         this.state = {
             dimension: null
         }

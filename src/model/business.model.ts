@@ -1,3 +1,5 @@
+import { Configuration } from "./config";
+
 export interface NoteRestProps {
 	duration: string;
 }
@@ -28,6 +30,9 @@ export interface TimeSignatureProps {
 export interface MusicNotation {
 	clef: 'treble' | 'bass' | 'grand';
 	staves: StaveProps[];
+	width: string;
+	height: string;
+	config: Configuration;
 }
 
 export interface StaveProps {
