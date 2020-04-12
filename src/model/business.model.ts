@@ -10,7 +10,7 @@ export interface RestProps extends NoteRestProps {
 
 export interface NoteProps extends NoteRestProps {
 	note: string;
-	accidental?: string;
+	accidental?: 'flat' | 'sharp' | 'natural' | 'double flat' | 'double sharp';
 	dot?: 'single' | 'double' | 'triple';
 	tie?: boolean;
 	lyrics?: string;

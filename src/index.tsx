@@ -137,7 +137,24 @@ function parseMeasure(measure: string, lyrics?: string) {
         const extractedNote = nAndR.split('-');
         if (extractedNote[0] !== 'R') { // Note
             noteAndRest.note = extractedNote[0];
-            // set other attributes
+            // accidentals and dots
+            const accAdDot = extractedNote[2];
+            if (accAdDot) {
+                // accidental
+                if (accAdDot.includes('#')){
+                    noteAndRest.accidental = (accAdDot.split('#').length -1) === 2 ? 'double sharp' : 'sharp';
+                } else if (accAdDot.includes('b')) {
+                    noteAndRest.accidental = (accAdDot.split('b').length -1) === 2 ? 'double flat' : 'flat';
+                } else if (accAdDot.includes('n')) {
+                    noteAndRest.accidental = 'natural';
+                }
+                // dot
+                if (accAdDot.includes('.')){
+                    const dots = accAdDot.split('.').length -1;
+                    noteAndRest.dot = dots === 1 ? 'single' : (dots === 2 ? 'double' : 'triple');
+                }
+            }
+            // process lyrics
             noteAndRest.lyrics = splitLyric && splitLyric[index] && splitLyric[index] !== '\\E' ? splitLyric[index] : '';
         }
         noteAndRest.duration = durationMap.get(extractedNote[1]);
