@@ -1,8 +1,8 @@
 import React from "react";
 import { TrebleClef } from "./clef";
 import { Staff } from "./staff";
-import { StaveProps } from "../../model/business.model";
-import { CoordinateModel, WidthDemension, } from "../../model/app.model";
+import { StaveProps } from "../model/business.model";
+import { CoordinateModel, WidthDemension, } from "../model/common.model";
 import { Meansure } from "./meansure";
 
 export class Stave extends React.Component<StaveProps & CoordinateModel & WidthDemension, {}> {

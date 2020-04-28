@@ -1,5 +1,5 @@
 import React from "react";
-import { WidthDemension } from "../../model/app.model";
+import { WidthDemension } from "../model/common.model";
 
 export function Staff(props: WidthDemension) {
     const lines = [1, 2, 3, 4, 5].map((lineNumber: number, index: number) => {

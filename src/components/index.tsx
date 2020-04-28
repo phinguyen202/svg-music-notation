@@ -1,13 +1,13 @@
 import * as React from "react";
 import { Stave } from "./stave";
-import { MusicNotation, StaveProps } from "../../model/business.model";
+import { MusicNotation, StaveProps } from "../model/business.model";
 import ReactDOM from "react-dom";
-import { DemensionModel } from "../../model/app.model";
+import { DemensionModel } from "../model/common.model";
 
 const svgPaddingTop = 30, svgPaddingBottom = 20;
 
 export class RootSVGMusicNotation extends React.Component<MusicNotation, RootSVGMusicNotationState> {
-    myRef: React.RefObject<SVGSVGElement>;
+    svgRef: React.RefObject<SVGSVGElement>;
     constructor(props: MusicNotation) {
         super(props);
         // props demension for render root svg
@@ -15,12 +15,12 @@ export class RootSVGMusicNotation extends React.Component<MusicNotation, RootSVG
         this.state = {
             dimension: null
         }
-        this.myRef = React.createRef();
+        this.svgRef = React.createRef();
     }
 
     componentDidMount() {
         // getting and setting svg demension
-        const svgNode = ReactDOM.findDOMNode(this.myRef.current) as Element;
+        const svgNode = ReactDOM.findDOMNode(this.svgRef.current) as Element;
         const clientRect: DOMRect = svgNode.getBoundingClientRect();
         this.setState({
             dimension: {
@@ -32,7 +32,7 @@ export class RootSVGMusicNotation extends React.Component<MusicNotation, RootSVG
 
     render() {
         return (
-            <svg ref={this.myRef} height={this.props.height} width={this.props.width}>
+            <svg ref={this.svgRef} height={this.props.height} width={this.props.width}>
                 {this.state.dimension && this.renderStaves(this.props.staves)}
             </svg>
         );

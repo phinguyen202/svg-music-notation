@@ -1,9 +1,9 @@
 import React from "react";
 import { Note } from "./note";
-import { CoordinateModel, WidthDemension } from "../../model/app.model";
+import { CoordinateModel, WidthDemension } from "../model/common.model";
 import { Bar } from "./bar";
 import { Rest } from "./rest";
-import { MeansureProps, NoteProps } from "../../model/business.model";
+import { MeansureProps, NoteProps } from "../model/business.model";
 import { TimeSignature } from "./time-signature";
 
 export function Meansure(props: MeansureProps & CoordinateModel & WidthDemension) {

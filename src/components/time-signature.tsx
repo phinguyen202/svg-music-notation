@@ -1,5 +1,5 @@
 import React from "react";
-import { TimeSignatureProps } from "../../model/business.model";
+import { TimeSignatureProps } from "../model/business.model";
 
 const textStyle = {
     font: 'bold 28px cambria'
