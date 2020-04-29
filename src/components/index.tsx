@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Stave } from "./stave";
 import { MusicNotation, StaveProps } from "../model/business.model";
 import ReactDOM from "react-dom";
@@ -47,10 +47,7 @@ export class RootSVGMusicNotation extends React.Component<MusicNotation, RootSVG
      */
     renderStaves(staves: StaveProps[]): JSX.Element[] {
         const stavesList = staves.map((stave: StaveProps, index: number) => {
-            if (!index) {
-                return (<Stave clef={this.props.clef} measures={stave.measures} width={this.state.dimension.width} x={0} y={svgPaddingTop} key={index} />);
-            }
-            return (<Stave measures={stave.measures} x={0} width={this.state.dimension.width} y={svgPaddingTop + (120 * index)} key={index} />);
+            return (<Stave clef={stave.clef} measures={stave.measures} x={0} width={this.state.dimension.width} y={svgPaddingTop + (120 * index)} key={index} />);
         });
         // rendering padding bottom
         // 97 is stave height wich is calculated from 0 of stave
