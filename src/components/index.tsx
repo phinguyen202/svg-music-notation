@@ -47,7 +47,7 @@ export class RootSVGMusicNotation extends React.Component<MusicNotation, RootSVG
      */
     renderStaves(staves: StaveProps[]): JSX.Element[] {
         const stavesList = staves.map((stave: StaveProps, index: number) => {
-            return (<Stave clef={stave.clef} measures={stave.measures} x={0} width={this.state.dimension.width} y={svgPaddingTop + (120 * index)} key={index} />);
+            return (<Stave clef={stave.clef} measures={stave.measures} x={0} width={this.state.dimension.width} y={svgPaddingTop + (120 * index)} keySigNumber={stave.keySigNumber} key={index} />);
         });
         // rendering padding bottom
         // 97 is stave height wich is calculated from 0 of stave
