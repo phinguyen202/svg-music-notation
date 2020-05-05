@@ -28,7 +28,6 @@ export interface TimeSignatureProps {
 }
 
 export interface MusicNotation {
-	clef: 'treble' | 'bass' | 'grand';
 	staves: StaveProps[];
 	width: string;
 	height: string;
@@ -38,5 +37,6 @@ export interface MusicNotation {
 export interface StaveProps {
 	measures: MeansureProps[];
 	clef?: 'treble' | 'bass' | 'grand';
+	keySigNumber?: number;
 }
 

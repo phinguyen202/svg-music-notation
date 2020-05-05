@@ -1,5 +1,5 @@
 import React from "react";
-import { RootSVGMusicNotation } from "./components/core/index";
+import { RootSVGMusicNotation } from "./components/index";
 import { MusicNotation, TimeSignatureProps } from "./model/business.model";
 import { Configuration, defaultConfig } from "./model/config";
 
@@ -16,7 +16,6 @@ export default class SVGMusicNotation extends React.Component<SVGMusicNotationPr
     }
     constructor(props: SVGMusicNotationProp) {
         super(props);
-        this.setState
         if (typeof this.props.source === 'string') {
             this.state = {
                 ...this.state,
@@ -31,7 +30,7 @@ export default class SVGMusicNotation extends React.Component<SVGMusicNotationPr
     }
 
     render() {
-        return (<RootSVGMusicNotation width={this.props.width} height={this.props.height} staves={this.state.staves} clef={this.state.clef} config={this.props.config}/>);
+        return (<RootSVGMusicNotation width={this.props.width} height={this.props.height} staves={this.state.staves} config={this.props.config}/>);
     }
 }
 
@@ -67,18 +66,10 @@ function parse(source: string, config: Configuration): any {
     }, []);
 
     if (config?.lyric) {
-        const parsedClef = parseClef(staves[0][0]);
-        notation.clef = parsedClef.clef;
-        staves[0][0] = parsedClef.stave;
-
         notation.staves = staves.map(stave => {
             return parseStave(stave[0], stave[1]);
         });
     } else {
-        const parsedClef = parseClef(staves[0]);
-        notation.clef = parsedClef.clef;
-        staves[0] = parsedClef.stave;
-
         notation.staves = staves.map(stave => {
             return parseStave(stave);
         });
@@ -86,23 +77,27 @@ function parse(source: string, config: Configuration): any {
     return notation;
 }
 
-function parseClef(firstStave: string) {
-    // whether the clef is exist
-    let clef;
-    const firstWord = firstStave.match(/(\S*)\s/)[1];
+function parseStave(stave: string, lyrics?: string) {
+    // clef, keySigNumber
+    const parsedStave = {} as any;
+    const firstWord = stave.match(/(\S*)\s/)[1];
     const indexOfClef = firstWord.indexOf('Clef');
     if (firstWord && indexOfClef) {
-        clef = firstWord.slice(0, indexOfClef).toLowerCase();
+        if(firstWord.endsWith(')')) {
+            // extract key signature
+            let keySigNumber;
+            const keySig = firstWord.substring(firstWord.length - 3, firstWord.length -1);
+            keySigNumber = +keySig;
+            if (isNaN(keySigNumber)) {
+                keySigNumber = +keySig[1];
+            }
+            parsedStave.keySigNumber = keySigNumber;
+        }
+        parsedStave.clef = firstWord.slice(0, indexOfClef).toLowerCase();
         // remove clef word
-        firstStave = firstStave.substr(firstStave.indexOf(" ") + 1);
+        stave = stave.substr(stave.indexOf(" ") + 1);
     }
-    return  {
-        stave: firstStave,
-        clef: clef
-    }
-}
 
-function parseStave(stave: string, lyrics?: string) {
     // extract meansure, lyrics from stave
     const measures = stave.match(/.*?(\|\||\|B|\|)/g);
     const lyricsList = lyrics ? lyrics.split('|') : undefined;
@@ -111,7 +106,8 @@ function parseStave(stave: string, lyrics?: string) {
     const paseredMeasures = measures.map((measure: string, index: number) => {
         return parseMeasure(measure, lyricsList ? lyricsList[index] : undefined);
     });
-    return { measures: paseredMeasures };
+    parsedStave.measures = paseredMeasures;
+    return parsedStave;
 }
 
 function parseMeasure(measure: string, lyrics?: string) {

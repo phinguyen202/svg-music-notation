@@ -1,9 +1,10 @@
 import React from "react";
 import { TrebleClef } from "./clef";
 import { Staff } from "./staff";
-import { StaveProps } from "../../model/business.model";
-import { CoordinateModel, WidthDemension, } from "../../model/app.model";
+import { StaveProps } from "../model/business.model";
+import { CoordinateModel, WidthDemension, } from "../model/common.model";
 import { Meansure } from "./meansure";
+import { KeySignature } from "./key-signature";
 
 export class Stave extends React.Component<StaveProps & CoordinateModel & WidthDemension, {}> {
     constructor(props: StaveProps & CoordinateModel & WidthDemension) {
@@ -15,7 +16,11 @@ export class Stave extends React.Component<StaveProps & CoordinateModel & WidthD
         const clef = this.renderClef(this.props.clef);
         // render measures
         // offetX is long number in pixel that the stave need to render stuff like staff, accidentals, etc
-        const offsetX = clef ? 30 : 0;
+        let offsetX = clef ? 30 : 0;
+        
+        const keySignature = this.props.keySigNumber ? <KeySignature clef={this.props.clef} keySigNumber={this.props.keySigNumber} x={offsetX} y={10}/> : undefined;
+        console.log(keySignature);
+        if (keySignature) { offsetX += Math.abs(this.props.keySigNumber) * 10 + 10; }
         const meansureHeight = (this.props.width - offsetX) / this.props.measures.length;
         const meansure = this.props.measures.map((meansure, index) => {
             return <Meansure timeSignature={meansure.timeSignature} notes={meansure.notes} barline={meansure.barline} width={meansureHeight} x={offsetX + meansureHeight*index} y={10} key={index} />
@@ -24,6 +29,7 @@ export class Stave extends React.Component<StaveProps & CoordinateModel & WidthD
             <g transform={`translate(${this.props.x}, ${this.props.y})`}>
                 <Staff width={this.props.width} />
                 {clef}
+                {keySignature}
                 {meansure}
             </g>
         );
