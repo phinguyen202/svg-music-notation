@@ -1,6 +1,6 @@
 import React from "react";
 import { XCoordinate, YCoordinate } from "../model/common.model";
-import { RestProps } from "../model/business.model";
+import { RestModel } from "../model/business.model";
 
 // mapping and rest interface
 interface RestConfig extends YCoordinate{
@@ -23,7 +23,7 @@ const restConfigMap: Map<string, RestConfig> = new Map<string, RestConfig>([
     }]
 ]);
 
-export function Rest(props: RestProps & XCoordinate) {
+export function Rest(props: RestModel & XCoordinate) {
     const { duration } = props;
     const baseRest = restConfigMap.get(duration);
     let jsxRest;

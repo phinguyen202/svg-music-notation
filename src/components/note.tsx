@@ -1,6 +1,6 @@
 import React from "react";
 import { XCoordinate, YCoordinate } from "../model/common.model";
-import { NoteProps } from "../model/business.model";
+import { NoteModel } from "../model/business.model";
 import { Accidental } from "./accidental";
 
 // mapping and note interface
@@ -75,7 +75,7 @@ const noteCofigMap: Map<string, NoteCofig> = new Map<string, NoteCofig>([
     }],
 ]);
 
-export function Note(props: NoteProps & XCoordinate) {
+export function Note(props: NoteModel & XCoordinate) {
     const { duration, note, accidental, dot } = props;
     const baseNote = noteCofigMap.get(note);
     let jsxNote;

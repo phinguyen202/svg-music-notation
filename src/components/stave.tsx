@@ -1,13 +1,13 @@
 import React from "react";
 import { TrebleClef } from "./clef";
 import { Staff } from "./staff";
-import { StaveProps } from "../model/business.model";
+import { StaveModel } from "../model/business.model";
 import { CoordinateModel, WidthDemension, } from "../model/common.model";
 import { Meansure } from "./meansure";
 import { KeySignature } from "./key-signature";
 
-export class Stave extends React.Component<StaveProps & CoordinateModel & WidthDemension, {}> {
-    constructor(props: StaveProps & CoordinateModel & WidthDemension) {
+export class Stave extends React.Component<StaveModel & CoordinateModel & WidthDemension, {}> {
+    constructor(props: StaveModel & CoordinateModel & WidthDemension) {
         super(props);
     }
 
