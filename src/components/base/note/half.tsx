@@ -3,7 +3,7 @@ import React, { FunctionComponent } from "react";
 import Stem from "./stem";
 
 interface Props extends CoordinateModel {
-    isStemUp: boolean;
+    isStemUp?: boolean;
  }
 
 const width: number = 12.62;
