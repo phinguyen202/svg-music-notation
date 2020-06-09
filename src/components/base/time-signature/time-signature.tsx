@@ -12,11 +12,11 @@ const height: number = 53;
 const textStyle = {
     font: 'bold 28px cambria'
 }
-function JSX(props: Props): JSX.Element {
+function JSX({ upper, lower, x = 0, y = 0 }: Props): JSX.Element {
     return (
-        <g transform={`translate(${props.x}, ${props.y})`}>
-            <text transform={`translate(${0}, ${20})`} style={textStyle}>{props.upper}</text>
-            <text transform={`translate(${0}, ${40})`} style={textStyle}>{props.lower}</text>
+        <g transform={`translate(${x}, ${y})`}>
+            <text transform={`translate(${0}, ${20})`} style={textStyle}>{upper}</text>
+            <text transform={`translate(${0}, ${40})`} style={textStyle}>{lower}</text>
         </g>
     );
 }

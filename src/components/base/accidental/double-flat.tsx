@@ -7,9 +7,9 @@ interface Props extends CoordinateModel { }
 const width: number = 15.66; 
 const height: number = 25;
 
-function JSX(props: Props): JSX.Element {
+function JSX({ x = 0, y = 0}: Props): JSX.Element {
     return (
-        <g transform={`translate(${props.x}, ${props.y})`}>
+        <g transform={`translate(${x}, ${y})`}>
             <Flat.JSX x={0} y={0} />
             <Flat.JSX x={8.33} y={0} />
         </g>

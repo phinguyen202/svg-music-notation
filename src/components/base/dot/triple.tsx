@@ -6,9 +6,9 @@ interface Props extends CoordinateModel {}
 const width: number = 16;
 const height: number = 4;
 
-function JSX(props: Props): JSX.Element {
+function JSX({ x = 0, y = 0 }: Props): JSX.Element {
     return (
-        <g transform={`translate(${props.x}, ${props.y})`}>
+        <g transform={`translate(${x}, ${y})`}>
             <circle cx={2} cy={2} r="2"/>
             <circle cx={8} cy={2} r="2"/>
             <circle cx={14} cy={2} r="2"/>

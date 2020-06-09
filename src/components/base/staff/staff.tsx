@@ -7,13 +7,13 @@ interface Props extends CoordinateModel {
     width: number;
 }
 
-function JSX(props: Props): JSX.Element {
-    const lines = (new Array(props.lineNumber)).map((data: any, index: number) => {
-        const y = index * props.spaceDistance;
-        return <line x2={props.width} y1={y} y2={y} key={index}></line>
+function JSX({ lineNumber, spaceDistance, width, y = 0, x = 0 }: Props): JSX.Element {
+    const lines = (new Array(lineNumber)).map((data: any, index: number) => {
+        const y = index * spaceDistance;
+        return <line x2={width} y1={y} y2={y} key={index}></line>
     });
     return (
-        <g transform={`translate(${props.x}, ${props.y})`} stroke="black" strokeWidth="0.5">
+        <g transform={`translate(${x}, ${y})`} stroke="black" strokeWidth="0.5">
             {lines}
         </g>
     );

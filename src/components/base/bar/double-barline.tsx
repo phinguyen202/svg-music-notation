@@ -5,11 +5,11 @@ interface Props extends CoordinateModel, HeightDemension { }
 
 const width = 6;
 
-function JSX(props: Props): JSX.Element {
+function JSX({ x = 0, y = 0, height = 0 }: Props): JSX.Element {
     return (
-        <g transform={`translate(${props.x}, ${props.y})`}>
-            <rect width={1} height={props.height}/>
-            <rect x="5" width={1} height={props.height}/>
+        <g transform={`translate(${x}, ${y})`}>
+            <rect width={1} height={height}/>
+            <rect x="5" width={1} height={height}/>
         </g>
     );
 }
