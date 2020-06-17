@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { CoordinateModel } from "@model/common.model";
 import Sharp from '@base/accidental/sharp';
 import Flat from '@base/accidental/flat';
@@ -8,15 +8,15 @@ interface KeySignatureProps extends CoordinateModel {
 }
 
 const trebleKeyMap: Map<string, number[]> = new Map<string, number[]>([
-    ['flat', [15, 0, 20, 5, 25, 10, 30]],
-    ['sharp', [-5, 10, -10, 5, 20, 0, 15]],
+    ['flat', [25, 10, 30, 15, 35, 20, 40]],
+    ['sharp', [5, 20, 0, 15, 30, 10, 25]],
 ]);
 
 interface KeySignature {
     JSXElement: JSX.Element,
     width: number
 }
-const space: number = 10;
+const space: number = 5;
 export function KeySignature({ x = 0, y = 0, keySigNumber }: KeySignatureProps): KeySignature {
     let keySignature;
     let width: number = 0;

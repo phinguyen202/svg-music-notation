@@ -12,11 +12,13 @@ const offset = 10;
 const ledgerWidth = 22;
 
 export function Measure({ x, y, width, timeSignature, notes, barline }: MeasureModel & CoordinateModel & WidthDemension) {
-    let currentX = offset;
-    const timeSignatureJsx = timeSignature && <TimeSignature.JSX x={currentX} upper={timeSignature.upper} lower={timeSignature.lower} />;
+    let currentX = 0;
+    const timeSignatureJsx = timeSignature && (currentX += offset) && <TimeSignature.JSX x={currentX} upper={timeSignature.upper} lower={timeSignature.lower} />;
     if (timeSignatureJsx) {
-        currentX += TimeSignature.width + offset;
+        currentX += TimeSignature.width;
     }
+    // balance note (rest) width on measure
+    currentX -= 7;
     const spaceBetweenNote = (width - currentX) / (notes.length + 1);
     const mensureElements = notes.map(({ note, accidental, duration, dot }: NoteModel, index: number) => {
         if (note) {
