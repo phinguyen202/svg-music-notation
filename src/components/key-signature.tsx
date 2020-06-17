@@ -19,7 +19,7 @@ const bassKeyMap: Map<string, number[]> = new Map<string, number[]>([
 
 export function KeySignature(props: KeySignatureProps) {
     const { x, y, clef, keySigNumber } = props;
-    console.log(x,y,clef, keySigNumber);
+    // console.log(x,y,clef, keySigNumber);
     
     let keySignature;
     switch (clef) {
@@ -43,7 +43,7 @@ export function KeySignature(props: KeySignatureProps) {
         default:
             break;
     }
-    console.log(keySignature);
+    // console.log(keySignature);
     
     return (
         <g transform={`translate(${x}, ${y})`}>

@@ -1,5 +1,6 @@
 import { Configuration } from "../model/config";
-import { TimeSignatureModel, MusicNotationModel, StaveModel, MeansureModel, NoteModel, AccidentalType, ClefType, BarLineType, NoteRestModel, DotType, DurationType } from "../model/business.model";
+import { TimeSignatureModel, MusicNotationModel, StaveModel, MeasureModel, 
+    NoteModel, AccidentalType, ClefType, BarLineType, DotType, DurationType } from "../model/business.model";
 /*
 * parse user input string to MusicNotationModel interface
 */
@@ -67,7 +68,7 @@ function parseStave(stave: string, lyrics?: string) {
         stave = stave.substr(stave.indexOf(" ") + 1);
     }
 
-    // extract meansure, lyrics from stave
+    // extract measure, lyrics from stave
     const measures = stave.match(/.*?(\|\||\|B|\|)/g);
     const lyricsList = lyrics ? lyrics.split('|') : undefined;
     // console.log(allLyrics);
@@ -82,9 +83,9 @@ function parseStave(stave: string, lyrics?: string) {
 function parseMeasure(measure: string, lyrics?: string) {
     const splitMeasure = measure.trim().split(' ');
     const splitLyric = lyrics ? lyrics.trim().split(' ') : undefined;
-    const meansure = {} as MeansureModel;
+    const measureModel = {} as MeasureModel;
     const bar = splitMeasure.pop();
-    meansure.barline = barMap.get(bar) as BarLineType;
+    measureModel.barline = barMap.get(bar) as BarLineType;
     // whether timeSignature is exist
     if (splitMeasure[0].includes('/')) {
         // get time signature
@@ -92,12 +93,12 @@ function parseMeasure(measure: string, lyrics?: string) {
             upper: +splitMeasure[0][0],
             lower: +splitMeasure[0][2]
         };
-        meansure.timeSignature = timeSignature;
+        measureModel.timeSignature = timeSignature;
         // delete timeSignature (first element)
         splitMeasure.shift();
     }
     // getting note and rest
-    meansure.notes = splitMeasure.map((nAndR: any, index: number) => {
+    measureModel.notes = splitMeasure.map((nAndR: any, index: number) => {
         const noteAndRest = {} as NoteModel;
         const extractedNote = nAndR.split('-');
         if (extractedNote[0] !== 'R') { // Note
@@ -125,5 +126,5 @@ function parseMeasure(measure: string, lyrics?: string) {
         noteAndRest.duration = durationMap.get(extractedNote[1]) as DurationType;
         return noteAndRest;
     });
-    return meansure;
+    return measureModel;
 }

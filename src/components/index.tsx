@@ -3,6 +3,7 @@ import { Stave } from "./stave";
 import { MusicNotationModel, StaveModel } from "../model/business.model";
 import ReactDOM from "react-dom";
 import { DemensionModel } from "../model/common.model";
+import { ClefStave } from "./stave/clef-stave/clef-stave";
 
 const svgPaddingTop = 30, svgPaddingBottom = 20;
 
@@ -47,7 +48,7 @@ export class RootSVGMusicNotation extends React.Component<MusicNotationModel, Ro
      */
     renderStaves(staves: StaveModel[]): JSX.Element[] {
         const stavesList = staves.map((stave: StaveModel, index: number) => {
-            return (<Stave clef={stave.clef} measures={stave.measures} x={0} width={this.state.dimension.width} y={svgPaddingTop + (120 * index)} keySigNumber={stave.keySigNumber} key={index} />);
+            return (<ClefStave y={svgPaddingTop + (120 * index)} width={this.state.dimension.width} measures={stave.measures} keySigNumber={stave.keySigNumber} key={index} />);
         });
         // rendering padding bottom
         // 97 is stave height wich is calculated from 0 of stave

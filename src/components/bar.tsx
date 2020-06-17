@@ -1,5 +1,8 @@
+import BarLine from "@base/bar/barline";
+import BoldDoubleBarLine from '@base/bar/blod-double-barline';
+import DoubleBarLine from "@base/bar/double-barline";
+import { HeightDemension, XCoordinate } from "@model/common.model";
 import React from "react";
-import { XCoordinate, HeightDemension } from "../model/common.model";
 
 interface BarLineConfig extends HeightDemension{
 }
@@ -19,13 +22,13 @@ export function Bar(props: BarInterfaceProps) {
     let jsxBar;
     switch (props.type) {
         case 'barline':
-            jsxBar = <BarLine x={props.x} height={baseBarLine.height}/>
+            jsxBar = <BarLine.JSX x={props.x} y={0} height={baseBarLine.height}/>
             break;
         case 'double':
-            jsxBar = <DoubleBarLine x={props.x} height={baseBarLine.height}/>
+            jsxBar = <DoubleBarLine.JSX x={props.x} y={0} height={baseBarLine.height}/>
             break;
         case 'bold double':
-            jsxBar = <BoldDoubleBarLine x={props.x} height={baseBarLine.height}/>
+            jsxBar = <BoldDoubleBarLine.JSX x={props.x} y={0} height={baseBarLine.height}/>
             break;
         default:
             break;
@@ -36,33 +39,3 @@ export function Bar(props: BarInterfaceProps) {
         </>
     )
 }
-
-// bar line JSX Elements
-interface BarProps extends XCoordinate, HeightDemension{
-}
-
-function BarLine(props: BarProps) {
-    return ( // props.x - 0.5 to make Bar within measure
-        <line transform={`translate(${props.x - 0.5}, ${0})`} y2={props.height} stroke="black"/>
-    );
-}
-
-function DoubleBarLine(props: BarProps) {
-    return (
-        <g transform={`translate(${props.x - 0.5}, ${0})`}>
-            <line y2={props.height} stroke="black"/>
-            <line x1="-5" x2="-5" y2={props.height} stroke="black"/>
-        </g>
-    );
-}
-
-function BoldDoubleBarLine(props: BarProps) {
-    return ( //props.x - 1.5 (3/2)
-        <g transform={`translate(${props.x - 1.5}, ${0})`}>
-            <line y2={props.height} stroke="black" strokeWidth="3"/>
-            <line x1="-5" x2="-5" y2={props.height} stroke="black"/>
-        </g>
-    );
-}
-
-

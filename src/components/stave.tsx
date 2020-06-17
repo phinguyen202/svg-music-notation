@@ -3,7 +3,7 @@ import { TrebleClef } from "./clef";
 import { Staff } from "./staff";
 import { StaveModel } from "../model/business.model";
 import { CoordinateModel, WidthDemension, } from "../model/common.model";
-import { Meansure } from "./meansure";
+import { Measure } from "./measure";
 import { KeySignature } from "./key-signature";
 
 export class Stave extends React.Component<StaveModel & CoordinateModel & WidthDemension, {}> {
@@ -19,18 +19,18 @@ export class Stave extends React.Component<StaveModel & CoordinateModel & WidthD
         let offsetX = clef ? 30 : 0;
         
         const keySignature = this.props.keySigNumber ? <KeySignature clef={this.props.clef} keySigNumber={this.props.keySigNumber} x={offsetX} y={10}/> : undefined;
-        console.log(keySignature);
+        // console.log(keySignature);
         if (keySignature) { offsetX += Math.abs(this.props.keySigNumber) * 10 + 10; }
-        const meansureHeight = (this.props.width - offsetX) / this.props.measures.length;
-        const meansure = this.props.measures.map((meansure, index) => {
-            return <Meansure timeSignature={meansure.timeSignature} notes={meansure.notes} barline={meansure.barline} width={meansureHeight} x={offsetX + meansureHeight*index} y={10} key={index} />
+        const measureHeight = (this.props.width - offsetX) / this.props.measures.length;
+        const measure = this.props.measures.map((measure, index) => {
+            return <Measure timeSignature={measure.timeSignature} notes={measure.notes} barline={measure.barline} width={measureHeight} x={offsetX + measureHeight*index} y={10} key={index} />
         });
         return (
             <g transform={`translate(${this.props.x}, ${this.props.y})`}>
                 <Staff width={this.props.width} />
                 {clef}
                 {keySignature}
-                {meansure}
+                {measure}
             </g>
         );
     }

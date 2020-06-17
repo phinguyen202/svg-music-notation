@@ -20,7 +20,7 @@ export interface NoteModel extends NoteRestModel {
 
 export type BarLineType = 'barline' | 'double' | 'bold double';
 
-export interface MeansureModel {
+export interface MeasureModel {
 	timeSignature?: TimeSignatureModel;
 	notes: Array<NoteModel|RestModel>;
 	barline?: BarLineType;
@@ -41,7 +41,7 @@ export interface MusicNotationModel {
 export type ClefType = 'treble' | 'bass' | 'grand';
 
 export interface StaveModel {
-	measures: MeansureModel[];
+	measures: MeasureModel[];
 	clef?: ClefType;
 	keySigNumber?: number;
 }
