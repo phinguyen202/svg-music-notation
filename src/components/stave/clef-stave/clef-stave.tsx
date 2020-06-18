@@ -35,6 +35,7 @@ export function ClefStave({x = 0, y = 0, width, measures, keySigNumber }: Props)
     if (keySignature) {
         currentX += keySignature.width;
     }
+    // should be balanced based on number of elements
     const measureWidth = (width - currentX) / measures.length;
     const measuresJsx = measures.map((measures, index) => {
         return <Measure timeSignature={measures.timeSignature} notes={measures.notes} barline={measures.barline} width={measureWidth} x={currentX + measureWidth*index} y={10} key={index} />

@@ -4,8 +4,10 @@ import { CoordinateModel, WidthDemension, YCoordinate } from '@model/common.mode
 import TimeSignature from "@base/time-signature/time-signature";
 import { NoteBuilder } from "components/builder/note-builder";
 import { Rest } from "components/rest";
-import { BarLineBuilder } from '@builder/barline-builder';
 import Ledger from '@base/staff-ledger/ledger';
+import BarLine from '@base/bar/barline';
+import DoubleBarLine from '@base/bar/double-barline';
+import BoldDoubleBarLine from '@base/bar/blod-double-barline';
 
 const barlineHeight = 40;
 const offset = 10;
@@ -27,7 +29,7 @@ export function Measure({ x, y, width, timeSignature, notes, barline }: MeasureM
                 return <Ledger.JSX x={-5} y={ledgerY} width={ledgerWidth} />
             })
             return (
-                <g transform={`translate(${currentX + (spaceBetweenNote * (index + 1))}, ${y})`}>
+                <g transform={`translate(${currentX + (spaceBetweenNote * ++index)}, ${y})`}>
                     <NoteBuilder duration={duration} accidental={accidental} dot={dot} isStemUp={isStemUp} key={index} />
                     {ledgersJsx}
                 </g>)
@@ -35,11 +37,23 @@ export function Measure({ x, y, width, timeSignature, notes, barline }: MeasureM
             return <Rest x={currentX + (spaceBetweenNote * (index + 1))} duration={duration} key={index} />
         }
     });
+    let barlineObj;
+    switch (barline ? barline : 'barline') {
+        case 'barline':
+            barlineObj = BarLine;
+            break;
+        case 'double':
+            barlineObj = DoubleBarLine;
+            break;
+        case 'bold double':
+            barlineObj = BoldDoubleBarLine;
+            break;
+    }
     return (
         <g transform={`translate(${x}, ${y})`}>
             {timeSignatureJsx}
             {mensureElements}
-            <BarLineBuilder x={width} type={(barline ? barline : 'barline')} height={barlineHeight} />
+            {barlineObj && <barlineObj.JSX x={width - barlineObj.width} height={barlineHeight} />}
         </g>
     );
 }
