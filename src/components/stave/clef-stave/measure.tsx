@@ -3,11 +3,10 @@ import { MeasureModel, NoteModel } from "@model/business.model";
 import { CoordinateModel, WidthDemension, YCoordinate } from '@model/common.model';
 import TimeSignature from "@base/time-signature/time-signature";
 import { NoteBuilder } from "components/builder/note-builder";
-import { Rest } from "components/rest";
 import Ledger from '@base/staff-ledger/ledger';
-import BarLine from '@base/bar/barline';
-import DoubleBarLine from '@base/bar/double-barline';
-import BoldDoubleBarLine from '@base/bar/blod-double-barline';
+import { DurationType } from '@model/business.model';
+import { RestSwitcher } from '../../switcher/rest-switcher';
+import { BarlineSwitcher } from '../../switcher/barline-switcher';
 
 const barlineHeight = 40;
 const offset = 10;
@@ -20,11 +19,15 @@ export function Measure({ x, y, width, timeSignature, notes, barline }: MeasureM
         currentX += TimeSignature.width;
     }
     // balance note (rest) width on measure
-    currentX -= 7;
+    currentX += -10;
     const spaceBetweenNote = (width - currentX) / (notes.length + 1);
     const mensureElements = notes.map(({ note, accidental, duration, dot }: NoteModel, index: number) => {
         if (note) {
-            const { y, isStemUp, ledgers } = noteCofigMap.get(note);
+            const noteCofig = noteCofigMap.get(note);
+            if (!noteCofig) {
+                throw new Error(`Not support pitch ${note} in clef stave`);
+            }
+            const { y, isStemUp, ledgers } = noteCofig;
             const ledgersJsx = ledgers && ledgers.map(ledgerY => {
                 return <Ledger.JSX x={-5} y={ledgerY} width={ledgerWidth} />
             })
@@ -34,30 +37,23 @@ export function Measure({ x, y, width, timeSignature, notes, barline }: MeasureM
                     {ledgersJsx}
                 </g>)
         } else { // rest
-            return <Rest x={currentX + (spaceBetweenNote * (index + 1))} duration={duration} key={index} />
+            const restBuilder = RestSwitcher({duration});
+            let restY;
+            if (restBuilder) {
+                restY = restCofigMap.get(duration).y;
+            }
+            return restBuilder && <restBuilder.JSX x={currentX + (spaceBetweenNote * (index + 1))} y={restY}/>
         }
     });
-    let barlineObj;
-    switch (barline ? barline : 'barline') {
-        case 'barline':
-            barlineObj = BarLine;
-            break;
-        case 'double':
-            barlineObj = DoubleBarLine;
-            break;
-        case 'bold double':
-            barlineObj = BoldDoubleBarLine;
-            break;
-    }
+    const barlineBuilder = BarlineSwitcher({barline: barline ? barline : 'barline'});
     return (
         <g transform={`translate(${x}, ${y})`}>
             {timeSignatureJsx}
             {mensureElements}
-            {barlineObj && <barlineObj.JSX x={width - barlineObj.width} height={barlineHeight} />}
+            {barlineBuilder && <barlineBuilder.JSX x={width - barlineBuilder.width} height={barlineHeight} />}
         </g>
     );
 }
-
 
 interface NoteCofig extends YCoordinate {
     isStemUp: boolean,
@@ -129,4 +125,24 @@ const noteCofigMap: Map<string, NoteCofig> = new Map<string, NoteCofig>([
         isStemUp: false,
         ledgers: [5, 15]
     }],
+]);
+
+interface RestCofig extends YCoordinate { }
+
+const restCofigMap: Map<DurationType, RestCofig> = new Map<DurationType, RestCofig>([
+    ['whole', {
+        y: 10
+    }],
+    ['half', {
+        y: 16
+    }],
+    ['quarter', {
+        y: 5,
+    }],
+    ['eighth', {
+        y: 10
+    }],
+    ['sixteenth', {
+        y: 0
+    }]
 ]);

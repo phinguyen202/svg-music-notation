@@ -11,7 +11,7 @@ export type AccidentalType = 'flat' | 'sharp' | 'natural' | 'double flat' | 'dou
 export type DotType = 'single' | 'double' | 'triple';
 
 export interface NoteModel extends NoteRestModel {
-	note: string;
+	note: string; // pitch
 	accidental?: AccidentalType;
 	dot?: DotType;
 	tie?: boolean;

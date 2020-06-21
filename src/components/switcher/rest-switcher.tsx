@@ -1,27 +1,25 @@
-import React from "react";
-import { CoordinateModel } from "@model/common.model";
 import { DurationType } from "@model/business.model";
 import WholeHalfRest from "@base/rest/whole-half";
 import QuarterRest from "@base/rest/quarter";
 import EighthRest from "@base/rest/eighth";
 import SixteenthRest from "@base/rest/sixteenth";
 
-interface Props extends CoordinateModel {
+interface Props {
     duration: DurationType;
 }
 
-export function RestBuilder({ duration, x = 0, y = 0 }: Props): JSX.Element {
+export function RestSwitcher({ duration }: Props) {
     switch (duration) {
         case 'whole':
-            return <WholeHalfRest.JSX x={x} y={y}/>
+            return WholeHalfRest;
         case 'half':
-            return <WholeHalfRest.JSX x={x} y={y}/>
+            return WholeHalfRest;
         case 'quarter':
-            return <QuarterRest.JSX x={x} y={y}/>
+            return QuarterRest;
         case 'eighth':
-            return <EighthRest.JSX x={x} y={y}/>
+            return EighthRest;
         case 'sixteenth':
-            return <SixteenthRest.JSX x={x} y={y}/>
+            return SixteenthRest;
         default:
             return undefined;
     }

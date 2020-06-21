@@ -10,12 +10,12 @@ import { Measure } from "./measure";
 // staff config
 interface ClefStaff {
     lineNumber: number;
-    spaceDistance: number;
+    space: number;
 }
 
-const clefStaff :ClefStaff = {
+const clefStaff: ClefStaff = {
     lineNumber: 5,
-    spaceDistance: 10
+    space: 10
 }
 
 interface Props extends CoordinateModel, WidthDemension {
@@ -24,14 +24,15 @@ interface Props extends CoordinateModel, WidthDemension {
 }
 
 const offset: number = 10;
+const KeySignatureOffset: number = 5;
 
-export function ClefStave({x = 0, y = 0, width, measures, keySigNumber }: Props): JSX.Element {
+export function ClefStave({ x = 0, y = 0, width, measures, keySigNumber }: Props): JSX.Element {
     // offset - TrebleClef - offset - key signature - offset - measures
-    const staff = <Staff.JSX lineNumber={clefStaff.lineNumber} spaceDistance={clefStaff.spaceDistance} width={width}/>
+    const staff = <Staff.JSX lineNumber={clefStaff.lineNumber} space={clefStaff.space} width={width}/>
     let currentX = offset;
     const clef = <TrebleClef.JSX x={currentX}/>
-    currentX += TrebleClef.width + offset;
-    const keySignature = keySigNumber && KeySignature({x: currentX, keySigNumber});
+    currentX += TrebleClef.width;
+    const keySignature = keySigNumber && KeySignature({x: currentX += KeySignatureOffset, keySigNumber});
     if (keySignature) {
         currentX += keySignature.width;
     }

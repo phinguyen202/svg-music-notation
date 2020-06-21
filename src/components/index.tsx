@@ -1,5 +1,4 @@
 import React from "react";
-import { Stave } from "./stave";
 import { MusicNotationModel, StaveModel } from "../model/business.model";
 import ReactDOM from "react-dom";
 import { DemensionModel } from "../model/common.model";
