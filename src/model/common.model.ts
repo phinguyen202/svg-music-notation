@@ -1,9 +1,9 @@
 export interface XCoordinate {
-	x: number;
+	x?: number;
 }
 
 export interface YCoordinate {
-	y: number;
+	y?: number;
 }
 
 export interface CoordinateModel extends XCoordinate, YCoordinate{

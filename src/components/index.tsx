@@ -1,14 +1,19 @@
 import React from "react";
-import { Stave } from "./stave";
-import { MusicNotation, StaveProps } from "../model/business.model";
+import { MusicNotationModel, StaveModel } from "@model/business.model";
 import ReactDOM from "react-dom";
-import { DemensionModel } from "../model/common.model";
+import { DemensionModel } from "@model/common.model";
+import { ClefStave } from "./stave/clef-stave/clef-stave";
 
-const svgPaddingTop = 30, svgPaddingBottom = 20;
+interface RootSVGMusicNotationState {
+    dimension: DemensionModel;
+}
 
-export class RootSVGMusicNotation extends React.Component<MusicNotation, RootSVGMusicNotationState> {
+const svgPaddingTop = 30;
+const svgPaddingBottom = 20;
+
+export class RootSVGMusicNotation extends React.Component<MusicNotationModel, RootSVGMusicNotationState> {
     svgRef: React.RefObject<SVGSVGElement>;
-    constructor(props: MusicNotation) {
+    constructor(props: MusicNotationModel) {
         super(props);
         // props demension for render root svg
         // state demension for render stave
@@ -40,22 +45,19 @@ export class RootSVGMusicNotation extends React.Component<MusicNotation, RootSVG
 
     /**
      * @description render staves
+     * re-write this function to implement more type of stave
      * @author Phi Nguyen - phinguyen202@gmail.com
-     * @param {StaveProps[]} staves
+     * @param {StaveModel[]} staves
      * @returns {JSX.Element[]}
      * @memberof RootSVGMusicNotation
      */
-    renderStaves(staves: StaveProps[]): JSX.Element[] {
-        const stavesList = staves.map((stave: StaveProps, index: number) => {
-            return (<Stave clef={stave.clef} measures={stave.measures} x={0} width={this.state.dimension.width} y={svgPaddingTop + (120 * index)} keySigNumber={stave.keySigNumber} key={index} />);
+    renderStaves(staves: StaveModel[]): JSX.Element[] {
+        const stavesList = staves.map((stave: StaveModel, index: number) => {
+            return (<ClefStave y={svgPaddingTop + (120 * index)} width={this.state.dimension.width} measures={stave.measures} keySigNumber={stave.keySigNumber} key={index} />);
         });
         // rendering padding bottom
-        // 97 is stave height wich is calculated from 0 of stave
+        // 97 is stave height which is calculated from 0 of stave
         stavesList.push(<rect y={svgPaddingTop + 97 + (120 * (staves.length - 1))} width={this.state.dimension.width} key={staves.length} height={svgPaddingBottom} fillOpacity={0} strokeOpacity={0}/>);
         return stavesList;
     }
-}
-
-interface RootSVGMusicNotationState {
-    dimension: DemensionModel;
 }

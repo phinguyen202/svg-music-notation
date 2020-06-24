@@ -1,42 +1,44 @@
 import { Configuration } from "./config";
 
-export interface NoteRestProps {
-	duration: string;
-}
-
-export interface RestProps extends NoteRestProps {
-
-}
-
-export interface NoteProps extends NoteRestProps {
-	note: string;
-	accidental?: 'flat' | 'sharp' | 'natural' | 'double flat' | 'double sharp';
-	dot?: 'single' | 'double' | 'triple';
-	tie?: boolean;
-	lyrics?: string;
-}
-
-export interface MeansureProps {
-	timeSignature?: TimeSignatureProps;
-	notes: Array<NoteProps|RestProps>;
-	barline?: 'barline' | 'double' | 'bold double';
-}
-
-export interface TimeSignatureProps {
-	upper: number;
-	lower: number;
-}
-
-export interface MusicNotation {
-	staves: StaveProps[];
+export interface MusicNotationModel {
+	staves: StaveModel[];
 	width: string;
 	height: string;
 	config: Configuration;
 }
 
-export interface StaveProps {
-	measures: MeansureProps[];
-	clef?: 'treble' | 'bass' | 'grand';
+export type ClefType = 'treble' | 'bass' | 'grand';
+export interface StaveModel {
+	measures: MeasureModel[];
+	clef?: ClefType;
 	keySigNumber?: number;
 }
 
+export type BarLineType = 'barline' | 'double' | 'bold double';
+export interface MeasureModel {
+	timeSignature?: TimeSignatureModel;
+	notes: Array<NoteModel|RestModel>;
+	barline?: BarLineType;
+}
+
+export interface TimeSignatureModel {
+	upper: number;
+	lower: number;
+}
+
+export type AccidentalType = 'flat' | 'sharp' | 'natural' | 'double flat' | 'double sharp';
+export type DotType = 'single' | 'double' | 'triple';
+export interface NoteModel extends NoteRestModel {
+	note: string; // pitch
+	accidental?: AccidentalType;
+	dot?: DotType;
+	tie?: boolean;
+	lyrics?: string;
+}
+
+export type DurationType = 'whole' | 'half' | 'quarter' | 'eighth' | 'sixteenth';
+export interface NoteRestModel {
+	duration: DurationType;
+}
+
+export interface RestModel extends NoteRestModel { }
