@@ -12,7 +12,9 @@ const barlineHeight = 40;
 const offset = 10;
 const ledgerWidth = 22;
 
-export function Measure({ x, y, width, timeSignature, notes, barline }: MeasureModel & CoordinateModel & WidthDemension) {
+const lyricYOffset: number = 80;
+
+export function Measure({ x = 0, y = 0, width, timeSignature, notes, barline }: MeasureModel & CoordinateModel & WidthDemension) {
     let currentX = 0;
     const timeSignatureJsx = timeSignature && (currentX += offset) && <TimeSignature.JSX x={currentX} upper={timeSignature.upper} lower={timeSignature.lower} />;
     if (timeSignatureJsx) {
@@ -21,7 +23,8 @@ export function Measure({ x, y, width, timeSignature, notes, barline }: MeasureM
     // balance note (rest) width on measure
     currentX += -10;
     const spaceBetweenNote = (width - currentX) / (notes.length + 1);
-    const mensureElements = notes.map(({ note, accidental, duration, dot }: NoteModel, index: number) => {
+    const mensureElements = notes.map(({ note, accidental, duration, dot, lyrics }: NoteModel, index: number) => {
+        const xRestNote = currentX + (spaceBetweenNote * ++index);
         if (note) {
             const noteCofig = noteCofigMap.get(note);
             if (!noteCofig) {
@@ -30,19 +33,22 @@ export function Measure({ x, y, width, timeSignature, notes, barline }: MeasureM
             const { y, isStemUp, ledgers } = noteCofig;
             const ledgersJsx = ledgers && ledgers.map(ledgerY => {
                 return <Ledger.JSX x={-5} y={ledgerY} width={ledgerWidth} />
-            })
-            return (
-                <g transform={`translate(${currentX + (spaceBetweenNote * ++index)}, ${y})`}>
-                    <NoteBuilder duration={duration} accidental={accidental} dot={dot} isStemUp={isStemUp} key={index} />
-                    {ledgersJsx}
-                </g>)
+            });
+            return (<>
+                    <g transform={`translate(${xRestNote}, ${y})`}>
+                        <NoteBuilder duration={duration} accidental={accidental} dot={dot} isStemUp={isStemUp} key={index} />
+                        {ledgersJsx}
+                    </g>
+                    {/* +6 for get central of note */}
+                    {lyrics &&<text transform={`translate(${xRestNote + 6}, ${lyricYOffset})`} dominantBaseline="middle" textAnchor="middle">{lyrics}</text>}
+                </>)
         } else { // rest
             const restBuilder = RestSwitcher({duration});
             let restY;
             if (restBuilder) {
                 restY = restCofigMap.get(duration).y;
             }
-            return restBuilder && <restBuilder.JSX x={currentX + (spaceBetweenNote * (index + 1))} y={restY}/>
+            return restBuilder && <restBuilder.JSX x={xRestNote} y={restY}/>
         }
     });
     const barlineBuilder = BarlineSwitcher({barline: barline ? barline : 'barline'});

@@ -7,28 +7,22 @@ import TrebleClef from "@base/clef/treble";
 import { KeySignature } from "./key-signature";
 import { Measure } from "./measure";
 
-// staff config
-interface ClefStaff {
-    lineNumber: number;
-    space: number;
-}
-
-const clefStaff: ClefStaff = {
-    lineNumber: 5,
-    space: 10
-}
-
 interface Props extends CoordinateModel, WidthDemension {
     measures: MeasureModel[];
 	keySigNumber?: number;
 }
 
+const staffLineNumber: number = 5;
+const staffSpace: number = 10;
+
 const offset: number = 10;
 const KeySignatureOffset: number = 5;
 
+const measureYOffset: number = 10;
+
 export function ClefStave({ x = 0, y = 0, width, measures, keySigNumber }: Props): JSX.Element {
     // offset - TrebleClef - offset - key signature - offset - measures
-    const staff = <Staff.JSX lineNumber={clefStaff.lineNumber} space={clefStaff.space} width={width}/>
+    const staff = <Staff.JSX lineNumber={staffLineNumber} space={staffSpace} width={width}/>
     let currentX = offset;
     const clef = <TrebleClef.JSX x={currentX}/>
     currentX += TrebleClef.width;
@@ -36,10 +30,14 @@ export function ClefStave({ x = 0, y = 0, width, measures, keySigNumber }: Props
     if (keySignature) {
         currentX += keySignature.width;
     }
-    // should be balanced based on number of elements
-    const measureWidth = (width - currentX) / measures.length;
-    const measuresJsx = measures.map((measures, index) => {
-        return <Measure timeSignature={measures.timeSignature} notes={measures.notes} barline={measures.barline} width={measureWidth} x={currentX + measureWidth*index} y={10} key={index} />
+    // balanced based on number of elements not and rest and time singature
+    const totalMeansureEle = measures.reduce((previousValue, currentValue) => previousValue += currentValue.notes.length + (currentValue.timeSignature ? 1 : 0), 0);
+    const restedWidth = width - currentX;
+    const measuresJsx = measures.map((measure, index) => {
+        const measureWidth = (measure.notes.length + (measure.timeSignature ? 1 : 0))/totalMeansureEle * restedWidth;
+        const meansureJSX = <Measure x={currentX} y={measureYOffset} timeSignature={measure.timeSignature} notes={measure.notes} barline={measure.barline} width={measureWidth} key={index} />
+        currentX += measureWidth;
+        return meansureJSX;
     });
     return (
         <g transform={`translate(${x}, ${y})`}>
