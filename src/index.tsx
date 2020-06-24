@@ -1,7 +1,7 @@
 import React from "react";
 import { RootSVGMusicNotation } from "./components/index";
 import { MusicNotationModel } from "./model/business.model";
-import { Configuration, defaultConfig } from "./model/config";
+import { Configuration } from "./model/config";
 import { parse } from "./utils/parser";
 
 interface SVGMusicNotationProp {
@@ -9,6 +9,10 @@ interface SVGMusicNotationProp {
     width: string;
     height: string;
     config?: Configuration;
+}
+
+const defaultConfig: Configuration = {
+    lyric: true
 }
 
 export default class SVGMusicNotation extends React.Component<SVGMusicNotationProp, MusicNotationModel> {

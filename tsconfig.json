@@ -13,6 +13,7 @@
       "@base/*": ["components/base/*"],
       "@model/*": ["model/*"],
       "@builder/*": ["components/builder/*"],
+      "@switcher/*": ["components/switcher/*"],
     }
   }
 }

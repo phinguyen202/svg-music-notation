@@ -1,7 +1,7 @@
 import React from "react";
-import { MusicNotationModel, StaveModel } from "../model/business.model";
+import { MusicNotationModel, StaveModel } from "@model/business.model";
 import ReactDOM from "react-dom";
-import { DemensionModel } from "../model/common.model";
+import { DemensionModel } from "@model/common.model";
 import { ClefStave } from "./stave/clef-stave/clef-stave";
 
 interface RootSVGMusicNotationState {
@@ -45,6 +45,7 @@ export class RootSVGMusicNotation extends React.Component<MusicNotationModel, Ro
 
     /**
      * @description render staves
+     * re-write this function to implement more type of stave
      * @author Phi Nguyen - phinguyen202@gmail.com
      * @param {StaveModel[]} staves
      * @returns {JSX.Element[]}

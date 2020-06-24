@@ -5,8 +5,8 @@ import TimeSignature from "@base/time-signature/time-signature";
 import { NoteBuilder } from "components/builder/note-builder";
 import Ledger from '@base/staff-ledger/ledger';
 import { DurationType } from '@model/business.model';
-import { RestSwitcher } from '../../switcher/rest-switcher';
-import { BarlineSwitcher } from '../../switcher/barline-switcher';
+import { RestSwitcher } from '@switcher/rest-switcher';
+import { BarlineSwitcher } from '@switcher/barline-switcher';
 
 const barlineHeight = 40;
 const offset = 10;
