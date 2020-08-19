@@ -1,6 +1,6 @@
-import React from "react";
-import { CoordinateModel } from "@model/common.model";
-import { AccidentalType } from "@model/business.model";
+import React from 'react';
+import { CoordinateModel } from '@model/common.model';
+import { AccidentalType } from '@model/business.model';
 import Sharp from '@base/accidental/sharp';
 import DoubleSharp from '@base/accidental/double-sharp';
 import Natural from '@base/accidental/natural';

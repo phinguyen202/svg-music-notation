@@ -1,13 +1,13 @@
-import React from "react";
-import { CoordinateModel } from "@model/common.model";
-import { AccidentalType, DotType, DurationType } from "@model/business.model";
-import { DotBuilder } from "./dot-builder";
-import WholeNote from "@base/note/whole";
-import HalfNote from "@base/note/half";
-import QuarterNote from "@base/note/quarter";
-import EighthNote from "@base/note/eighth";
-import SixteenthNote from "@base/note/sixteenth";
-import { AccidentalUpstreamBuilder } from "@builder/accidental-builder";
+import React from 'react';
+import { CoordinateModel } from '@model/common.model';
+import { AccidentalType, DotType, DurationType } from '@model/business.model';
+import { DotBuilder } from './dot-builder';
+import WholeNote from '@base/note/whole';
+import HalfNote from '@base/note/half';
+import QuarterNote from '@base/note/quarter';
+import EighthNote from '@base/note/eighth';
+import SixteenthNote from '@base/note/sixteenth';
+import { AccidentalUpstreamBuilder } from '@builder/accidental-builder';
 
 interface Props extends CoordinateModel {
     accidental?: AccidentalType;

@@ -1,5 +1,5 @@
-import { CoordinateModel, HeightDemension } from "@model/common.model";``
-import React, { FunctionComponent } from "react";
+import { CoordinateModel, HeightDemension } from '@model/common.model';
+import React, { FunctionComponent } from 'react';
 
 interface Props extends CoordinateModel, HeightDemension { }
 

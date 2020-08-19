@@ -1,9 +1,9 @@
-import React from "react";
-import { CoordinateModel } from "@model/common.model";
-import SingleDot from "@base/dot/single";
-import DoubleDot from "@base/dot/double";
-import TripleDot from "@base/dot/triple";
-import { DotType } from "@model/business.model";
+import React from 'react';
+import { CoordinateModel } from '@model/common.model';
+import SingleDot from '@base/dot/single';
+import DoubleDot from '@base/dot/double';
+import TripleDot from '@base/dot/triple';
+import { DotType } from '@model/business.model';
 
 interface Props extends CoordinateModel {
     type: DotType;

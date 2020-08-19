@@ -1,11 +1,11 @@
-import { WidthDemension } from "@model/common.model";
-import React from "react";
+import { WidthDemension } from '@model/common.model';
+import React from 'react';
 import { CoordinateModel } from '@model/common.model';
-import { MeasureModel } from "@model/business.model";
+import { MeasureModel } from '@model/business.model';
 import Staff from '@base/staff-ledger/staff'
-import TrebleClef from "@base/clef/treble";
-import { KeySignature } from "./key-signature";
-import { Measure } from "./measure";
+import TrebleClef from '@base/clef/treble';
+import { KeySignature } from './key-signature';
+import { Measure } from './measure';
 
 interface Props extends CoordinateModel, WidthDemension {
     measures: MeasureModel[];

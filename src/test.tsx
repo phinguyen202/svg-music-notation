@@ -1,6 +1,6 @@
-import ReactDOM from "react-dom";
-import SVGMusicNotation from "./index";
-import React from "react";
+import ReactDOM from 'react-dom';
+import SVGMusicNotation from './index';
+import React from 'react';
 
 // sample
 const testSource = `
@@ -12,7 +12,7 @@ I don't know you, | but I want you | all the more for that
 
 ReactDOM.render(
     <SVGMusicNotation height={'100%'} width={'800'} source={testSource}/>,
-    document.getElementById("test")
+    document.getElementById('test')
 );
 
 const userSource = `
@@ -24,7 +24,7 @@ TrebleClef(-1) R-8n R-16n A4-8n G4-8n A4-8n G4-8n A4-8n G4-8n | C5-4n D5-4n E5-4
 
 ReactDOM.render(
     <SVGMusicNotation height={'100%'} width={'800'} source={userSource} />,
-    document.getElementById("root")
+    document.getElementById('root')
 );
 
 const userSource1 = `
@@ -37,5 +37,5 @@ const config = {
 }
 ReactDOM.render(
     <SVGMusicNotation height={'100%'} width={'800'} source={userSource1} config={config}/>,
-    document.getElementById("nolyric")
+    document.getElementById('nolyric')
 );

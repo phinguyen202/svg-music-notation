@@ -1,6 +1,6 @@
-import { Configuration } from "../model/config";
+import { Configuration } from '../model/config';
 import { TimeSignatureModel, MusicNotationModel, StaveModel, MeasureModel, 
-    NoteModel, AccidentalType, ClefType, BarLineType, DotType, DurationType } from "../model/business.model";
+    NoteModel, AccidentalType, ClefType, BarLineType, DotType, DurationType } from '../model/business.model';
 /*
 * parse user input string to MusicNotationModel interface
 */
@@ -65,7 +65,7 @@ function parseStave(stave: string, lyrics?: string) {
         }
         parsedStave.clef = firstWord.slice(0, indexOfClef).toLowerCase() as ClefType;
         // remove clef word
-        stave = stave.substr(stave.indexOf(" ") + 1);
+        stave = stave.substr(stave.indexOf(' ') + 1);
     }
 
     // extract measure, lyrics from stave

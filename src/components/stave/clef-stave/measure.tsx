@@ -1,8 +1,8 @@
-import React from "react";
-import { MeasureModel, NoteModel } from "@model/business.model";
+import React from 'react';
+import { MeasureModel, NoteModel } from '@model/business.model';
 import { CoordinateModel, WidthDemension, YCoordinate } from '@model/common.model';
-import TimeSignature from "@base/time-signature/time-signature";
-import { NoteBuilder } from "components/builder/note-builder";
+import TimeSignature from '@base/time-signature/time-signature';
+import { NoteBuilder } from 'components/builder/note-builder';
 import Ledger from '@base/staff-ledger/ledger';
 import { DurationType } from '@model/business.model';
 import { RestSwitcher } from '@switcher/rest-switcher';
@@ -40,7 +40,7 @@ export function Measure({ x = 0, y = 0, width, timeSignature, notes, barline }: 
                         {ledgersJsx}
                     </g>
                     {/* +6 for get central of note */}
-                    {lyrics &&<text transform={`translate(${xRestNote + 6}, ${lyricYOffset})`} dominantBaseline="middle" textAnchor="middle">{lyrics}</text>}
+                    {lyrics &&<text transform={`translate(${xRestNote + 6}, ${lyricYOffset})`} dominantBaseline='middle' textAnchor='middle'>{lyrics}</text>}
                 </>)
         } else { // rest
             const restBuilder = RestSwitcher({duration});

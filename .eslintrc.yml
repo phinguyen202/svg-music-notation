@@ -2,8 +2,7 @@ env:
   browser: true
   es6: true
 extends:
-  - 'plugin:react/recommended'
-  - airbnb
+  - 'plugin:@typescript-eslint/eslint-recommended'
 globals:
   Atomics: readonly
   SharedArrayBuffer: readonly
@@ -20,3 +19,9 @@ plugins:
 rules: 
   react-hooks/rules-of-hooks: error
   react-hooks/exhaustive-deps: warn
+  quotes: 
+    - error
+    - single
+  jsx-quotes:
+    - error
+    - prefer-single

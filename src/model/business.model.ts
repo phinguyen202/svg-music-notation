@@ -1,44 +1,45 @@
-import { Configuration } from "./config";
+import { Configuration } from './config';
 
 export interface MusicNotationModel {
-	staves: StaveModel[];
-	width: string;
-	height: string;
-	config: Configuration;
+  staves: StaveModel[];
+  width: string;
+  height: string;
+  config: Configuration;
 }
 
 export type ClefType = 'treble' | 'bass' | 'grand';
 export interface StaveModel {
-	measures: MeasureModel[];
-	clef?: ClefType;
-	keySigNumber?: number;
+  measures: MeasureModel[];
+  clef?: ClefType;
+  keySigNumber?: number;
 }
 
 export type BarLineType = 'barline' | 'double' | 'bold double';
 export interface MeasureModel {
-	timeSignature?: TimeSignatureModel;
-	notes: Array<NoteModel|RestModel>;
-	barline?: BarLineType;
+  timeSignature?: TimeSignatureModel;
+  notes: Array<NoteModel | RestModel>;
+  barline?: BarLineType;
 }
 
 export interface TimeSignatureModel {
-	upper: number;
-	lower: number;
+  upper: number;
+  lower: number;
 }
 
 export type AccidentalType = 'flat' | 'sharp' | 'natural' | 'double flat' | 'double sharp';
 export type DotType = 'single' | 'double' | 'triple';
+
 export interface NoteModel extends NoteRestModel {
-	note: string; // pitch
-	accidental?: AccidentalType;
-	dot?: DotType;
-	tie?: boolean;
-	lyrics?: string;
+  note: string; // pitch
+  accidental?: AccidentalType;
+  dot?: DotType;
+  tie?: boolean;
+  lyrics?: string
 }
-
 export type DurationType = 'whole' | 'half' | 'quarter' | 'eighth' | 'sixteenth';
+
 export interface NoteRestModel {
-	duration: DurationType;
+  duration: DurationType;
 }
 
-export interface RestModel extends NoteRestModel { }
+export interface RestModel extends NoteRestModel {}

@@ -1,8 +1,8 @@
-import React from "react";
-import { MusicNotationModel, StaveModel } from "@model/business.model";
-import ReactDOM from "react-dom";
-import { DemensionModel } from "@model/common.model";
-import { ClefStave } from "./stave/clef-stave/clef-stave";
+import React from 'react';
+import { MusicNotationModel, StaveModel } from '@model/business.model';
+import ReactDOM from 'react-dom';
+import { DemensionModel } from '@model/common.model';
+import { ClefStave } from './stave/clef-stave/clef-stave';
 
 interface RootSVGMusicNotationState {
     dimension: DemensionModel;

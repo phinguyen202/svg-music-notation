@@ -1,8 +1,8 @@
-import React from "react";
-import { RootSVGMusicNotation } from "./components/index";
-import { MusicNotationModel } from "./model/business.model";
-import { Configuration } from "./model/config";
-import { parse } from "./utils/parser";
+import React from 'react';
+import { RootSVGMusicNotation } from './components/index';
+import { MusicNotationModel } from './model/business.model';
+import { Configuration } from './model/config';
+import { parse } from './utils/parser';
 
 interface SVGMusicNotationProp {
     source: string | MusicNotationModel;

@@ -1,5 +1,5 @@
-import { CoordinateModel } from "@model/common.model";``
-import React, { FunctionComponent } from "react";
+import { CoordinateModel } from '@model/common.model';''
+import React, { FunctionComponent } from 'react';
 import Flat from '@base/accidental/flat'
 
 interface Props extends CoordinateModel { }

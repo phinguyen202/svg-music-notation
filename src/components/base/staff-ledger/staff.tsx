@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from "react";
-import { CoordinateModel } from "@model/common.model";
+import React, { FunctionComponent } from 'react';
+import { CoordinateModel } from '@model/common.model';
 
 interface Props extends CoordinateModel {
     lineNumber: number;
@@ -13,7 +13,7 @@ function JSX({ lineNumber, space, width, y = 0, x = 0 }: Props): JSX.Element {
         return <line x2={width} y1={yLine} y2={yLine} key={index} />
     });
     return (
-        <g transform={`translate(${x}, ${y})`} stroke="black" strokeWidth="0.5">
+        <g transform={`translate(${x}, ${y})`} stroke='black' strokeWidth='0.5'>
             {lines}
         </g>
     );

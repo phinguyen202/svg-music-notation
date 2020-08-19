@@ -1,5 +1,5 @@
-import React from "react";
-import { CoordinateModel } from "@model/common.model";
+import React from 'react';
+import { CoordinateModel } from '@model/common.model';
 import Sharp from '@base/accidental/sharp';
 import Flat from '@base/accidental/flat';
 
