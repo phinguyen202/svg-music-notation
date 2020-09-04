@@ -115,7 +115,7 @@ function parseMeasure(measure: string, lyrics?: string) {
                     noteAndRest.accidental = 'natural' as AccidentalType;
                 }
                 // dot
-                if (accAdDot.includes('.')){
+                if (accAdDot.includes('.')) {
                     const dots = accAdDot.split('.').length -1;
                     noteAndRest.dot = dots === 1 ? 'single' : (dots === 2 ? 'double' : 'triple') as DotType;
                 }

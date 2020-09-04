@@ -3,6 +3,9 @@ import { RootSVGMusicNotation } from './components/index';
 import { MusicNotationModel } from './model/business.model';
 import { Configuration } from './model/config';
 import { parse } from './utils/parser';
+import { SvgSheetConfig } from './expose/sheet';
+import { SvgStave } from './expose/stave';
+import Staff from '@base/staff-ledger/staff';
 
 interface SVGMusicNotationProp {
     source: string | MusicNotationModel;
@@ -35,6 +38,24 @@ export default class SVGMusicNotation extends React.Component<SVGMusicNotationPr
     }
 
     render() {
-        return (<RootSVGMusicNotation width={this.props.width} height={this.props.height} staves={this.state.staves} config={this.props.config}/>);
+        return (<RootSVGMusicNotation width={this.props.width} height={this.props.height} staves={this.state.staves} config={this.props.config} />);
+    }
+}
+
+interface SVGTestProp {
+    config: SvgSheetConfig,
+    staves: SvgStave[]
+}
+export class SVGTest extends React.Component<SVGTestProp, any> {
+    constructor(props: SVGTestProp) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <svg>
+                <Staff.JSX lineNumber={5} space={10} width={500} />
+            </svg>
+        )
     }
 }
