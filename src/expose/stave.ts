@@ -1,18 +1,19 @@
+import { SvgElement } from './svgElement'
 interface SvgStaveConfig {
-    height: string,
-    width: string,
+    clef: 'treble' | 'bass' | 'alto' | 'tenor';
 }
 
 const defaultConfig: SvgStaveConfig = {
-    height: '100%',
-    width: '100%',
+    clef: 'treble',
 }
 
 export class SvgStave {
+    public id: string;
     private config: SvgStaveConfig;
-    private elements: any[];
+    private elements: SvgElement[];
 
-    constructor(initialConfig: SvgStaveConfig = defaultConfig) {
+    constructor(id: string, initialConfig: SvgStaveConfig = defaultConfig) {
+        this.id = id;
         this.config = initialConfig;
     }
 
@@ -20,7 +21,7 @@ export class SvgStave {
         this.config = newConfig;
     }
 
-    addElement(newElement: any) {
+    addElement(newElement: SvgElement) {
         this.elements = this.elements.concat(newElement);
     }
 }

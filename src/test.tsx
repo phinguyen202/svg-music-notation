@@ -44,8 +44,17 @@ import { SvgStave } from './expose/stave';
 
 const sheet = new SvgSheet();
 
-const stave = new SvgStave();
+const stave = new SvgStave('s1');
+const stave0 = new SvgStave('s2');
 
 sheet.addStave(stave);
+sheet.addStave(stave0);
 
 sheet.render(document.getElementById('nolyric'));
+
+setTimeout(() => {
+    console.log('aa');
+    
+    const stave1 = new SvgStave('s3');
+    sheet.addStave(stave1);
+}, 5000);

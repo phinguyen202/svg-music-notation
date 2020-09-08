@@ -27,7 +27,9 @@
   "homepage": "https://github.com/phinguyen202/svg-sheet-music#readme",
   "peerDependencies": {
     "react": "^16.x",
-    "react-dom": "^16.x"
+    "react-dom": "^16.x",
+    "react-redux": "^7.x",
+    "redux": "^4.x"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -35,6 +37,7 @@
     "@babel/preset-react": "^7.8.3",
     "@testing-library/react": "^9.4.1",
     "@types/react": "^16.9.23",
+    "@types/react-redux": "^7.1.9",
     "@typescript-eslint/eslint-plugin": "^3.7.0",
     "@typescript-eslint/parser": "^3.7.0",
     "babel-loader": "^8.0.6",

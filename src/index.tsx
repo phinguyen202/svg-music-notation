@@ -52,9 +52,15 @@ export class SVGTest extends React.Component<SVGTestProp, any> {
     }
 
     render() {
+        // console.log(this.props.staves);
+        
+        const staveHeight = 50;
+        const renderedStaves = this.props.staves.map((stave: SvgStave, index: number) => {
+            return <Staff.JSX key={stave.id} lineNumber={5} space={10} width={500} y={index*staveHeight}/>;
+        });
         return (
             <svg>
-                <Staff.JSX lineNumber={5} space={10} width={500} />
+                {renderedStaves}
             </svg>
         )
     }
