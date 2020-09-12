@@ -1,67 +1,54 @@
 import React from 'react';
-import { RootSVGMusicNotation } from './components/index';
-import { MusicNotationModel } from './model/business.model';
-import { Configuration } from './model/config';
-import { parse } from './utils/parser';
-import { SvgSheetConfig } from './expose/sheet';
-import { SvgStave } from './expose/stave';
-import Staff from '@base/staff-ledger/staff';
+import { SvgStaveSource } from '@model/source.model';
+import ToolBar from 'components/toolbar';
+import Stave from 'components/stave';
 
-interface SVGMusicNotationProp {
-    source: string | MusicNotationModel;
-    width: string;
+export interface SvgSheetConfig {
     height: string;
-    config?: Configuration;
+    width: string;
+    editable?: boolean;
+    save?: {
+        handler: Function
+    },
+    export?: {
+        handler: Function
+    },
 }
 
-const defaultConfig: Configuration = {
-    lyric: true
-}
-
-export default class SVGMusicNotation extends React.Component<SVGMusicNotationProp, MusicNotationModel> {
-    static defaultProps = {
-        config: defaultConfig
-    }
-    constructor(props: SVGMusicNotationProp) {
-        super(props);
-        if (typeof this.props.source === 'string') {
-            this.state = {
-                ...this.state,
-                ...parse(this.props.source, this.props.config)
-            }
-        } else {
-            this.state = {
-                ...this.state,
-                ...{ source: this.props.source }
-            }
-        }
-    }
-
-    render() {
-        return (<RootSVGMusicNotation width={this.props.width} height={this.props.height} staves={this.state.staves} config={this.props.config} />);
-    }
-}
-
-interface SVGTestProp {
+export interface SvgMusicNotationProp {
     config: SvgSheetConfig,
-    staves: SvgStave[]
+    source: SvgStaveSource[],
+    // header?: React.ReactNode
 }
-export class SVGTest extends React.Component<SVGTestProp, any> {
-    constructor(props: SVGTestProp) {
+
+export class SvgMusicNotation extends React.Component<SvgMusicNotationProp, any> {
+    // simplify the interface
+    // 3 things to done on interface
+    // 1. provide 1 React Component to render sheet
+    // 2. user can input a source and a config for the sheet
+    // 3. provide a way that user can use to get current source of the sheet
+
+    constructor(props: SvgMusicNotationProp) {
         super(props);
     }
 
     render() {
-        // console.log(this.props.staves);
-        
-        const staveHeight = 50;
-        const renderedStaves = this.props.staves.map((stave: SvgStave, index: number) => {
-            return <Staff.JSX key={stave.id} lineNumber={5} space={10} width={500} y={index*staveHeight}/>;
-        });
+        const staveSourceMap = this.props.source.map((staveSource: SvgStaveSource, index: number) => {
+            return (<Stave y={100 * index} clef={staveSource.clef} elements={staveSource.elements} />)
+        })
+
+        const { config } = this.props;
+        const { editable } = config;
+
         return (
-            <svg>
-                {renderedStaves}
-            </svg>
-        )
+            <div>
+                {/* toolbar */}
+                {editable && <ToolBar />}
+                {/* sheet */}
+                <svg>
+                    {staveSourceMap}
+                </svg>
+            </div>
+        );
     }
 }
