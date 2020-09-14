@@ -1,0 +1,70 @@
+import { YCoordinate } from '@model/common.model';
+import { PitchType } from '@model/business.model';
+import { NoteCofig } from '../stave.model';
+
+export default new Map<PitchType, NoteCofig>([
+    ['C4', {
+        y: 45,
+        isStemUp: true,
+        ledgers: [5]
+    }],
+    ['D4', {
+        y: 40,
+        isStemUp: true
+    }],
+    ['E4', {
+        y: 35,
+        isStemUp: true
+    }],
+    ['F4', {
+        y: 30,
+        isStemUp: true
+    }],
+    ['G4', {
+        y: 25,
+        isStemUp: true
+    }],
+    ['A4', {
+        y: 20,
+        isStemUp: true
+    }],
+    ['B4', {
+        y: 15,
+        isStemUp: false
+    }],
+    ['C5', {
+        y: 10,
+        isStemUp: false
+    }],
+    ['D5', {
+        y: 5,
+        isStemUp: false
+    }],
+    ['E5', {
+        y: 0,
+        isStemUp: false
+    }],
+    ['F5', {
+        y: -5,
+        isStemUp: false
+    }],
+    ['G5', {
+        y: -10,
+        isStemUp: false
+    }],
+    ['A5', {
+        y: -15,
+        isStemUp: false,
+        ledgers: [5]
+    }],
+    ['B5', {
+        y: -20,
+        isStemUp: false,
+        ledgers: [10]
+    }],
+    ['C6', {
+        y: -25,
+        isStemUp: false,
+        ledgers: [5, 15]
+    }],
+]);
