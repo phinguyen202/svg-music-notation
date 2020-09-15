@@ -3,13 +3,9 @@ import BarLine from '@base/bar/barline';
 import DoubleBarLine from '@base/bar/double-barline';
 import BoldDoubleBarLine from '@base/bar/blod-double-barline';
 
-interface Props {
-    barline: BarLineType;
-}
-
-export function BarlineSwitcher({ barline }: Props) {
-    switch (barline) {
-        case 'barline':
+export function BarlineSwitcher(type: BarLineType) {
+    switch (type) {
+        case 'single':
             return BarLine;
         case 'double':
             return DoubleBarLine;

@@ -45,7 +45,7 @@ export class SvgMusicNotation extends React.Component<SvgMusicNotationProp, any>
                 {/* toolbar */}
                 {editable && <ToolBar />}
                 {/* sheet */}
-                <svg>
+                <svg width={this.props.config.width}>
                     {staveSourceMap}
                 </svg>
             </div>

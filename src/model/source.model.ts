@@ -1,3 +1,4 @@
+import { BarLineType, KeySignatureType, TimeSignatureLowerType, TimeSignatureUpperType } from '@model/business.model';
 import { DurationType, ClefType, DotType, AccidentalType, PitchType } from './business.model';
 
 export interface SvgStaveSource {
@@ -6,7 +7,7 @@ export interface SvgStaveSource {
 }
 
 export type SvgElementType = 'clef' | 'keySignature' | 'timeSignature' | 'note' | 'rest' | 'barline';
-export type SvgElement = SvgNoteElement | SvgRestElement;
+export type SvgElement = SvgNoteElement | SvgRestElement | SvgClefElement | SvgBarlineElement | SvgKeySignatureElement | SvgTimeSignatureElement;
 
 export interface SvgElementRoot {
     type: SvgElementType;
@@ -20,5 +21,22 @@ export interface SvgNoteElement extends SvgElementRoot{
 }
 
 export interface SvgRestElement extends SvgElementRoot{
-    pitch: PitchType,
+    duration: DurationType,
+}
+
+export interface SvgClefElement extends SvgElementRoot{
+    kind: ClefType,
+}
+
+export interface SvgBarlineElement extends SvgElementRoot{
+    kind: BarLineType,
+}
+
+export interface SvgKeySignatureElement extends SvgElementRoot{
+    keySigNumber: KeySignatureType,
+}
+
+export interface SvgTimeSignatureElement extends SvgElementRoot{
+    upper: TimeSignatureLowerType,
+    lower: TimeSignatureUpperType,
 }

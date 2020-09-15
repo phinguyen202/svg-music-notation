@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import { SvgMusicNotation, SvgMusicNotationProp, SvgSheetConfig } from './index';
+import { SvgMusicNotation, SvgSheetConfig } from './index';
 import React from 'react';
 import { SvgStaveSource } from '@model/source.model';
 
@@ -11,7 +11,15 @@ const svgConfig: SvgSheetConfig = {
 
 const treblestaveSource: SvgStaveSource = {
     clef: 'treble',
-    elements: [{ duration: 'quarter', pitch: 'C4' }, { duration: 'quarter', pitch: 'C4' }]
+    elements: [
+        { type: 'clef', kind: 'treble' },
+        { type: 'keySignature', keySigNumber: 7 },
+        { type: 'timeSignature', upper: 4, lower: 4 },
+        { type: 'note', duration: 'quarter', pitch: 'C4' },
+        { type: 'note', duration: 'quarter', pitch: 'C4' },
+        { type: 'rest', duration: 'sixteenth'},
+        { type: 'barline', kind: 'single' },
+    ]
 };
 
 const svgSource: SvgStaveSource[] = [treblestaveSource, treblestaveSource];

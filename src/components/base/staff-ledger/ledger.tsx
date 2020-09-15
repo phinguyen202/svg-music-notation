@@ -1,11 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { CoordinateModel } from '@model/common.model';
 
-interface Props extends CoordinateModel {
-    width: number;
-}
+interface Props extends CoordinateModel {}
+const width: number = 22;
 
-function JSX({ width, y = 0, x = 0 }: Props): JSX.Element {
+function JSX({ y = 0, x = 0 }: Props): JSX.Element {
     return (
         <line transform={`translate(${x}, ${y})`} stroke='black' strokeWidth='0.5' x2={width} y1={0.25} y2={0.25} />
     );

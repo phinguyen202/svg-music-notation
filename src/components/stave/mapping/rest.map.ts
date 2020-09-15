@@ -5,18 +5,18 @@ interface RestCofig extends YCoordinate { }
 
 export default new Map<DurationType, RestCofig>([
     ['whole', {
-        y: 10
+        y: 20
     }],
     ['half', {
-        y: 16
+        y: 26
     }],
     ['quarter', {
-        y: 5,
+        y: 15,
     }],
     ['eighth', {
-        y: 10
+        y: 20
     }],
     ['sixteenth', {
-        y: 0
+        y: 10
     }]
 ]);
