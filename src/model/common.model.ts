@@ -9,13 +9,13 @@ export interface YCoordinate {
 export interface CoordinateModel extends XCoordinate, YCoordinate{
 }
 
-export interface HeightDemension {
+export interface HeightDimension {
     height: number;
 }
 
-export interface WidthDemension {
+export interface WidthDimension {
     width: number;
 }
 
-export interface DemensionModel extends WidthDemension, HeightDemension{
+export interface DimensionModel extends WidthDimension, HeightDimension{
 }

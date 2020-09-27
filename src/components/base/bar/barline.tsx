@@ -1,7 +1,7 @@
-import { CoordinateModel, HeightDemension } from '@model/common.model';
+import { CoordinateModel, HeightDimension } from '@model/common.model';
 import React, { FunctionComponent } from 'react';
 
-interface Props extends CoordinateModel, HeightDemension { }
+interface Props extends CoordinateModel, HeightDimension { }
 
 const width: number = 1;
 
