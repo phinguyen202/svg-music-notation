@@ -1,7 +1,7 @@
 import React from 'react';
 import Staff from '@base/staff-ledger/staff';
 import { SvgStaveSource, SvgElement, SvgElementType, SvgNoteElement, SvgBarlineElement, SvgTimeSignatureElement } from '@model/source.model';
-import { CoordinateModel } from '@model/common.model';
+import { CoordinateModel, WidthDimension } from '@model/common.model';
 import { NoteBuilder } from 'components/builder/note-builder';
 import { NoteCofig } from './stave.model';
 import { TrebleNoteMap, RestMap, TrebleKeySignatureMap } from './mapping'
@@ -13,14 +13,26 @@ import { SvgKeySignatureElement } from '../../model/source.model';
 import { KeySignature } from '../builder/key-signature-builder';
 import TimeSignature from '@base/time-signature/time-signature';
 
-interface StaveProps extends SvgStaveSource, CoordinateModel { }
+interface StaveProps extends SvgStaveSource, CoordinateModel, WidthDimension { }
 
-export default function Stave({ x = 0, y = 0, clef = 'treble', elements = [] }: StaveProps) {
+const distanceRateMap: Map<SvgElementType, number> = new Map<SvgElementType, number>([
+    ['clef', 1],
+    ['keySignature', 1],
+    ['timeSignature', 1],
+    ['note', 5],
+    ['rest', 5],
+    ['barline', 5],
+]);
+
+// for edit mode
+const distanceRatio = 10;
+
+export default function Stave({ x = 0, y = 0, clef = 'treble', elements = [], width }: StaveProps) {
     // get stuff ready
     const keySignatureMap: Map<string, number[]> = findKeySignatureMap(clef);
     const noteMap: Map<PitchType, NoteCofig> = findNoteMap(clef);
     // render
-    const elementReactNode = elements.map((element: SvgElement, index: number) => {
+    const elementReactNodes = elements.map((element: SvgElement, index: number) => {
         const type: SvgElementType = element.type;
         if (type === 'clef') {
             return <TrebleClef.JSX x={index * 50} />
@@ -62,8 +74,8 @@ export default function Stave({ x = 0, y = 0, clef = 'treble', elements = [] }: 
     });
     return (
         <g transform={`translate(${x}, ${y})`}>
-            <Staff.JSX lineNumber={5} space={10} width={500} />
-            {elementReactNode}
+            <Staff.JSX lineNumber={5} space={10} width={width} />
+            {elementReactNodes}
         </g>
     )
 }
