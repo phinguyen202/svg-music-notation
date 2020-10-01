@@ -18,6 +18,13 @@ const treblestaveSource: SvgStaveSource = {
         { type: 'note', duration: 'quarter', pitch: 'C4' },
         { type: 'note', duration: 'quarter', pitch: 'C4' },
         { type: 'rest', duration: 'sixteenth'},
+        { type: 'note', duration: 'whole', pitch: 'C5' },
+        { type: 'note', duration: 'quarter', pitch: 'D4' },
+        { type: 'rest', duration: 'sixteenth'},
+        { type: 'barline', kind: 'single' },
+        { type: 'note', duration: 'quarter', pitch: 'C4' },
+        { type: 'note', duration: 'quarter', pitch: 'C4' },
+        { type: 'rest', duration: 'sixteenth'},
         { type: 'barline', kind: 'single' },
     ]
 };

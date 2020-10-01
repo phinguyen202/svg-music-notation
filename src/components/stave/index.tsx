@@ -1,77 +1,105 @@
 import React from 'react';
 import Staff from '@base/staff-ledger/staff';
-import { SvgStaveSource, SvgElement, SvgElementType, SvgNoteElement, SvgBarlineElement, SvgTimeSignatureElement } from '@model/source.model';
+import { SvgStaveSource, SvgElement, SvgElementType, SvgNoteElement, SvgBarlineElement, SvgTimeSignatureElement, SvgClefElement } from '@model/source.model';
 import { CoordinateModel, WidthDimension } from '@model/common.model';
-import { NoteBuilder } from 'components/builder/note-builder';
+import { noteBuilder } from 'components/builder/note-builder';
 import { NoteCofig } from './stave.model';
-import { TrebleNoteMap, RestMap, TrebleKeySignatureMap } from './mapping'
+import { TrebleNoteMap, RestMap, TrebleKeySignatureMap } from './mapping';
 import { ClefType, PitchType } from '@model/business.model';
-import { RestSwitcher } from '@switcher/rest-switcher';
-import TrebleClef from '@base/clef/treble';
-import { BarlineSwitcher } from '../switcher/barline-switcher';
-import { SvgKeySignatureElement } from '../../model/source.model';
-import { KeySignature } from '../builder/key-signature-builder';
-import TimeSignature from '@base/time-signature/time-signature';
+import { SvgKeySignatureElement } from '@model/source.model';
+import { keySignatureBuilder } from '@builder/key-signature-builder';
+import { restBuilder } from '@builder/rest-builder';
+import { barlineBuilder } from '@builder/barline-builder';
+import { BuilderRender } from '@builder/builder.model';
+import { clefBuilder } from '@builder/clef-builder';
+import { timeSignatureBuilder } from '@builder/time-signature-builder';
 
 interface StaveProps extends SvgStaveSource, CoordinateModel, WidthDimension { }
 
-const distanceRateMap: Map<SvgElementType, number> = new Map<SvgElementType, number>([
-    ['clef', 1],
-    ['keySignature', 1],
-    ['timeSignature', 1],
-    ['note', 5],
-    ['rest', 5],
-    ['barline', 5],
-]);
+interface BuilderRenderExt extends BuilderRender {
+    type: SvgElementType;
+};
 
+interface PreRenderModel extends WidthDimension {
+    renderArr: BuilderRenderExt[]
+}
 // for edit mode
 const distanceRatio = 10;
+
+interface DistanceType {
+    type: 'static' | 'dynamic';
+    unit: number;
+}
+
+const distanceMap: Map<SvgElementType, DistanceType> = new Map<SvgElementType, DistanceType>([
+    ['clef', { type: 'static', unit: 10 }],
+    ['keySignature', { type: 'static', unit: 10 }],
+    ['timeSignature', { type: 'static', unit: 10 }],
+    ['note', { type: 'dynamic', unit: 5 }],
+    ['rest', { type: 'dynamic', unit: 5 }],
+    ['barline', { type: 'dynamic', unit: 5 }],
+]);
 
 export default function Stave({ x = 0, y = 0, clef = 'treble', elements = [], width }: StaveProps) {
     // get stuff ready
     const keySignatureMap: Map<string, number[]> = findKeySignatureMap(clef);
     const noteMap: Map<PitchType, NoteCofig> = findNoteMap(clef);
-    // render
-    const elementReactNodes = elements.map((element: SvgElement, index: number) => {
+    // balance distance between element
+    const preRenderObj: PreRenderModel = elements.reduce((previous: PreRenderModel, element: SvgElement) => {
         const type: SvgElementType = element.type;
+        let builtElement: BuilderRender;
         if (type === 'clef') {
-            return <TrebleClef.JSX x={index * 50} />
+            const { kind } = element as SvgClefElement;
+            builtElement = clefBuilder({ type: kind, y: 0 });
         } else if (type === 'keySignature') {
             const { keySigNumber } = element as SvgKeySignatureElement;
-            const keySigReactNode = KeySignature({ x: index * 50, keySigNumber, accidentalMap: keySignatureMap });
-            return keySigReactNode.JSXElement;
+            builtElement = keySignatureBuilder({ keySigNumber, accidentalMap: keySignatureMap });
         } else if (type === 'timeSignature') {
             const { upper, lower } = element as SvgTimeSignatureElement;
-            return <TimeSignature.JSX x={index * 50} y={10} upper={upper} lower={lower} />;
+            builtElement = timeSignatureBuilder({ upper, lower, y: 10 });
         } else if (type === 'note') {
             const { duration, pitch } = element as SvgNoteElement;
             const { y, isStemUp, ledgers } = noteMap.get(pitch);
-            return <NoteBuilder
-                x={index * 50}
-                y={y}
-                duration={duration}
-                isStemUp={isStemUp}
-                ledgers={ledgers}
-                key={index}
-            />
+            builtElement = noteBuilder({ y, duration, isStemUp, ledgers });
         } else if (type === 'rest') {
             const { duration } = element as SvgNoteElement;
-            const restBuilder = RestSwitcher({ duration });
             const { y } = RestMap.get(duration);
-            return <restBuilder.JSX
-                x={index * 50}
-                y={y}
-            />
+            builtElement = restBuilder({ duration, y });
         } else if (type === 'barline') {
             const { kind } = element as SvgBarlineElement;
-            const barLineReactNode = BarlineSwitcher(kind);
-            return <barLineReactNode.JSX
-                height={40}
-                x={index * 50}
-                y={10}
-            />
+            builtElement = barlineBuilder({ type: kind, height: 40, y: 10 });
         }
+        previous.width += builtElement.width;
+        previous.renderArr.push({ ...builtElement, type});
+        return previous;
+    }, { width: 0, renderArr: [] } as PreRenderModel);
+
+    const { staticWidth, units } = elements.reduce((previous: any, element: SvgElement) => {
+        const disObj: DistanceType = distanceMap.get(element.type);
+        if (disObj.type === 'static') {
+            previous.staticWidth += disObj.unit;
+        } else {
+            previous.units += disObj.unit;
+        }
+        return previous
+    }, { staticWidth: 0, units: 0 });
+
+    const disPerUnit = (width - preRenderObj.width - staticWidth) / units;
+
+    const { renderArr } = preRenderObj;
+    let currentX = 0;
+    const elementReactNodes = renderArr.map((element: BuilderRenderExt, index: number) => {
+        const disObj: DistanceType = distanceMap.get(element.type);
+        if (disObj.type === 'static') {
+            currentX += disObj.unit;
+        } else {
+            currentX += disObj.unit * disPerUnit;
+        }
+        const jsx = element.renderFunc(currentX);
+        currentX += element.width;
+        return jsx;
     });
+
     return (
         <g transform={`translate(${x}, ${y})`}>
             <Staff.JSX lineNumber={5} space={10} width={width} />

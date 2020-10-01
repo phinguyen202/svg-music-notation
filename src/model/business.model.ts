@@ -30,8 +30,8 @@ export interface MeasureModel {
 }
 
 export interface TimeSignatureModel {
-  upper: number;
-  lower: number;
+  upper: TimeSignatureLowerType;
+  lower: TimeSignatureUpperType;
 }
 
 

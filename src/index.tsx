@@ -1,6 +1,6 @@
 import React from 'react';
 import { SvgStaveSource } from '@model/source.model';
-import ToolBar from 'components/toolbar';
+// import ToolBar from 'components/toolbar';
 import Stave from 'components/stave';
 import ReactDOM from 'react-dom';
 import { DimensionModel } from '@model/common.model';
@@ -63,14 +63,14 @@ export class SvgMusicNotation extends React.Component<SvgMusicNotationProp, SvgM
         const { editable } = config;
 
         return (
-            <div>
-                {/* toolbar */}
-                {editable && <ToolBar />}
-                {/* sheet */}
-                <svg width={this.props.config.width} ref={this.smnRef}>
-                    {staveSourceMap}
-                </svg>
-            </div>
+            // <div style={{ width: '100%', height: '100%' }}>
+            //     {/* toolbar */}
+            //     {/* {editable && <ToolBar />} */}
+            //     {/* sheet */}
+            <svg width={'100%'} height={this.props.source.length * 100} ref={this.smnRef}>
+                {staveSourceMap}
+            </svg>
+            // </div>
         );
     }
 }
