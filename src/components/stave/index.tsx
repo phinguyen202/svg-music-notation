@@ -44,7 +44,7 @@ export default function Stave({ x = 0, y = 0, clef = 'treble', elements = [], wi
     // get stuff ready
     const keySignatureMap: Map<string, number[]> = findKeySignatureMap(clef);
     const noteMap: Map<PitchType, NoteCofig> = findNoteMap(clef);
-    // balance distance between element
+    // loop and pre-render elements & calculate (sum) width of elements
     const preRenderObj: PreRenderModel = elements.reduce((previous: PreRenderModel, element: SvgElement) => {
         const type: SvgElementType = element.type;
         let builtElement: BuilderRender;
@@ -70,10 +70,11 @@ export default function Stave({ x = 0, y = 0, clef = 'treble', elements = [], wi
             builtElement = barlineBuilder({ type: kind, height: 40, y: 10 });
         }
         previous.width += builtElement.width;
-        previous.renderArr.push({ ...builtElement, type});
+        previous.renderArr.push({ ...builtElement, type });
         return previous;
     }, { width: 0, renderArr: [] } as PreRenderModel);
 
+    // loop to sum static width/units of elements
     const { staticWidth, units } = elements.reduce((previous: any, element: SvgElement) => {
         const disObj: DistanceType = distanceMap.get(element.type);
         if (disObj.type === 'static') {
@@ -83,9 +84,10 @@ export default function Stave({ x = 0, y = 0, clef = 'treble', elements = [], wi
         }
         return previous
     }, { staticWidth: 0, units: 0 });
-
+    // calculate how long of an unit
     const disPerUnit = (width - preRenderObj.width - staticWidth) / units;
-
+    
+    // render
     const { renderArr } = preRenderObj;
     let currentX = 0;
     const elementReactNodes = renderArr.map((element: BuilderRenderExt, index: number) => {
