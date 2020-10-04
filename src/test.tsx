@@ -16,7 +16,20 @@ const treblestaveSource: SvgStaveSource = {
         { type: 'keySignature', keySigNumber: 7 },
         { type: 'timeSignature', upper: 4, lower: 4 },
         { type: 'note', duration: 'quarter', pitch: 'C4' },
-        { type: 'note', duration: 'quarter', pitch: 'C4' },
+        { type: 'note', duration: 'quarter', pitch: 'D4' },
+        { type: 'note', duration: 'quarter', pitch: 'E4' },
+        { type: 'note', duration: 'quarter', pitch: 'F4' },
+        { type: 'note', duration: 'quarter', pitch: 'G4' },
+        { type: 'note', duration: 'quarter', pitch: 'A4' },
+        { type: 'note', duration: 'quarter', pitch: 'B4' },
+        { type: 'note', duration: 'quarter', pitch: 'C5' },
+        { type: 'note', duration: 'quarter', pitch: 'D5' },
+        { type: 'note', duration: 'quarter', pitch: 'E5' },
+        { type: 'note', duration: 'quarter', pitch: 'F5' },
+        { type: 'note', duration: 'quarter', pitch: 'G5' },
+        { type: 'note', duration: 'quarter', pitch: 'A5' },
+        { type: 'note', duration: 'quarter', pitch: 'B5' },
+        { type: 'note', duration: 'quarter', pitch: 'C6' },
         { type: 'rest', duration: 'sixteenth'},
         { type: 'note', duration: 'whole', pitch: 'C5' },
         { type: 'note', duration: 'quarter', pitch: 'D4' },
@@ -26,10 +39,45 @@ const treblestaveSource: SvgStaveSource = {
         { type: 'note', duration: 'quarter', pitch: 'C4' },
         { type: 'rest', duration: 'sixteenth'},
         { type: 'barline', kind: 'single' },
+        { type: 'note', duration: 'quarter', pitch: 'C4' },
     ]
 };
 
-const svgSource: SvgStaveSource[] = [treblestaveSource, treblestaveSource];
+const treblestaveSource0: SvgStaveSource = {
+    clef: 'treble',
+    elements: [
+        { type: 'clef', kind: 'treble' },
+        { type: 'keySignature', keySigNumber: 7 },
+        { type: 'timeSignature', upper: 4, lower: 4 },
+        { type: 'note', duration: 'eighth', pitch: 'C4' },
+        { type: 'note', duration: 'eighth', pitch: 'D4' },
+        { type: 'note', duration: 'eighth', pitch: 'E4' },
+        { type: 'note', duration: 'eighth', pitch: 'F4' },
+        { type: 'note', duration: 'eighth', pitch: 'G4' },
+        { type: 'note', duration: 'eighth', pitch: 'A4' },
+        { type: 'note', duration: 'eighth', pitch: 'B4' },
+        { type: 'note', duration: 'eighth', pitch: 'C5' },
+        { type: 'note', duration: 'eighth', pitch: 'D5' },
+        { type: 'note', duration: 'eighth', pitch: 'E5' },
+        { type: 'note', duration: 'eighth', pitch: 'F5' },
+        { type: 'note', duration: 'eighth', pitch: 'G5' },
+        { type: 'note', duration: 'eighth', pitch: 'A5' },
+        { type: 'note', duration: 'eighth', pitch: 'B5' },
+        { type: 'note', duration: 'eighth', pitch: 'C6' },
+        { type: 'rest', duration: 'sixteenth'},
+        { type: 'note', duration: 'whole', pitch: 'C5' },
+        { type: 'note', duration: 'quarter', pitch: 'D4' },
+        { type: 'rest', duration: 'sixteenth'},
+        { type: 'barline', kind: 'single' },
+        { type: 'note', duration: 'quarter', pitch: 'C4' },
+        { type: 'note', duration: 'quarter', pitch: 'C4' },
+        { type: 'rest', duration: 'sixteenth'},
+        { type: 'barline', kind: 'single' },
+        { type: 'note', duration: 'quarter', pitch: 'C4' },
+    ]
+};
+
+const svgSource: SvgStaveSource[] = [treblestaveSource, treblestaveSource0];
 
 ReactDOM.render(
     <SvgMusicNotation config={svgConfig} source={svgSource} />,

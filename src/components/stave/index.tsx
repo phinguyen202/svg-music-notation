@@ -39,8 +39,10 @@ const distanceMap: Map<SvgElementType, DistanceType> = new Map<SvgElementType, D
     ['rest', { type: 'dynamic', unit: 5 }],
     ['barline', { type: 'dynamic', unit: 5 }],
 ]);
+const lastEleDisUnit: number = 5;
 
 export default function Stave({ x = 0, y = 0, clef = 'treble', elements = [], width }: StaveProps) {
+    // PHASE 1: Calculate note distance
     // get stuff ready
     const keySignatureMap: Map<string, number[]> = findKeySignatureMap(clef);
     const noteMap: Map<PitchType, NoteCofig> = findNoteMap(clef);
@@ -75,6 +77,8 @@ export default function Stave({ x = 0, y = 0, clef = 'treble', elements = [], wi
     }, { width: 0, renderArr: [] } as PreRenderModel);
 
     // loop to sum static width/units of elements
+    // if the last element is a barline (normal case) else adding lastEleDisUnit unit
+    const isLastEleBar = elements[elements.length - 1].type === 'barline';
     const { staticWidth, units } = elements.reduce((previous: any, element: SvgElement) => {
         const disObj: DistanceType = distanceMap.get(element.type);
         if (disObj.type === 'static') {
@@ -83,11 +87,14 @@ export default function Stave({ x = 0, y = 0, clef = 'treble', elements = [], wi
             previous.units += disObj.unit;
         }
         return previous
-    }, { staticWidth: 0, units: 0 });
+    }, { staticWidth: 0, units: isLastEleBar ? 0 : lastEleDisUnit });
     // calculate how long of an unit
     const disPerUnit = (width - preRenderObj.width - staticWidth) / units;
-    
-    // render
+
+    // PHASE 2: beam, slur..
+    // Using group field to beam and slur field to slur 
+
+    // PHASE 3: render
     const { renderArr } = preRenderObj;
     let currentX = 0;
     const elementReactNodes = renderArr.map((element: BuilderRenderExt, index: number) => {
