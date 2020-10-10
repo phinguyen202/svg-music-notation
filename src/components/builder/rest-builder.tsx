@@ -4,46 +4,44 @@ import WholeHalfRest from '@base/rest/whole-half';
 import QuarterRest from '@base/rest/quarter';
 import EighthRest from '@base/rest/eighth';
 import SixteenthRest from '@base/rest/sixteenth';
-import { YCoordinate } from '@model/common.model';
+import { YCoordinate, CoordinateModel } from '@model/common.model';
 import { BuilderRender } from '@builder/builder.model';
+import { SvgRestElement } from '@model/source.model';
 
-interface Props extends YCoordinate {
-    duration: DurationType;
-}
+interface Props extends SvgRestElement, CoordinateModel { }
 
-export function restBuilder({ duration, y }: Props): BuilderRender {
+export function restBuilder(props: Props): BuilderRender & Props {
+    const { duration } = props;
+    let restType;
     switch (duration) {
         case 'whole':
-            return {
-                height: WholeHalfRest.height,
-                width: WholeHalfRest.width,
-                renderFunc: (x: number) => <WholeHalfRest.JSX x={x} y={y} />
-            };
+            restType = WholeHalfRest;
+            break;
         case 'half':
-            return {
-                height: WholeHalfRest.height,
-                width: WholeHalfRest.width,
-                renderFunc: (x: number) => <WholeHalfRest.JSX x={x} y={y} />
-            };
+            restType = WholeHalfRest;
+            break;
         case 'quarter':
-            return {
-                height: QuarterRest.height,
-                width: QuarterRest.width,
-                renderFunc: (x: number) => <QuarterRest.JSX x={x} y={y} />
-            };
+            restType = QuarterRest;
+            break;
         case 'eighth':
-            return {
-                height: EighthRest.height,
-                width: EighthRest.width,
-                renderFunc: (x: number) => <EighthRest.JSX x={x} y={y} />
-            };
+            restType = EighthRest;
+            break;
         case 'sixteenth':
-            return {
-                height: SixteenthRest.height,
-                width: SixteenthRest.width,
-                renderFunc: (x: number) => <SixteenthRest.JSX x={x} y={y} />
-            };
+            restType = SixteenthRest;
+            break;
         default:
-            return undefined;
+            if (!duration) {
+                throw Error('Rest duration is undefined');
+            } else {
+                throw Error(`Invalid duration: ${duration}`);
+            }
+    }
+    return {
+        ...props,
+        ...restType,
+        renderFunc: function () {
+            const { x, y, width, height } = this;
+            return <WholeHalfRest.JSX x={x} y={y} />
+        }
     }
 }

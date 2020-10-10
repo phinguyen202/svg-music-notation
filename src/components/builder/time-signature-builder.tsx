@@ -1,18 +1,19 @@
 import React from 'react';
 import { TimeSignatureLowerType, TimeSignatureUpperType } from '@model/business.model';
-import { YCoordinate } from '@model/common.model';
+import { CoordinateModel } from '@model/common.model';
 import { BuilderRender } from '@builder/builder.model';
 import TimeSignature from '@base/time-signature/time-signature';
+import { SvgTimeSignatureElement } from '@model/source.model';
 
-interface Props extends YCoordinate {
-    upper: TimeSignatureLowerType;
-    lower: TimeSignatureUpperType;
-}
+interface Props extends SvgTimeSignatureElement, CoordinateModel { }
 
-export function timeSignatureBuilder({ upper, lower, y }: Props): BuilderRender {
+export function timeSignatureBuilder(props: Props): BuilderRender & Props {
     return {
-        height: TimeSignature.height,
-        width: TimeSignature.width,
-        renderFunc: (x: number) => <TimeSignature.JSX x={x} y={y} upper={upper} lower={lower} />
+        ...TimeSignature,
+        ...props,
+        renderFunc: function () {
+            const { x, y, upper, lower } = this;
+            return <TimeSignature.JSX x={x} y={y} upper={upper} lower={lower} />
+        }
     };
 }

@@ -3,32 +3,37 @@ import BarLine from '@base/bar/barline';
 import DoubleBarLine from '@base/bar/double-barline';
 import BoldDoubleBarLine from '@base/bar/blod-double-barline';
 import { BuilderRender } from '@builder/builder.model';
-import { YCoordinate, HeightDimension } from '../../model/common.model';
+import { YCoordinate, HeightDimension, CoordinateModel } from '../../model/common.model';
+import { SvgBarlineElement } from '@model/source.model';
 
-interface Props extends YCoordinate, HeightDimension {
-    type: BarLineType,
-}
-export function barlineBuilder({ type, y, height }: Props): BuilderRender {
-    switch (type) {
+interface Props extends SvgBarlineElement, CoordinateModel, HeightDimension { }
+
+export function barlineBuilder(props: Props): BuilderRender & Props {
+    const { barline } = props;
+    let barlineType: any;
+    switch (barline) {
         case 'single':
-            return {
-                width: BarLine.width,
-                height,
-                renderFunc: (x: number) => BarLine.JSX({ x, y, height })
-            };
+            barlineType = BarLine;
+            break;
         case 'double':
-            return {
-                width: DoubleBarLine.width,
-                height,
-                renderFunc: (x: number) => DoubleBarLine.JSX({ x, y, height })
-            };
+            barlineType = DoubleBarLine;
+            break;
         case 'bold double':
-            return {
-                width: BoldDoubleBarLine.width,
-                height,
-                renderFunc: (x: number) => BoldDoubleBarLine.JSX({ x, y, height })
-            };
+            barlineType = BoldDoubleBarLine;
+            break;
         default:
-            return undefined;
+            if (!barline) {
+                throw Error('Barline type is undefined');
+            } else {
+                throw Error(`Invalid barline: ${barline}`);
+            }
     }
+    return {
+        ...props,
+        ...barlineType,
+        renderFunc: function () {
+            const { x = 0, y = 0, height, JSX } = this;
+            return JSX({ x, y, height });
+        }
+    };
 }

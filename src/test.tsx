@@ -12,10 +12,11 @@ const svgConfig: SvgSheetConfig = {
 const treblestaveSource: SvgStaveSource = {
     clef: 'treble',
     elements: [
-        { type: 'clef', kind: 'treble' },
+        { type: 'clef', clef: 'treble' },
         { type: 'keySignature', keySigNumber: 7 },
         { type: 'timeSignature', upper: 4, lower: 4 },
-        { type: 'note', duration: 'quarter', pitch: 'C4' },
+        { type: 'note', duration: 'sixteenth', pitch: 'C4', beamGroup: 1 },
+        { type: 'note', duration: 'sixteenth', pitch: 'C4', beamGroup: 1 },
         { type: 'note', duration: 'quarter', pitch: 'D4' },
         { type: 'note', duration: 'quarter', pitch: 'E4' },
         { type: 'note', duration: 'quarter', pitch: 'F4' },
@@ -34,11 +35,11 @@ const treblestaveSource: SvgStaveSource = {
         { type: 'note', duration: 'whole', pitch: 'C5' },
         { type: 'note', duration: 'quarter', pitch: 'D4' },
         { type: 'rest', duration: 'sixteenth'},
-        { type: 'barline', kind: 'single' },
+        { type: 'barline', barline: 'single' },
         { type: 'note', duration: 'quarter', pitch: 'C4' },
         { type: 'note', duration: 'quarter', pitch: 'C4' },
         { type: 'rest', duration: 'sixteenth'},
-        { type: 'barline', kind: 'single' },
+        { type: 'barline', barline: 'single' },
         { type: 'note', duration: 'quarter', pitch: 'C4' },
     ]
 };
@@ -46,7 +47,7 @@ const treblestaveSource: SvgStaveSource = {
 const treblestaveSource0: SvgStaveSource = {
     clef: 'treble',
     elements: [
-        { type: 'clef', kind: 'treble' },
+        { type: 'clef', clef: 'treble' },
         { type: 'keySignature', keySigNumber: 7 },
         { type: 'timeSignature', upper: 4, lower: 4 },
         { type: 'note', duration: 'eighth', pitch: 'C4' },
@@ -67,12 +68,12 @@ const treblestaveSource0: SvgStaveSource = {
         { type: 'rest', duration: 'sixteenth'},
         { type: 'note', duration: 'whole', pitch: 'C5' },
         { type: 'note', duration: 'quarter', pitch: 'D4' },
-        { type: 'rest', duration: 'sixteenth'},
-        { type: 'barline', kind: 'single' },
+        { type: 'rest', duration: 'eighth'},
+        { type: 'barline', barline: 'single' },
         { type: 'note', duration: 'quarter', pitch: 'C4' },
         { type: 'note', duration: 'quarter', pitch: 'C4' },
         { type: 'rest', duration: 'sixteenth'},
-        { type: 'barline', kind: 'single' },
+        { type: 'barline', barline: 'single' },
         { type: 'note', duration: 'quarter', pitch: 'C4' },
     ]
 };

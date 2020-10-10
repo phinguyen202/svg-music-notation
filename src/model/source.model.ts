@@ -14,29 +14,31 @@ export interface SvgElementRoot {
 }
 
 export interface SvgNoteElement extends SvgElementRoot{
-    duration: DurationType,
-    pitch: PitchType,
-    dot?: DotType,
-    accidental?: AccidentalType
+    duration: DurationType;
+    pitch: PitchType;
+    dot?: DotType;
+    accidental?: AccidentalType;
+    beamGroup?: number;
+    slurPair?: number;
 }
 
 export interface SvgRestElement extends SvgElementRoot{
-    duration: DurationType,
+    duration: DurationType;
 }
 
 export interface SvgClefElement extends SvgElementRoot{
-    kind: ClefType,
+    clef: ClefType;
 }
 
 export interface SvgBarlineElement extends SvgElementRoot{
-    kind: BarLineType,
+    barline: BarLineType;
 }
 
 export interface SvgKeySignatureElement extends SvgElementRoot{
-    keySigNumber: KeySignatureType,
+    keySigNumber: KeySignatureType;
 }
 
 export interface SvgTimeSignatureElement extends SvgElementRoot{
-    upper: TimeSignatureLowerType,
-    lower: TimeSignatureUpperType,
+    upper: TimeSignatureLowerType;
+    lower: TimeSignatureUpperType;
 }

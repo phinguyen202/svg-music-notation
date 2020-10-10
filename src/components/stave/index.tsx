@@ -1,6 +1,6 @@
 import React from 'react';
 import Staff from '@base/staff-ledger/staff';
-import { SvgStaveSource, SvgElement, SvgElementType, SvgNoteElement, SvgBarlineElement, SvgTimeSignatureElement, SvgClefElement } from '@model/source.model';
+import { SvgStaveSource, SvgElement, SvgElementType, SvgNoteElement, SvgBarlineElement, SvgTimeSignatureElement, SvgClefElement, SvgRestElement } from '@model/source.model';
 import { CoordinateModel, WidthDimension } from '@model/common.model';
 import { noteBuilder } from 'components/builder/note-builder';
 import { NoteCofig } from './stave.model';
@@ -46,30 +46,27 @@ export default function Stave({ x = 0, y = 0, clef = 'treble', elements = [], wi
     // get stuff ready
     const keySignatureMap: Map<string, number[]> = findKeySignatureMap(clef);
     const noteMap: Map<PitchType, NoteCofig> = findNoteMap(clef);
-    // loop and pre-render elements & calculate (sum) width of elements
+    // loop and pre-render elements & sum width of elements
     const preRenderObj: PreRenderModel = elements.reduce((previous: PreRenderModel, element: SvgElement) => {
         const type: SvgElementType = element.type;
         let builtElement: BuilderRender;
         if (type === 'clef') {
-            const { kind } = element as SvgClefElement;
-            builtElement = clefBuilder({ type: kind, y: 0 });
+            builtElement = clefBuilder({ ...element as SvgClefElement, y: 0 });
         } else if (type === 'keySignature') {
             const { keySigNumber } = element as SvgKeySignatureElement;
             builtElement = keySignatureBuilder({ keySigNumber, accidentalMap: keySignatureMap });
         } else if (type === 'timeSignature') {
-            const { upper, lower } = element as SvgTimeSignatureElement;
-            builtElement = timeSignatureBuilder({ upper, lower, y: 10 });
+            builtElement = timeSignatureBuilder({ ...element as SvgTimeSignatureElement, y: 10 });
         } else if (type === 'note') {
-            const { duration, pitch } = element as SvgNoteElement;
-            const { y, isStemUp, ledgers } = noteMap.get(pitch);
-            builtElement = noteBuilder({ y, duration, isStemUp, ledgers });
+            const { pitch } = element as SvgNoteElement;
+            const noteConfig = noteMap.get(pitch);
+            builtElement = noteBuilder({ ...element as SvgNoteElement, ...noteConfig });
         } else if (type === 'rest') {
-            const { duration } = element as SvgNoteElement;
-            const { y } = RestMap.get(duration);
-            builtElement = restBuilder({ duration, y });
+            const { duration } = element as SvgRestElement;
+            const restConfig = RestMap.get(duration);
+            builtElement = restBuilder({ ...element as SvgRestElement, ...restConfig });
         } else if (type === 'barline') {
-            const { kind } = element as SvgBarlineElement;
-            builtElement = barlineBuilder({ type: kind, height: 40, y: 10 });
+            builtElement = barlineBuilder({ ...element as SvgBarlineElement, height: 40, y: 10 });
         }
         previous.width += builtElement.width;
         previous.renderArr.push({ ...builtElement, type });
@@ -91,22 +88,27 @@ export default function Stave({ x = 0, y = 0, clef = 'treble', elements = [], wi
     // calculate how long of an unit
     const disPerUnit = (width - preRenderObj.width - staticWidth) / units;
 
-    // PHASE 2: beam, slur..
-    // Using group field to beam and slur field to slur 
-
-    // PHASE 3: render
-    const { renderArr } = preRenderObj;
-    let currentX = 0;
-    const elementReactNodes = renderArr.map((element: BuilderRenderExt, index: number) => {
+    // setting x for each element
+    let { renderArr } = preRenderObj;
+    let currentX: number = 0;
+    renderArr = renderArr.map((element: BuilderRenderExt, index: number) => {
         const disObj: DistanceType = distanceMap.get(element.type);
         if (disObj.type === 'static') {
             currentX += disObj.unit;
         } else {
             currentX += disObj.unit * disPerUnit;
         }
-        const jsx = element.renderFunc(currentX);
+        element.x = currentX;
         currentX += element.width;
-        return jsx;
+        return element;
+    });
+
+    // PHASE 2: beam, slur..
+    // Using group field to beam and slur field to slur 
+
+    // PHASE 3: render
+    const elementReactNodes = renderArr.map((element: BuilderRenderExt, index: number) => {
+        return element.renderFunc();
     });
 
     return (

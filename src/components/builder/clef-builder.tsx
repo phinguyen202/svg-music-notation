@@ -1,41 +1,42 @@
 import React from 'react';
 import { ClefType } from '@model/business.model';
-import { YCoordinate } from '@model/common.model';
+import { CoordinateModel } from '@model/common.model';
 import { BuilderRender } from '@builder/builder.model';
 import TrebleClef from '@base/clef/treble';
 import BassClef from '@base/clef/bass';
+import { SvgClefElement } from '@model/source.model';
 
-interface Props extends YCoordinate {
-    type: ClefType;
-}
+interface Props extends SvgClefElement, CoordinateModel {}
 
-export function clefBuilder({ type, y }: Props): BuilderRender {
-    switch (type) {
+export function clefBuilder(props: Props): BuilderRender & Props{
+    const { clef } = props;
+    let clefType;
+    switch (clef) {
         case 'treble':
-            return {
-                height: TrebleClef.height,
-                width: TrebleClef.width,
-                renderFunc: (x: number) => <TrebleClef.JSX x={x} y={y} />
-            };
+            clefType = TrebleClef;
+            break;
         case 'bass':
-            return {
-                height: BassClef.height,
-                width: BassClef.width,
-                renderFunc: (x: number) => <TrebleClef.JSX x={x} y={y} />
-            };
+            clefType = BassClef;
+            break;
         case 'alto':
-            return {
-                height: TrebleClef.height,
-                width: TrebleClef.width,
-                renderFunc: (x: number) => <TrebleClef.JSX x={x} y={y} />
-            };
+            clefType = TrebleClef;
+            break;
         case 'tenor':
-            return {
-                height: TrebleClef.height,
-                width: TrebleClef.width,
-                renderFunc: (x: number) => <TrebleClef.JSX x={x} y={y} />
-            };
+            clefType = TrebleClef;
+            break;
         default:
-            return undefined;
+            if (!clef) {
+                throw Error('Clef type is undefined');
+            } else {
+                throw Error(`Invalid clef: ${clef}`);
+            }
     }
+    return {
+        ...props,
+        ...clefType,
+        renderFunc: function () {
+            const { x = 0, y = 0, JSX } = this;
+            return <JSX x={x} y={y} />
+        }
+    };
 }

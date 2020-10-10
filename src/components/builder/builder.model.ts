@@ -1,5 +1,5 @@
-import { DimensionModel } from '@model/common.model';
+import { DimensionModel, CoordinateModel } from '@model/common.model';
 
-export interface BuilderRender extends DimensionModel{
+export interface BuilderRender extends DimensionModel, CoordinateModel{
     renderFunc: Function,
 }

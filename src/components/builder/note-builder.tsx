@@ -18,75 +18,48 @@ interface Props extends YCoordinate {
     isStemUp?: boolean;
     ledgers?: Array<number>
 }
-
-export interface Note extends BuilderRender {
-    height: number;
-}
-
 const space: number = 2;
 
-export function noteBuilder({ duration, accidental, dot, y = 0, isStemUp = true, ledgers }: Props): Note {
-    const ledgersJsx = ledgers && ledgers.map(ledgerY => {
-        return <Ledger.JSX x={-5} y={ledgerY} />
-    });
-    let renderFunc: (x: number) => JSX.Element;
-    switch (duration) {
+export function noteBuilder(props: Props): BuilderRender & Props {
+    const { duration } = props;
+    let note: any;
+    switch (props.duration) {
         case 'whole':
-            return {
-                width: WholeNote.width,
-                height: WholeNote.height,
-                renderFunc: (x: number) => (<g transform={`translate(${x}, ${y})`}>
-                    <WholeNote.JSX />
-                    { dot && <DotBuilder type={dot} x={WholeNote.width + space} y={WholeNote.height / 2 - space} />}
-                    { accidental && <AccidentalUpstreamBuilder type={accidental} distanceSpace={space} />}
-                    { ledgersJsx}
-                </g>)
-            };
+            note = WholeNote;
+            break;
         case 'half':
-            return {
-                width: HalfNote.width,
-                height: HalfNote.height,
-                renderFunc: (x: number) => (<g transform={`translate(${x}, ${y})`}>
-                    <HalfNote.JSX isStemUp={isStemUp} />
-                    { dot && <DotBuilder type={dot} x={HalfNote.width + space} y={HalfNote.height / 2 - space} />}
-                    { accidental && <AccidentalUpstreamBuilder type={accidental} distanceSpace={space} />}
-                    { ledgersJsx}
-                </g>)
-            };
+            note = HalfNote;
+            break;
         case 'quarter':
-            return {
-                width: QuarterNote.width,
-                height: QuarterNote.height,
-                renderFunc: (x: number) => (<g transform={`translate(${x}, ${y})`}>
-                    <QuarterNote.JSX isStemUp={isStemUp} />
-                    { dot && <DotBuilder type={dot} x={QuarterNote.width + space} y={QuarterNote.height / 2 - space} />}
-                    { accidental && <AccidentalUpstreamBuilder type={accidental} distanceSpace={space} />}
-                    { ledgersJsx}
-                </g>)
-            };
+            note = QuarterNote;
+            break;
         case 'eighth':
-            return {
-                width: EighthNote.width,
-                height: EighthNote.height,
-                renderFunc: (x: number) => (<g transform={`translate(${x}, ${y})`}>
-                    <EighthNote.JSX isStemUp={isStemUp} />
-                    { dot && <DotBuilder type={dot} x={EighthNote.width + space} y={EighthNote.height / 2 - space} />}
-                    { accidental && <AccidentalUpstreamBuilder type={accidental} distanceSpace={space} />}
-                    { ledgersJsx}
-                </g>)
-            };
+            note = EighthNote;
+            break;
         case 'sixteenth':
-            return {
-                width: SixteenthNote.width,
-                height: SixteenthNote.height,
-                renderFunc: (x: number) => (<g transform={`translate(${x}, ${y})`}>
-                    <SixteenthNote.JSX isStemUp={isStemUp} />
-                    { dot && <DotBuilder type={dot} x={SixteenthNote.width + space} y={SixteenthNote.height / 2 - space} />}
-                    { accidental && <AccidentalUpstreamBuilder type={accidental} distanceSpace={space} />}
-                    { ledgersJsx}
-                </g>)
-            };
+            note = SixteenthNote;
+            break;
         default:
-            return undefined;
+            if (!duration) {
+                throw Error('Note duration is undefined');
+            } else {
+                throw Error(`Invalid duration: ${duration}`);
+            }
     }
+    return {
+        ...props,
+        ...note,
+        renderFunc: function () {
+            const {  x = 0, y = 0, duration, accidental, dot, isStemUp = true, ledgers, width, height, JSX } = this;
+            const ledgersJsx = ledgers && ledgers.map((y: number) => {
+                return <Ledger.JSX x={-5} y={y} />
+            });
+            return (<g transform={`translate(${x}, ${y})`}>
+                <JSX isStemUp={isStemUp} />
+                {dot && <DotBuilder type={dot} x={width + space} y={height / 2 - space} />}
+                {accidental && <AccidentalUpstreamBuilder type={accidental} distanceSpace={space} />}
+                {ledgersJsx}
+            </g>)
+        }
+    };
 }
