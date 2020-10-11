@@ -7,6 +7,15 @@
     "jsx": "react",
     "allowJs": true,
     "importHelpers": false,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "paths": {
+      "@base/*": ["components/base/*"],
+      "@model/*": ["model/*"],
+      "@builder/*": ["components/builder/*"],
+      "@switcher/*": ["components/switcher/*"],
+      "@store/*": ["store/*"],
+    }
   }
 }

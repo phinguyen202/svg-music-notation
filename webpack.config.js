@@ -1,3 +1,6 @@
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const path = require('path');
+
 module.exports = {
   entry: "./src/test.tsx",
   output: {
@@ -10,7 +13,9 @@ module.exports = {
 
   resolve: {
     // Add ".ts" and ".tsx" as resolvable extensions.
-    extensions: [".ts", ".tsx", ".js", ".json"]
+    extensions: [".ts", ".tsx", ".js", ".json"],
+    // load modules whose location is specified in the paths section of tsconfig.json
+    plugins: [new TsconfigPathsPlugin({ configFile: path.resolve(__dirname, "./tsconfig.json") })]
   },
 
   module: {
@@ -24,5 +29,4 @@ module.exports = {
       { test: /\.css$/, use: ["style-loader", "css-loader"] },
     ]
   },
-
 };
