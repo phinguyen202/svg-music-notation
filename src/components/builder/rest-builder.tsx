@@ -5,12 +5,12 @@ import QuarterRest from '@base/rest/quarter';
 import EighthRest from '@base/rest/eighth';
 import SixteenthRest from '@base/rest/sixteenth';
 import { YCoordinate, CoordinateModel } from '@model/common.model';
-import { BuilderRender } from '@builder/builder.model';
+import { TypeBuilderRender } from '@builder/builder.model';
 import { SvgRestElement } from '@model/source.model';
 
 interface Props extends SvgRestElement, CoordinateModel { }
 
-export function restBuilder(props: Props): BuilderRender & Props {
+export function restBuilder(props: Props): TypeBuilderRender & Props {
     const { duration } = props;
     let restType;
     switch (duration) {

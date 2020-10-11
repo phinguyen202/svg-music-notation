@@ -1,7 +1,7 @@
 import React from 'react';
 import { SvgStaveSource } from '@model/source.model';
 // import ToolBar from 'components/toolbar';
-import Stave from 'components/stave';
+import Stave from '@stave/index';
 import ReactDOM from 'react-dom';
 import { DimensionModel } from '@model/common.model';
 

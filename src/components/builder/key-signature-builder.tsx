@@ -1,19 +1,17 @@
 import React from 'react';
 import Sharp from '@base/accidental/sharp';
 import Flat from '@base/accidental/flat';
-import { BuilderRender } from '@builder/builder.model';
+import { TypeBuilderRender } from '@builder/builder.model';
 import { YCoordinate, CoordinateModel } from '@model/common.model';
+import { SvgKeySignatureElement } from '@model/source.model';
 
-interface KeySignatureProps extends CoordinateModel {
-    keySigNumber: number;
+interface KeySignatureProps extends CoordinateModel, SvgKeySignatureElement {
     accidentalMap: Map<string, number[]>
 }
 
-interface keySignatureBuilder extends BuilderRender, KeySignatureProps { }
-
 const space: number = 2;
 
-export function keySignatureBuilder(props: KeySignatureProps): keySignatureBuilder {
+export function keySignatureBuilder(props: KeySignatureProps): KeySignatureProps & TypeBuilderRender {
     const { keySigNumber } = props;
     let width: number = 0;
     if (keySigNumber) {

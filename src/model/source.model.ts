@@ -20,6 +20,7 @@ export interface SvgNoteElement extends SvgElementRoot{
     accidental?: AccidentalType;
     beamGroup?: number;
     slurPair?: number;
+    tiePair?: number;
 }
 
 export interface SvgRestElement extends SvgElementRoot{

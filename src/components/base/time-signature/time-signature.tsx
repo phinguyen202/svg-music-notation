@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react';
 
 interface Props extends CoordinateModel {
     upper: number;
-	lower: number;
+    lower: number;
 }
 
 const width: number = 17;

@@ -2,13 +2,13 @@ import { BarLineType } from '@model/business.model';
 import BarLine from '@base/bar/barline';
 import DoubleBarLine from '@base/bar/double-barline';
 import BoldDoubleBarLine from '@base/bar/blod-double-barline';
-import { BuilderRender } from '@builder/builder.model';
+import { TypeBuilderRender } from '@builder/builder.model';
 import { YCoordinate, HeightDimension, CoordinateModel } from '../../model/common.model';
 import { SvgBarlineElement } from '@model/source.model';
 
 interface Props extends SvgBarlineElement, CoordinateModel, HeightDimension { }
 
-export function barlineBuilder(props: Props): BuilderRender & Props {
+export function barlineBuilder(props: Props): TypeBuilderRender & Props {
     const { barline } = props;
     let barlineType: any;
     switch (barline) {

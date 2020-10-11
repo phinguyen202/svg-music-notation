@@ -1,5 +1,5 @@
 import React from 'react';
-import { YCoordinate } from '@model/common.model';
+import { YCoordinate, CoordinateModel } from '@model/common.model';
 import { AccidentalType, DotType, DurationType } from '@model/business.model';
 import { DotBuilder } from '@builder/dot-builder';
 import WholeNote from '@base/note/whole';
@@ -9,18 +9,14 @@ import EighthNote from '@base/note/eighth';
 import SixteenthNote from '@base/note/sixteenth';
 import { AccidentalUpstreamBuilder } from '@builder/accidental-builder';
 import Ledger from '@base/staff-ledger/ledger';
-import { BuilderRender } from '@builder/builder.model';
+import { TypeBuilderRender } from '@builder/builder.model';
+import { SvgNoteElement } from '@model/source.model';
+import { NoteConfig } from '@stave/stave.model';
 
-interface Props extends YCoordinate {
-    accidental?: AccidentalType;
-    dot?: DotType;
-    duration: DurationType;
-    isStemUp?: boolean;
-    ledgers?: Array<number>
-}
+export interface NoteProps extends SvgNoteElement, NoteConfig, CoordinateModel {}
 const space: number = 2;
 
-export function noteBuilder(props: Props): BuilderRender & Props {
+export function noteBuilder(props: NoteProps): TypeBuilderRender & NoteProps {
     const { duration } = props;
     let note: any;
     switch (props.duration) {

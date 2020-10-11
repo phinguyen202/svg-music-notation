@@ -1,7 +1,7 @@
 import { PitchType } from '@model/business.model';
-import { NoteCofig } from '../stave.model';
+import { NoteConfig } from '../stave.model';
 
-export default new Map<PitchType, NoteCofig>([
+export default new Map<PitchType, NoteConfig>([
     ['C4', {
         y: 55,
         isStemUp: true,

@@ -11,10 +11,11 @@
     "moduleResolution": "node",
     "baseUrl": "src",
     "paths": {
-      "@base/*": ["components/base/*"],
       "@model/*": ["model/*"],
+      "@base/*": ["components/base/*"],
       "@builder/*": ["components/builder/*"],
       "@switcher/*": ["components/switcher/*"],
+      "@stave/*": ["components/stave/*"],
       "@store/*": ["store/*"],
     }
   }

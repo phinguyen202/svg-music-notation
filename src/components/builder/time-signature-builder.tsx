@@ -1,13 +1,13 @@
 import React from 'react';
 import { TimeSignatureLowerType, TimeSignatureUpperType } from '@model/business.model';
 import { CoordinateModel } from '@model/common.model';
-import { BuilderRender } from '@builder/builder.model';
+import { TypeBuilderRender } from '@builder/builder.model';
 import TimeSignature from '@base/time-signature/time-signature';
 import { SvgTimeSignatureElement } from '@model/source.model';
 
 interface Props extends SvgTimeSignatureElement, CoordinateModel { }
 
-export function timeSignatureBuilder(props: Props): BuilderRender & Props {
+export function timeSignatureBuilder(props: Props): TypeBuilderRender & Props {
     return {
         ...TimeSignature,
         ...props,
