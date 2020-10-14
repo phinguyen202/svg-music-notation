@@ -16,7 +16,8 @@
       "@builder/*": ["components/builder/*"],
       "@switcher/*": ["components/switcher/*"],
       "@stave/*": ["components/stave/*"],
-      "@store/*": ["store/*"],
+      "@utils/*": ["utils/*"],
+      "@store/*": ["store/*"]
     }
   }
 }
