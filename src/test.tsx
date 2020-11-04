@@ -19,7 +19,7 @@ const treblestaveSource: SvgStaveSource = {
         { type: 'note', duration: 'sixteenth', pitch: 'C6', slurPair: 1 },
         { type: 'note', duration: 'quarter', pitch: 'D4', slurPair: 2 },
         { type: 'note', duration: 'quarter', pitch: 'E4', slurPair: 3 },
-        { type: 'note', duration: 'quarter', pitch: 'F4' },
+        { type: 'note', duration: 'quarter', pitch: 'F4', slurPair: 2 },
         { type: 'note', duration: 'quarter', pitch: 'G4', slurPair: 3 },
         { type: 'note', duration: 'quarter', pitch: 'D5', slurPair: 4 },
         { type: 'note', duration: 'quarter', pitch: 'C4', slurPair: 4 },
@@ -50,7 +50,7 @@ const treblestaveSource: SvgStaveSource = {
         { type: 'note', duration: 'quarter', pitch: 'C4' },
         { type: 'rest', duration: 'sixteenth' },
         { type: 'barline', barline: 'single' },
-        { type: 'note', duration: 'quarter', pitch: 'C4', slurPair: 2 },
+        { type: 'note', duration: 'quarter', pitch: 'C4' },
     ]
 };
 

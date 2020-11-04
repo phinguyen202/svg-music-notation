@@ -102,7 +102,12 @@ export default function Stave({ x = 0, y = 0, clef = 'treble', elements = [], wi
     slurMap.forEach((elementGroup: TypeBuilderRender[]) => {
         const startEle = elementGroup[0];
         const endEle = elementGroup[1];
-        slurs.push(slurBuilder({ x1: startEle.x + startEle.width, y1: startEle.y + startEle.width, x2: endEle.x, y2: endEle.y + startEle.width }));
+        // 4 cases
+        // all Stem is Up => slur direction is over
+        // all Stem is down => slur direction is under
+        // start point stem is up and end point is down
+        // start point stem is down and end point is up
+        slurs.push(slurBuilder({ x1: startEle.x + startEle.width, y1: startEle.y + startEle.width, x2: endEle.x, y2: endEle.y + startEle.width, place: 'under' }));
     });
 
     // PHASE 3: render

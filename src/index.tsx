@@ -56,7 +56,7 @@ export class SvgMusicNotation extends React.Component<SvgMusicNotationProp, SvgM
 
     render() {
         const staveSourceMap = this.state.dimension && this.props.source.map((staveSource: SvgStaveSource, index: number) => {
-            return (<Stave y={100 * index} clef={staveSource.clef} elements={staveSource.elements} width={this.state.dimension.width} />)
+            return (<Stave y={120 * index + 20} clef={staveSource.clef} elements={staveSource.elements} width={this.state.dimension.width} />)
         })
 
         const { config } = this.props;
@@ -67,7 +67,7 @@ export class SvgMusicNotation extends React.Component<SvgMusicNotationProp, SvgM
             //     {/* toolbar */}
             //     {/* {editable && <ToolBar />} */}
             //     {/* sheet */}
-            <svg width={'100%'} height={this.props.source.length * 100} ref={this.smnRef}>
+            <svg width={'100%'} height={this.props.source.length * 140} ref={this.smnRef}>
                 {staveSourceMap}
             </svg>
             // </div>

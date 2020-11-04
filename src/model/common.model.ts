@@ -1,3 +1,8 @@
+export interface PointModel {
+	x: number;
+	y: number;
+}
+
 export interface XCoordinate {
 	x?: number;
 }

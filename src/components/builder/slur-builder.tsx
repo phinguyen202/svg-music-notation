@@ -1,12 +1,13 @@
 import React from 'react';
 import { BuilderRender } from '@builder/builder.model';
-import Slur from '@base/slur/slur';
+import Slur, { SlurDirection } from '@base/slur/slur';
 
 interface Props {
     x1: number;
     y1: number;
     x2: number;
     y2: number;
+    place: SlurDirection;
 }
 
 export function slurBuilder(props: Props): BuilderRender & Props {
