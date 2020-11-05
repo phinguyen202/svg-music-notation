@@ -5,8 +5,6 @@ export interface QuadraticEquationResult {
 }
 
 export function quadraticEquationSolver(a: number, b: number, c: number): QuadraticEquationResult {
-    console.log(a, b, c);
-    
     const dental = Math.sqrt(Math.pow(b, 2) - (4 * a * c));
     return <QuadraticEquationResult>{
         result1: (-1 * b + dental) / (2 * a),

@@ -1,7 +1,5 @@
-import { YCoordinate } from '@model/common.model';
 import { DurationType } from '@model/business.model';
-
-interface RestCofig extends YCoordinate { }
+import { RestCofig } from '@stave/stave.model';
 
 export default new Map<DurationType, RestCofig>([
     ['whole', {

@@ -40,8 +40,8 @@ export function restBuilder(props: Props): TypeBuilderRender & Props {
         ...props,
         ...restType,
         renderFunc: function () {
-            const { x, y, width, height } = this;
-            return <WholeHalfRest.JSX x={x} y={y} />
+            const { x, y, width, height, JSX } = this;
+            return <JSX x={x} y={y} />
         }
     }
 }
