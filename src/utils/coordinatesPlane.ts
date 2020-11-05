@@ -12,6 +12,15 @@ export interface TwoPointByPosition {
     under: PointModel;
 }
 
+/**
+ * @description finding 2 point (C) that ^BAC = degrees
+ * @author Phi Nguyen
+ * @export
+ * @param {PointModel} A
+ * @param {PointModel} B
+ * @param {number} degrees
+ * @returns {TwoPointByPosition}
+ */
 export function findPerpendicularPointsBasedOnAB(A: PointModel, B: PointModel, degrees: number): TwoPointByPosition {
     // called AB: y = ax + b
     // yA = axA + b
@@ -60,6 +69,15 @@ export function findPerpendicularPointsBasedOnAB(A: PointModel, B: PointModel, d
     }
 }
 
+/**
+ * @description finding 2 point (C() which is on dAB and distance of dAC = d
+ * @author Phi Nguyen
+ * @export
+ * @param {PointModel} A
+ * @param {PointModel} B
+ * @param {number} d
+ * @returns {TwoPointBaseLine}
+ */
 export function findPointsOnAB(A: PointModel, B: PointModel, d: number): TwoPointBaseLine {
     // dAB
     const a = (B.y - A.y) / (B.x - A.x);
@@ -94,6 +112,14 @@ export function findPointsOnAB(A: PointModel, B: PointModel, d: number): TwoPoin
     }
 }
 
+/**
+ * @description calcular distance between A and B
+ * @author Phi Nguyen
+ * @export
+ * @param {PointModel} A
+ * @param {PointModel} B
+ * @returns {number}
+ */
 export function calculatedAB(A: PointModel, B: PointModel): number {
     return Math.sqrt(Math.pow(A.x - B.x, 2) + Math.pow(A.y - B.y, 2));
 }
