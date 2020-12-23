@@ -12,6 +12,7 @@ import Ledger from '@base/staff-ledger/ledger';
 import { TypeBuilderRender } from '@builder/builder.model';
 import { SvgNoteElement } from '@model/source.model';
 import { NoteConfig } from '@stave/stave.model';
+import { RenderError } from '@exception/root';
 
 export interface NoteProps extends SvgNoteElement, NoteConfig, CoordinateModel {}
 const space: number = 2;
@@ -37,20 +38,20 @@ export function noteBuilder(props: NoteProps): TypeBuilderRender & NoteProps {
             break;
         default:
             if (!duration) {
-                throw Error('Note duration is undefined');
+                throw new RenderError('Note duration is undefined');
             } else {
-                throw Error(`Invalid duration: ${duration}`);
+                throw new RenderError(`Invalid duration: ${duration}`);
             }
     }
     return {
         ...props,
         ...note,
         renderFunc: function () {
-            const {  x = 0, y = 0, duration, accidental, dot, isStemUp = true, ledgers, width, height, JSX } = this;
+            const {  id, x = 0, y = 0, duration, accidental, dot, isStemUp = true, ledgers, width, height, JSX } = this;
             const ledgersJsx = ledgers && ledgers.map((y: number) => {
                 return <Ledger.JSX x={-5} y={y} />
             });
-            return (<g transform={`translate(${x}, ${y})`}>
+            return (<g transform={`translate(${x}, ${y})`} key={id}>
                 <JSX isStemUp={isStemUp} />
                 {dot && <DotBuilder type={dot} x={width + space} y={height / 2 - space} />}
                 {accidental && <AccidentalUpstreamBuilder type={accidental} distanceSpace={space} />}

@@ -7,6 +7,7 @@ import SixteenthRest from '@base/rest/sixteenth';
 import { YCoordinate, CoordinateModel } from '@model/common.model';
 import { TypeBuilderRender } from '@builder/builder.model';
 import { SvgRestElement } from '@model/source.model';
+import { RenderError } from '@exception/root';
 
 interface Props extends SvgRestElement, CoordinateModel { }
 
@@ -31,9 +32,9 @@ export function restBuilder(props: Props): TypeBuilderRender & Props {
             break;
         default:
             if (!duration) {
-                throw Error('Rest duration is undefined');
+                throw new RenderError('Rest duration is undefined');
             } else {
-                throw Error(`Invalid duration: ${duration}`);
+                throw new RenderError(`Invalid duration: ${duration}`);
             }
     }
     return {
