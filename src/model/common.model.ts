@@ -1,3 +1,7 @@
+export interface Identity<T> {
+	id: T;
+}
+
 export interface PointModel {
 	x: number;
 	y: number;
