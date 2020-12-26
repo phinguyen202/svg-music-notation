@@ -1,3 +1,4 @@
+import React from 'react';
 import BarLine from '@base/bar/barline';
 import DoubleBarLine from '@base/bar/double-barline';
 import BoldDoubleBarLine from '@base/bar/blod-double-barline';
@@ -32,8 +33,8 @@ export function barlineBuilder(props: Props): TypeBuilderRender & Props {
         ...props,
         ...barlineType,
         renderFunc: function () {
-            const { x = 0, y = 0, height, JSX } = this;
-            return JSX({ x, y, height });
+            const { id, x = 0, y = 0, height, JSX } = this;
+            return <JSX key={id} x={x} y={y} height={height} />
         }
     };
 }

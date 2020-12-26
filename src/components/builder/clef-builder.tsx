@@ -36,8 +36,8 @@ export function clefBuilder(props: Props): TypeBuilderRender & Props{
         ...props,
         ...clefType,
         renderFunc: function () {
-            const { x = 0, y = 0, JSX } = this;
-            return <JSX x={x} y={y} />
+            const { id, x = 0, y = 0, JSX } = this;
+            return <JSX key={id} x={x} y={y} />
         }
     };
 }

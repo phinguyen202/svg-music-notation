@@ -1,6 +1,6 @@
 import React from 'react';
 import Staff from '@base/staff-ledger/staff';
-import { SvgStaveSource, SvgElement, SvgElementType, SvgNoteElement, SvgBarlineElement, SvgTimeSignatureElement, SvgClefElement, SvgRestElement } from '@model/source.model';
+import { SvgStaveSource, SvgElement, SvgElementType, SvgNoteElement, SvgBarlineElement, SvgTimeSignatureElement, SvgClefElement, SvgRestElement, SlurElement } from '@model/source.model';
 import { CoordinateModel, WidthDimension } from '@model/common.model';
 import { noteBuilder, NoteProps } from 'components/builder/note-builder';
 import { NoteConfig } from '@stave/stave.model';
@@ -15,6 +15,7 @@ import { clefBuilder } from '@builder/clef-builder';
 import { timeSignatureBuilder } from '@builder/time-signature-builder';
 import { slurBuilder } from '@builder/slur-builder';
 import { DistanceType, distanceMap, lastEleDisUnit } from './mapping/distance.map';
+import { SlurDirection } from '@base/slur/slur';
 
 interface StaveProps extends SvgStaveSource, CoordinateModel, WidthDimension { }
 
@@ -22,7 +23,13 @@ interface PreRenderModel extends WidthDimension {
     renderArr: TypeBuilderRender[]
 }
 
-export default function Stave({ x = 0, y = 0, clef = 'treble', elements = [], width }: StaveProps) {
+export default function Stave({ x = 0, y = 0, elements = [], slurs = [], width }: StaveProps) {
+    // setting up clef
+    let clef: ClefType = 'treble';
+    if (elements.length && elements[0].type === 'clef') {
+        const clefEle = elements[0] as SvgClefElement;
+        clef = clefEle.clef;
+    }
     // PHASE 1: Calculate note distance
     // get stuff ready
     const keySignatureMap: Map<string, number[]> = findKeySignatureMap(clef);
@@ -87,35 +94,33 @@ export default function Stave({ x = 0, y = 0, clef = 'treble', elements = [], wi
     // Using group field to beam and slur field to slur 
     // group by beamGroup and slurPair
     // group by slurPair
-    const slurMap = renderArr.filter((element: TypeBuilderRender) => element.type === 'note')
-        .reduce((previous: Map<number, TypeBuilderRender[]>, element: TypeBuilderRender & NoteProps) => {
-            const { slurPair } = element;
-            if (!isNaN(slurPair)) {
-                const group = previous.get(slurPair);
-                const newGroup = (group ? group : []).concat(element);
-                previous.set(slurPair, newGroup);
+    const noteElements = renderArr.filter((element: TypeBuilderRender) => element.type === 'note');
+    const newSlurs = noteElements.reduce((previous: any[], element: TypeBuilderRender & NoteProps) => {
+        const { id, slurTo } = element;
+        if (slurTo && !slurs.some(s => s.from === id)) {
+            const toElement = noteElements.find((element: TypeBuilderRender & NoteProps) => element.id === slurTo);
+            if (toElement) {
+                // start point stem is up => under
+                // start point stem is down => over
+                const { x, y, width, isStemUp } = element;
+                if ( isStemUp ) {
+                    previous.push(slurBuilder({ id: 'new_id_0', x1: x + width, y1: y + width, x2: toElement.x, y2: toElement.y + width, place: 'under' }));
+                } else {
+                    previous.push(slurBuilder({ id: 'new_id_1', x1: x + width, y1: y , x2: toElement.x, y2: toElement.y, place: 'over' }));
+                }
             }
-            return previous;
-        }, new Map<number, TypeBuilderRender[]>([]));
+        }
+        return previous;
+    }, [] as any[]);
 
-    const slurs: any[] = [];
-    slurMap.forEach((elementGroup: TypeBuilderRender[]) => {
-        const startEle = elementGroup[0];
-        const endEle = elementGroup[1];
-        // 4 cases
-        // all Stem is Up => slur direction is over
-        // all Stem is down => slur direction is under
-        // start point stem is up and end point is down
-        // start point stem is down and end point is up
-        slurs.push(slurBuilder({ x1: startEle.x + startEle.width, y1: startEle.y + startEle.width, x2: endEle.x, y2: endEle.y + startEle.width, place: 'under' }));
-    });
+    const allSlurs = [...slurs, ...newSlurs];
 
     // PHASE 3: render
     const elementReactNodes = renderArr.map((element: TypeBuilderRender, index: number) => {
         return element.renderFunc();
     });
 
-    const slurReactNodes = slurs.map((element: any, index: number) => {
+    const slurReactNodes = allSlurs.map((element: any, index: number) => {
         return element.renderFunc();
     });
 

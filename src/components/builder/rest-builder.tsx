@@ -41,8 +41,8 @@ export function restBuilder(props: Props): TypeBuilderRender & Props {
         ...props,
         ...restType,
         renderFunc: function () {
-            const { x, y, width, height, JSX } = this;
-            return <JSX x={x} y={y} />
+            const { id, x, y, width, height, JSX } = this;
+            return <JSX key={id} x={x} y={y} />
         }
     }
 }

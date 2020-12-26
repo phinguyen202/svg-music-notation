@@ -8,6 +8,7 @@ import { DimensionModel } from '@model/common.model';
 export interface SvgSheetConfig {
     height: string;
     width: string;
+    stave?: StaveConfig;
     editable?: boolean;
     save?: {
         handler: Function
@@ -17,9 +18,15 @@ export interface SvgSheetConfig {
     },
 }
 
+export interface StaveConfig {
+    height?: number; // from top of staff subtract 10, default: 120
+    marginTop?: number; // default: 20
+}
+
 export interface SvgMusicNotationProp {
     config: SvgSheetConfig,
     source: SvgStaveSource[],
+
     // header?: React.ReactNode
 }
 
@@ -55,19 +62,23 @@ export class SvgMusicNotation extends React.Component<SvgMusicNotationProp, SvgM
     }
 
     render() {
-        const staveSourceMap = this.state.dimension && this.props.source.map((staveSource: SvgStaveSource, index: number) => {
-            return (<Stave y={120 * index + 20} clef={staveSource.clef} elements={staveSource.elements} width={this.state.dimension.width} />)
-        })
+        const { source, config } = this.props;
+        const { width, height, editable, stave } = config;
+        const { dimension } = this.state;
 
-        const { config } = this.props;
-        const { editable } = config;
+        const staveHeight = stave && stave.height ? stave.height : 120;
+        const marginTop = stave && stave.marginTop ? stave.marginTop : 20;
+
+        const staveSourceMap = dimension && source.map(({ id, elements, slurs }: SvgStaveSource, index: number) => {
+            return (<Stave key={id} id={id} y={staveHeight * index + marginTop} width={dimension.width} elements={elements} slurs={slurs}/>)
+        });
 
         return (
             // <div style={{ width: '100%', height: '100%' }}>
             //     {/* toolbar */}
             //     {/* {editable && <ToolBar />} */}
             //     {/* sheet */}
-            <svg width={'100%'} height={this.props.source.length * 140} ref={this.smnRef}>
+            <svg width={width} height={height} ref={this.smnRef}>
                 {staveSourceMap}
             </svg>
             // </div>

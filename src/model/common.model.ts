@@ -7,6 +7,13 @@ export interface PointModel {
 	y: number;
 }
 
+export interface TwoPointModel {
+	x1: number;
+	y1: number;
+	x2: number;
+	y2: number;
+}
+
 export interface XCoordinate {
 	x?: number;
 }

@@ -48,10 +48,10 @@ export function noteBuilder(props: NoteProps): TypeBuilderRender & NoteProps {
         ...note,
         renderFunc: function () {
             const {  id, x = 0, y = 0, duration, accidental, dot, isStemUp = true, ledgers, width, height, JSX } = this;
-            const ledgersJsx = ledgers && ledgers.map((y: number) => {
-                return <Ledger.JSX x={-5} y={y} />
+            const ledgersJsx = ledgers && ledgers.map((y: number, index: number) => {
+                return <Ledger.JSX key={index} x={-5} y={y} />
             });
-            return (<g transform={`translate(${x}, ${y})`} key={id}>
+            return (<g key={id} transform={`translate(${x}, ${y})`}>
                 <JSX isStemUp={isStemUp} />
                 {dot && <DotBuilder type={dot} x={width + space} y={height / 2 - space} />}
                 {accidental && <AccidentalUpstreamBuilder type={accidental} distanceSpace={space} />}
