@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import { SvgMusicNotation, SvgSheetConfig } from './index';
+import { SvgMusicNotation, SvgSheetConfig, SvgSource } from './index';
 import React from 'react';
 import { SvgStaveSource } from '@model/source.model';
 
@@ -120,7 +120,10 @@ const treblestaveSource0: SvgStaveSource = {
     ]
 };
 
-const svgSource: SvgStaveSource[] = [treblestaveSource, treblestaveSource0];
+const svgSource: SvgSource = {
+    staves: [treblestaveSource, treblestaveSource0],
+    idIncrementNo: 56,
+}
 
 ReactDOM.render(
     <SvgMusicNotation config={svgConfig} source={svgSource} />,

@@ -4,6 +4,7 @@ import { SvgStaveSource } from '@model/source.model';
 import Stave from '@stave/index';
 import ReactDOM from 'react-dom';
 import { DimensionModel } from '@model/common.model';
+import { init } from '@utils/idGenerator';
 
 export interface SvgSheetConfig {
     height: string;
@@ -11,10 +12,10 @@ export interface SvgSheetConfig {
     stave?: StaveConfig;
     editable?: boolean;
     save?: {
-        handler: Function
+        handler: Function;
     },
     export?: {
-        handler: Function
+        handler: Function;
     },
 }
 
@@ -23,10 +24,14 @@ export interface StaveConfig {
     marginTop?: number; // default: 20
 }
 
-export interface SvgMusicNotationProp {
-    config: SvgSheetConfig,
-    source: SvgStaveSource[],
+export interface SvgSource {
+    staves: SvgStaveSource[];
+    idIncrementNo?: number;
+}
 
+export interface SvgMusicNotationProp {
+    config: SvgSheetConfig;
+    source: SvgSource;
     // header?: React.ReactNode
 }
 
@@ -63,13 +68,17 @@ export class SvgMusicNotation extends React.Component<SvgMusicNotationProp, SvgM
 
     render() {
         const { source, config } = this.props;
+        const { staves, idIncrementNo } = source;
         const { width, height, editable, stave } = config;
         const { dimension } = this.state;
+
+        // initialize Id Generator
+        init(idIncrementNo);
 
         const staveHeight = stave && stave.height ? stave.height : 120;
         const marginTop = stave && stave.marginTop ? stave.marginTop : 20;
 
-        const staveSourceMap = dimension && source.map(({ id, elements, slurs }: SvgStaveSource, index: number) => {
+        const staveSourceMap = dimension && staves.map(({ id, elements, slurs }: SvgStaveSource, index: number) => {
             return (<Stave key={id} id={id} y={staveHeight * index + marginTop} width={dimension.width} elements={elements} slurs={slurs}/>)
         });
 
