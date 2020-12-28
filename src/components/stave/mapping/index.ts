@@ -1,7 +1,7 @@
 export { default as RestMap } from './rest.map';
 import TrebleNoteMap from './treble.note.map';
 import TrebleKeySignatureMap from './treble.key-signature.map';
-import { ClefType, PitchType } from '@model/business.model';
+import { AccidentalKeySignature, ClefType, PitchType } from '@model/business.model';
 import { NoteConfig } from '../stave.model';
 
 export function findNoteMap(clef: ClefType): Map<PitchType, NoteConfig> {
@@ -10,7 +10,7 @@ export function findNoteMap(clef: ClefType): Map<PitchType, NoteConfig> {
     }
 }
 
-export function findKeySignatureMap(clef: ClefType): Map<string, number[]> {
+export function findKeySignatureMap(clef: ClefType): Map<AccidentalKeySignature, number[]> {
     if (clef === 'treble') {
         return TrebleKeySignatureMap;
     }
