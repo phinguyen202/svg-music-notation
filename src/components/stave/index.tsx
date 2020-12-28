@@ -5,7 +5,7 @@ import { CoordinateModel, WidthDimension } from '@model/common.model';
 import { noteBuilder, NoteProps } from 'components/builder/note-builder';
 import { NoteConfig } from '@stave/stave.model';
 import { RestMap, findKeySignatureMap, findNoteMap } from './mapping';
-import { ClefType, PitchType } from '@model/business.model';
+import { ClefType, PitchType, DurationType } from '@model/business.model';
 import { SvgKeySignatureElement } from '@model/source.model';
 import { keySignatureBuilder } from '@builder/key-signature-builder';
 import { restBuilder } from '@builder/rest-builder';
@@ -17,11 +17,12 @@ import { slurBuilder } from '@builder/slur-builder';
 import { DistanceType, distanceMap, lastEleDisUnit } from './mapping/distance.map';
 import { SlurDirection } from '@base/slur/slur';
 import { next } from '@utils/idGenerator';
+import { beamDurations } from './mapping/beam';
 
 interface StaveProps extends SvgStaveSource, CoordinateModel, WidthDimension { }
 
 interface PreRenderModel extends WidthDimension {
-    renderArr: TypeBuilderRender[]
+    renderArr: TypeBuilderRender[];
 }
 
 export default function Stave({ x = 0, y = 0, elements = [], slurs = [], width }: StaveProps) {
@@ -92,12 +93,11 @@ export default function Stave({ x = 0, y = 0, elements = [], slurs = [], width }
     });
 
     // PHASE 2: beam, slur..
-    // Using group field to beam and slur field to slur 
-    // group by beamGroup and slurPair
-    // group by slurPair
+
+    // slurs
     // get notes
     const noteElements = renderArr.filter((element: TypeBuilderRender) => element.type === 'note');
-    
+
     // getting new slurs
     const newSlurs = noteElements.reduce((previous: any[], element: TypeBuilderRender & NoteProps) => {
         const { id, slurTo } = element;
@@ -107,10 +107,10 @@ export default function Stave({ x = 0, y = 0, elements = [], slurs = [], width }
                 // start point stem is up => under
                 // start point stem is down => over
                 const { x, y, width, isStemUp } = element;
-                if ( isStemUp ) {
+                if (isStemUp) {
                     previous.push(slurBuilder({ id: next(), x1: x + width, y1: y + width, x2: toElement.x, y2: toElement.y + width, place: 'under' }));
                 } else {
-                    previous.push(slurBuilder({ id: next(), x1: x + width, y1: y , x2: toElement.x, y2: toElement.y, place: 'over' }));
+                    previous.push(slurBuilder({ id: next(), x1: x + width, y1: y, x2: toElement.x, y2: toElement.y, place: 'over' }));
                 }
             }
         }
@@ -119,6 +119,12 @@ export default function Stave({ x = 0, y = 0, elements = [], slurs = [], width }
 
     const allSlurs = [...slurs, ...newSlurs];
 
+    // beams
+    const ableToBeamNotes = noteElements.filter((element: TypeBuilderRender & NoteProps) => beamDurations.some((d: DurationType) => d === element.duration));
+
+    // getting new slurs
+
+    
     // PHASE 3: render
     const elementReactNodes = renderArr.map((element: TypeBuilderRender, index: number) => {
         return element.renderFunc();

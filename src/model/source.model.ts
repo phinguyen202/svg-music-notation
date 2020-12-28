@@ -20,7 +20,7 @@ export interface SvgNoteElement extends SvgElementRoot {
     pitch: PitchType;
     dot?: DotType;
     accidental?: AccidentalType;
-    beamGroup?: number;
+    beamGroup?: string;
     slurTo?: string;
 }
 
