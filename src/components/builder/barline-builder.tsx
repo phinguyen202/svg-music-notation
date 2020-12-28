@@ -1,10 +1,11 @@
-import { BarLineType } from '@model/business.model';
+import React from 'react';
 import BarLine from '@base/bar/barline';
 import DoubleBarLine from '@base/bar/double-barline';
 import BoldDoubleBarLine from '@base/bar/blod-double-barline';
 import { TypeBuilderRender } from '@builder/builder.model';
-import { YCoordinate, HeightDimension, CoordinateModel } from '../../model/common.model';
+import { HeightDimension, CoordinateModel } from '../../model/common.model';
 import { SvgBarlineElement } from '@model/source.model';
+import { RenderError } from '@exception/root';
 
 interface Props extends SvgBarlineElement, CoordinateModel, HeightDimension { }
 
@@ -23,17 +24,17 @@ export function barlineBuilder(props: Props): TypeBuilderRender & Props {
             break;
         default:
             if (!barline) {
-                throw Error('Barline type is undefined');
+                throw new RenderError('Barline type is undefined');
             } else {
-                throw Error(`Invalid barline: ${barline}`);
+                throw new RenderError(`Invalid barline: ${barline}`);
             }
     }
     return {
         ...props,
         ...barlineType,
         renderFunc: function () {
-            const { x = 0, y = 0, height, JSX } = this;
-            return JSX({ x, y, height });
+            const { id, x = 0, y = 0, height, JSX } = this;
+            return <JSX key={id} x={x} y={y} height={height} />
         }
     };
 }

@@ -1,22 +1,19 @@
 import React from 'react';
 import { BuilderRender } from '@builder/builder.model';
 import Slur, { SlurDirection } from '@base/slur/slur';
+import { Identity, TwoPointModel } from '@model/common.model';
 
-interface Props {
-    x1: number;
-    y1: number;
-    x2: number;
-    y2: number;
+interface SlurBuilderProps extends Identity<String>, TwoPointModel {
     place: SlurDirection;
 }
 
-export function slurBuilder(props: Props): BuilderRender & Props {
+export function slurBuilder(props: SlurBuilderProps): BuilderRender & SlurBuilderProps {
     return {
         ...Slur,
         ...props,
         renderFunc: function () {
-            const { x1, y1, x2, y2, JSX } = this;
-            return <JSX x1={x1} y1={y1} x2={x2} y2={y2} />
+            const { id, x1, y1, x2, y2, place, JSX } = this;
+            return <JSX key={id} x1={x1} y1={y1} x2={x2} y2={y2} place={place} />
         }
     }
 }

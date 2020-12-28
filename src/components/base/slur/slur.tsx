@@ -1,14 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { QuadraticEquationResult, quadraticEquationSolver } from '@utils/quadraticEquation';
-import { CoordinateModel, PointModel } from '@model/common.model';
+import { CoordinateModel, PointModel, TwoPointModel } from '@model/common.model';
 import { findPointsOnAB, findPerpendicularPointsBasedOnAB, TwoPointByPosition } from '@utils/coordinatesPlane';
 
 export type SlurDirection = 'over' | 'under';
-interface Props {
-    x1: number;
-    y1: number;
-    x2: number;
-    y2: number;
+interface Props extends TwoPointModel {
     place?: SlurDirection;
 }
 

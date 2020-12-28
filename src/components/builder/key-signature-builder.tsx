@@ -27,7 +27,7 @@ export function keySignatureBuilder(props: KeySignatureProps): KeySignatureProps
         width,
         height: 0,
         renderFunc: function() {
-            const { x, y = 0, keySigNumber, accidentalMap } = this;
+            const { id, x, y = 0, keySigNumber, accidentalMap } = this;
             let keySignature;
             if (keySigNumber > 0) {
                 keySignature = accidentalMap.get('sharp').slice(0, keySigNumber).map((keyY: number, index: number) => {
@@ -38,7 +38,7 @@ export function keySignatureBuilder(props: KeySignatureProps): KeySignatureProps
                     return <Flat.JSX x={index * (Flat.width + space)} y={keyY} key={index} />
                 });
             }
-            return (<g transform={`translate(${x}, ${y})`}>
+            return (<g key={id} transform={`translate(${x}, ${y})`}>
                 {keySignature}
             </g>)
         }

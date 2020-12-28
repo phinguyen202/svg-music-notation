@@ -5,6 +5,7 @@ import { TypeBuilderRender } from '@builder/builder.model';
 import TrebleClef from '@base/clef/treble';
 import BassClef from '@base/clef/bass';
 import { SvgClefElement } from '@model/source.model';
+import { RenderError } from '@exception/root';
 
 interface Props extends SvgClefElement, CoordinateModel {}
 
@@ -26,17 +27,17 @@ export function clefBuilder(props: Props): TypeBuilderRender & Props{
             break;
         default:
             if (!clef) {
-                throw Error('Clef type is undefined');
+                throw new RenderError('Clef type is undefined');
             } else {
-                throw Error(`Invalid clef: ${clef}`);
+                throw new RenderError(`Invalid clef: ${clef}`);
             }
     }
     return {
         ...props,
         ...clefType,
         renderFunc: function () {
-            const { x = 0, y = 0, JSX } = this;
-            return <JSX x={x} y={y} />
+            const { id, x = 0, y = 0, JSX } = this;
+            return <JSX key={id} x={x} y={y} />
         }
     };
 }

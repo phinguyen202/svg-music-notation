@@ -12,8 +12,8 @@ export function timeSignatureBuilder(props: Props): TypeBuilderRender & Props {
         ...TimeSignature,
         ...props,
         renderFunc: function () {
-            const { x, y, upper, lower } = this;
-            return <TimeSignature.JSX x={x} y={y} upper={upper} lower={lower} />
+            const { id, x, y, upper, lower } = this;
+            return <TimeSignature.JSX key={id} x={x} y={y} upper={upper} lower={lower} />
         }
     };
 }
