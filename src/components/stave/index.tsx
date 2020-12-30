@@ -15,7 +15,6 @@ import { clefBuilder } from '@builder/clef-builder';
 import { timeSignatureBuilder } from '@builder/time-signature-builder';
 import { slurBuilder } from '@builder/slur-builder';
 import { DistanceType, distanceMap, lastEleDisUnit } from './mapping/distance.map';
-import { SlurDirection } from '@base/slur/slur';
 import { next } from '@utils/idGenerator';
 import { beamDurations } from './mapping/beam';
 
@@ -120,11 +119,19 @@ export default function Stave({ x = 0, y = 0, elements = [], slurs = [], width }
     const allSlurs = [...slurs, ...newSlurs];
 
     // beams
-    const ableToBeamNotes = noteElements.filter((element: TypeBuilderRender & NoteProps) => beamDurations.some((d: DurationType) => d === element.duration));
+    // grouping by beamGroup
+    const beamMap: Map<string, (TypeBuilderRender & NoteProps)[]> = noteElements.reduce((map: Map<string, (TypeBuilderRender & NoteProps)[]>, element: TypeBuilderRender & NoteProps) => {
+        if (element.beamGroup && beamDurations.some((d: DurationType) => d === element.duration)) {
+            if (map.has(element.beamGroup)) {
+                map.get(element.beamGroup).push(element);
+            } else {
+                map.set(element.beamGroup, [element]);
+            }
+        }
+        return map;
+    }, new Map<string, (TypeBuilderRender & NoteProps)[]>());
+    // build beams
 
-    // getting new slurs
-
-    
     // PHASE 3: render
     const elementReactNodes = renderArr.map((element: TypeBuilderRender, index: number) => {
         return element.renderFunc();
