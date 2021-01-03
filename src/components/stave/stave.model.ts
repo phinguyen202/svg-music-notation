@@ -1,6 +1,6 @@
-import { YCoordinate } from '@model/common.model';
+import { YCoordinate, Order } from '@model/common.model';
 
-export interface NoteConfig extends YCoordinate {
+export interface NoteConfig extends YCoordinate, Order<number> {
     isStemUp: boolean,
     ledgers?: Array<number>
 }

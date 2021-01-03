@@ -1,6 +1,9 @@
 import React from 'react';
 import Staff from '@base/staff-ledger/staff';
-import { SvgStaveSource, SvgElement, SvgElementType, SvgNoteElement, SvgBarlineElement, SvgTimeSignatureElement, SvgClefElement, SvgRestElement, SlurElement } from '@model/source.model';
+import {
+    SvgStaveSource, SvgElement, SvgElementType, SvgNoteElement, SvgBarlineElement, SvgTimeSignatureElement,
+    SvgClefElement, SvgRestElement, SlurElement
+} from '@model/source.model';
 import { CoordinateModel, WidthDimension } from '@model/common.model';
 import { noteBuilder, NoteProps } from 'components/builder/note-builder';
 import { NoteConfig } from '@stave/stave.model';
@@ -17,6 +20,8 @@ import { slurBuilder } from '@builder/slur-builder';
 import { DistanceType, distanceMap, lastEleDisUnit } from './mapping/distance.map';
 import { next } from '@utils/idGenerator';
 import { beamDurations } from './mapping/beam';
+import { beamBuilder } from '@builder/beam-builder';
+import HeadNote from '@base/note/head';
 
 interface StaveProps extends SvgStaveSource, CoordinateModel, WidthDimension { }
 
@@ -120,7 +125,7 @@ export default function Stave({ x = 0, y = 0, elements = [], slurs = [], width }
 
     // beams
     // grouping by beamGroup
-    const beamMap: Map<string, (TypeBuilderRender & NoteProps)[]> = noteElements.reduce((map: Map<string, (TypeBuilderRender & NoteProps)[]>, element: TypeBuilderRender & NoteProps) => {
+    const newBeamsMap: Map<string, (TypeBuilderRender & NoteProps)[]> = noteElements.reduce((map: Map<string, (TypeBuilderRender & NoteProps)[]>, element: TypeBuilderRender & NoteProps) => {
         if (element.beamGroup && beamDurations.some((d: DurationType) => d === element.duration)) {
             if (map.has(element.beamGroup)) {
                 map.get(element.beamGroup).push(element);
@@ -131,6 +136,33 @@ export default function Stave({ x = 0, y = 0, elements = [], slurs = [], width }
         return map;
     }, new Map<string, (TypeBuilderRender & NoteProps)[]>());
     // build beams
+    // for each group and change the way note is built
+    // applying beamed rules
+
+    const beams: any[] = [];
+    for (const [key, notes] of newBeamsMap) {
+        if (notes.length < 2) {
+            continue;
+        }
+        // direction (up or down) of beam based on averge of order
+        // if less than mid then down
+        // else up
+        const isUp: boolean = notes.reduce((previous: number, note: NoteConfig) => previous + note.order, 0) / notes.length < 7;
+        const beamElements = notes.map(({ x, y}: TypeBuilderRender) => {
+            return {
+                x: x + HeadNote.width,
+                y: y + HeadNote.height/2,
+                height: 30
+            }
+        });
+
+        const beam = beamBuilder({
+            id: next(),
+            isUp,
+            elements: beamElements
+        });
+        beams.push(beam);
+    }
 
     // PHASE 3: render
     const elementReactNodes = renderArr.map((element: TypeBuilderRender, index: number) => {
@@ -141,11 +173,16 @@ export default function Stave({ x = 0, y = 0, elements = [], slurs = [], width }
         return element.renderFunc();
     });
 
+    const beamReactNodes = beams.map((element: any, index: number) => {
+        return element.renderFunc();
+    });
+
     return (
         <g transform={`translate(${x}, ${y})`}>
             <Staff.JSX lineNumber={5} space={10} width={width} />
             {elementReactNodes}
             {slurReactNodes}
+            {beamReactNodes}
         </g>
     )
 }

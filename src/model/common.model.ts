@@ -2,6 +2,10 @@ export interface Identity<T> {
 	id: T;
 }
 
+export interface Order<T> {
+	order: T;
+}
+
 export interface PointModel {
 	x: number;
 	y: number;

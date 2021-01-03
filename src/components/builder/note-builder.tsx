@@ -13,36 +13,41 @@ import { TypeBuilderRender } from '@builder/builder.model';
 import { SvgNoteElement } from '@model/source.model';
 import { NoteConfig } from '@stave/stave.model';
 import { RenderError } from '@exception/root';
+import HeadNote from '@base/note/head';
 
 export interface NoteProps extends SvgNoteElement, NoteConfig, CoordinateModel {}
 const space: number = 2;
 
 export function noteBuilder(props: NoteProps): TypeBuilderRender & NoteProps {
-    const { duration } = props;
+    const { duration, beamGroup } = props;
     let note: any;
-    switch (props.duration) {
-        case 'whole':
-            note = WholeNote;
-            break;
-        case 'half':
-            note = HalfNote;
-            break;
-        case 'quarter':
-            note = QuarterNote;
-            break;
-        case 'eighth':
-            note = EighthNote;
-            break;
-        case 'sixteenth':
-            note = SixteenthNote;
-            break;
-        default:
-            if (!duration) {
-                throw new RenderError('Note duration is undefined');
-            } else {
-                throw new RenderError(`Invalid duration: ${duration}`);
-            }
-    }
+    if (beamGroup) {
+        note = HeadNote;
+    } else {
+        switch (props.duration) {
+            case 'whole':
+                note = WholeNote;
+                break;
+            case 'half':
+                note = HalfNote;
+                break;
+            case 'quarter':
+                note = QuarterNote;
+                break;
+            case 'eighth':
+                note = EighthNote;
+                break;
+            case 'sixteenth':
+                note = SixteenthNote;
+                break;
+            default:
+                if (!duration) {
+                    throw new RenderError('Note duration is undefined');
+                } else {
+                    throw new RenderError(`Invalid duration: ${duration}`);
+                }
+        }
+    } 
     return {
         ...props,
         ...note,
