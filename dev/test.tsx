@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import { SvgMusicNotation, SvgSheetConfig, SvgSource } from './index';
+import { SvgMusicNotation, SvgSheetConfig, SvgSource } from '../src/index';
 import React from 'react';
 import { SvgStaveSource } from '@model/source.model';
 
@@ -67,15 +67,15 @@ const treblestaveSource0: SvgStaveSource = {
         { id: '3', type: 'timeSignature', upper: 4, lower: 4 },
         { id: '4', type: 'note', duration: 'sixteenth', pitch: 'C6', slurTo: '5', },
         { id: '5', type: 'note', duration: 'sixteenth', pitch: 'C4' },
-        { id: '6', type: 'note', duration: 'eighth', pitch: 'C4', beamGroup: '1' },
-        { id: '7', type: 'note', duration: 'eighth', pitch: 'D4', beamGroup: '1' },
+        { id: '6', type: 'note', duration: 'eighth', pitch: 'F4', beamGroup: '1' },
+        { id: '7', type: 'note', duration: 'eighth', pitch: 'C4', beamGroup: '1' },
         { id: '8', type: 'note', duration: 'eighth', pitch: 'E4', beamGroup: '1' },
-        { id: '9', type: 'note', duration: 'eighth', pitch: 'F4' },
-        { id: '10', type: 'note', duration: 'eighth', pitch: 'G4' },
-        { id: '11', type: 'note', duration: 'eighth', pitch: 'A4' },
-        // { id: '12', type: 'note', duration: 'eighth', pitch: 'B4', beamGroup: '2' },
-        // { id: '13', type: 'note', duration: 'eighth', pitch: 'C5', beamGroup: '2' },
-        { id: '14', type: 'note', duration: 'eighth', pitch: 'D5' },
+        { id: '9', type: 'note', duration: 'eighth', pitch: 'F4', beamGroup: '1' },
+        { id: '10', type: 'note', duration: 'eighth', pitch: 'G4', beamGroup: '1' },
+        { id: '11', type: 'note', duration: 'eighth', pitch: 'A4', beamGroup: '1' },
+        { id: '12', type: 'note', duration: 'eighth', pitch: 'B4', beamGroup: '1' },
+        { id: '13', type: 'note', duration: 'eighth', pitch: 'C5', beamGroup: '1' },
+        { id: '14', type: 'note', duration: 'eighth', pitch: 'D5', beamGroup: '1'  },
         { id: '15', type: 'note', duration: 'eighth', pitch: 'E5' },
         { id: '16', type: 'note', duration: 'eighth', pitch: 'F5' },
         { id: '17', type: 'note', duration: 'eighth', pitch: 'G5' , slurTo: '18'},
@@ -115,8 +115,8 @@ const treblestaveSource0: SvgStaveSource = {
         { id: '51', type: 'note', duration: 'quarter', pitch: 'C4' },
         { id: '52', type: 'note', duration: 'quarter', pitch: 'C4' },
         { id: '53', type: 'rest', duration: 'sixteenth' },
-        { id: '54', type: 'barline', barline: 'single' },
         { id: '55', type: 'note', duration: 'quarter', pitch: 'C4' },
+        { id: '54', type: 'barline', barline: 'single' },
     ]
 };
 
