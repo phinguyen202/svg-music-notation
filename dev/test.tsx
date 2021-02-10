@@ -13,7 +13,7 @@ const svgConfig: SvgSheetConfig = {
     }
 }
 
-const treblestaveSource: SvgStaveSource = {
+const trebleStaveSource: SvgStaveSource = {
     id: 's1',
     elements: [
         { id: '1', type: 'clef', clef: 'treble' },
@@ -59,7 +59,7 @@ const treblestaveSource: SvgStaveSource = {
     ]
 };
 
-const treblestaveSource0: SvgStaveSource = {
+const trebleStaveSource0: SvgStaveSource = {
     id: 's2',
     elements: [
         { id: '1', type: 'clef', clef: 'treble' },
@@ -121,7 +121,7 @@ const treblestaveSource0: SvgStaveSource = {
 };
 
 const svgSource: SvgSource = {
-    staves: [treblestaveSource, treblestaveSource0],
+    staves: [trebleStaveSource, trebleStaveSource0],
     idIncrementNo: 56,
 }
 
