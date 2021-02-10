@@ -140,7 +140,7 @@ export default function Stave({ x = 0, y = 0, elements = [], slurs = [], width }
     // applying beamed rules
 
     const beams: any[] = [];
-    for (const [key, notes] of newBeamsMap) {
+    for (const notes of newBeamsMap.values()) {
         if (notes.length < 2) {
             continue;
         }
