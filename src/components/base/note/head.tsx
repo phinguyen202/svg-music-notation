@@ -1,6 +1,5 @@
 import { CoordinateModel } from '@model/common.model';
 import React, { FunctionComponent } from 'react';
-import Stem from './stem';
 
 interface Props extends CoordinateModel { }
 

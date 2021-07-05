@@ -1,7 +1,7 @@
 import { DurationType } from '@model/business.model';
-import { RestCofig } from '@stave/stave.model';
+import { RestConfig } from '@stave/stave.model';
 
-export default new Map<DurationType, RestCofig>([
+export default new Map<DurationType, RestConfig>([
     ['whole', {
         y: 20
     }],

@@ -6,7 +6,6 @@ import { SvgStaveSource } from '@model/source.model';
 const svgConfig: SvgSheetConfig = {
     height: '100%',
     width: '100%',
-    editable: true,
     stave: {
         height: 120,
         marginTop: 20
@@ -75,13 +74,13 @@ const trebleStaveSource0: SvgStaveSource = {
         { id: '11', type: 'note', duration: 'eighth', pitch: 'A4', beamGroup: '1' },
         { id: '12', type: 'note', duration: 'eighth', pitch: 'B4', beamGroup: '1' },
         { id: '13', type: 'note', duration: 'eighth', pitch: 'C5', beamGroup: '1' },
-        { id: '14', type: 'note', duration: 'eighth', pitch: 'D5', beamGroup: '1'  },
-        { id: '15', type: 'note', duration: 'eighth', pitch: 'E5' },
+        { id: '14', type: 'note', duration: 'eighth', pitch: 'D5', beamGroup: '1', slurTo: '15' },
+        { id: '15', type: 'note', duration: 'eighth', pitch: 'C6', beamGroup: '1' },
         { id: '16', type: 'note', duration: 'eighth', pitch: 'F5' },
         { id: '17', type: 'note', duration: 'eighth', pitch: 'G5' , slurTo: '18'},
         { id: '18', type: 'note', duration: 'eighth', pitch: 'A5' },
-        { id: '19', type: 'note', duration: 'eighth', pitch: 'B5' },
-        { id: '20', type: 'note', duration: 'eighth', pitch: 'C6' },
+        { id: '19', type: 'note', duration: 'eighth', pitch: 'B5', beamGroup: '2' },
+        { id: '20', type: 'note', duration: 'eighth', pitch: 'C6', beamGroup: '2' },
         { id: '21', type: 'rest', duration: 'sixteenth' },
         { id: '22', type: 'note', duration: 'whole', pitch: 'C5' },
         { id: '23', type: 'note', duration: 'quarter', pitch: 'D4' },

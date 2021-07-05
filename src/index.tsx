@@ -10,7 +10,6 @@ export interface SvgSheetConfig {
     height: string;
     width: string;
     stave?: StaveConfig;
-    editable?: boolean;
     save?: {
         handler: Function;
     },
@@ -69,7 +68,7 @@ export class SvgMusicNotation extends React.Component<SvgMusicNotationProp, SvgM
     render() {
         const { source, config } = this.props;
         const { staves, idIncrementNo } = source;
-        const { width, height, editable, stave } = config;
+        const { width, height, stave } = config;
         const { dimension } = this.state;
 
         // initialize Id Generator

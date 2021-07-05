@@ -5,4 +5,4 @@ export interface NoteConfig extends YCoordinate, Order<number> {
     ledgers?: Array<number>
 }
 
-export interface RestCofig extends YCoordinate { }
+export interface RestConfig extends YCoordinate { }

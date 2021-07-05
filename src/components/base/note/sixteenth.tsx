@@ -9,6 +9,7 @@ interface Props extends CoordinateModel {
 
 const width: number = 12.67;
 const height: number = 40;
+const flagNumber: number = 2;
 
 function JSX({ x = 0, y = 0, isStemUp = true }: Props): JSX.Element {
     return (
@@ -23,11 +24,13 @@ function JSX({ x = 0, y = 0, isStemUp = true }: Props): JSX.Element {
 interface SixteenthNote {
     width: number,
     height: number,
+    flagNumber: number,
     JSX: FunctionComponent<Props>
 }
 
 export default {
     width,
     height,
+    flagNumber,
     JSX
 } as SixteenthNote;
