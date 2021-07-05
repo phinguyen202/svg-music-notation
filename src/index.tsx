@@ -1,10 +1,10 @@
 import React from 'react';
 import { SvgStaveSource } from '@model/source.model';
-// import ToolBar from 'components/toolbar';
 import Stave from '@stave/index';
 import ReactDOM from 'react-dom';
 import { DimensionModel } from '@model/common.model';
 import { init } from '@utils/idGenerator';
+import './css/font.css';
 
 export interface SvgSheetConfig {
     height: string;
@@ -73,24 +73,24 @@ export class SvgMusicNotation extends React.Component<SvgMusicNotationProp, SvgM
         const { dimension } = this.state;
 
         // initialize Id Generator
-        init(idIncrementNo);
+        init(idIncrementNo); // => move to one-run block
 
         const staveHeight = stave && stave.height ? stave.height : 120;
         const marginTop = stave && stave.marginTop ? stave.marginTop : 20;
 
         const staveSourceMap = dimension && staves.map(({ id, elements, slurs }: SvgStaveSource, index: number) => {
-            return (<Stave key={id} id={id} y={staveHeight * index + marginTop} width={dimension.width} elements={elements} slurs={slurs}/>)
+            return (<Stave key={id} id={id} y={staveHeight * index + marginTop} width={dimension.width} elements={elements} slurs={slurs} />)
         });
 
         return (
-            // <div style={{ width: '100%', height: '100%' }}>
-            //     {/* toolbar */}
-            //     {/* {editable && <ToolBar />} */}
-            //     {/* sheet */}
-            <svg width={width} height={height} ref={this.smnRef}>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                width={width}
+                height={height}
+                fontFamily="Bravura, BravuraText"
+                fontSize="2em"
+                ref={this.smnRef}>
                 {staveSourceMap}
             </svg>
-            // </div>
         );
     }
 }
