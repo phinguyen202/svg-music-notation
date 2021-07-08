@@ -55,6 +55,7 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "file-loader": "^6.2.0",
     "jest": "^25.1.0",
+    "raw-loader": "^4.0.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "rollup": "^2.37.1",

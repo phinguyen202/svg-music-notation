@@ -1,3 +1,5 @@
-export interface Configuration {
-    lyric?: boolean;
+export interface SvgSheetConfig {
+    height: string;
+    width: string;
+    mei: any;
 }
