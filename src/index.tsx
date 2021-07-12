@@ -30,7 +30,7 @@ export class SvgMusicNotation extends React.Component<SvgMusicNotationProp, Dime
         const { source, config } = this.props;
         const { width, height } = config;
 
-        const mei = this.state && (<MEI source={source} config={config.mei} width={this.state.width} />)
+        const mei = this.state && <MEI source={source} config={config.mei} width={this.state.width} />
 
         return (
             <svg xmlns="http://www.w3.org/2000/svg"

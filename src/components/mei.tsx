@@ -18,22 +18,7 @@ export interface MeiProp extends WidthDimension {
     config: any;
 }
 
-export default function MEI({ source, config, width }: MeiProp) {
-    let render;
-    console.log(source);
-
-    if (isMeiModel(source)) {
-        render = (<svg>
-            {source.mei.meiHead && <MeiHead source={source.mei.meiHead} config={config} width={width} />}
-            {source.mei.music && <MeiMusic source={source.mei.music} config={config} width={width} />}
-        </svg>)
-    } else if (isMei(source)) {
-        render = (<svg>
-            {source.meiHead && <MeiHead source={source.meiHead} config={config} width={width} />}
-            {source.music && <MeiMusic source={source.music} config={config} width={width} />}
-        </svg>)
-    }
-
+export default function MEI({ source, config, width }: MeiProp): JSX.Element {
     const [store, setStore] = useState(undefined);
 
     useEffect(() => {
@@ -48,7 +33,21 @@ export default function MEI({ source, config, width }: MeiProp) {
         });
     }, [source]);
 
-    return (
-        { render }
-    )
+    let render;
+
+    if (store) {
+        if (isMeiModel(store)) {
+            render = (<>
+                {store.mei.meiHead && <MeiHead source={store.mei.meiHead} config={config} width={width} />}
+                {store.mei.music && <MeiMusic source={store.mei.music} config={config} width={width} />}
+            </>)
+        } else if (isMei(store)) {
+            render = (<>
+                {store.meiHead && <MeiHead source={store.meiHead} config={config} width={width} />}
+                {store.music && <MeiMusic source={store.music} config={config} width={width} />}
+            </>)
+        }
+    }
+
+    return (render ? render : <text>Nothing to show</text>);
 }

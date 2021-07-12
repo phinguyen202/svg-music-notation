@@ -41,6 +41,7 @@
     "@testing-library/react": "^9.4.1",
     "@types/react": "^16.9.23",
     "@types/react-redux": "^7.1.9",
+    "@types/xml2js": "^0.4.9",
     "@typescript-eslint/eslint-plugin": "^3.7.0",
     "@typescript-eslint/parser": "^3.7.0",
     "babel-loader": "^8.0.6",
