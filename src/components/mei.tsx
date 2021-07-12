@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { WidthDimension } from "@model/common.model";
 import { Mei, MeiModel } from "@model/mei";
 import MeiHead from './meiHead';
 import MeiMusic from './music';
+import { parseString } from 'xml2js';
 
 function isMeiModel(obj: any): obj is MeiModel {
     return obj.mei !== undefined
@@ -33,7 +34,20 @@ export default function MEI({ source, config, width }: MeiProp) {
         </svg>)
     }
 
-    
+    const [store, setStore] = useState(undefined);
+
+    useEffect(() => {
+        // validate mei by schema
+        parseString(source, function (error: any, result: any) {
+            if (error) {
+                setStore(undefined);
+                throw error;
+            } else {
+                setStore(result);
+            }
+        });
+    }, [source]);
+
     return (
         { render }
     )
