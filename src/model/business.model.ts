@@ -1,5 +1,3 @@
-import { Configuration } from './config';
-
 export type ClefType = 'treble' | 'bass' | 'alto' | 'tenor';
 export type BarLineType = 'single' | 'double' | 'bold double';
 export type AccidentalType = 'flat' | 'sharp' | 'natural' | 'double flat' | 'double sharp';
@@ -15,7 +13,6 @@ export interface MusicNotationModel {
   staves: StaveModel[];
   width: string;
   height: string;
-  config: Configuration;
 }
 
 export interface StaveModel {

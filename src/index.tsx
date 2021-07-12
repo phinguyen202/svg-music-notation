@@ -1,21 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { DimensionModel } from '@model/common.model';
-import './css/font.css';
-import { MeiHead, MeiModel, Music } from '@model/mei';
+import { MeiModel, Mei } from '@model/mei';
 import { SvgSheetConfig } from '@model/config';
 import MEI from 'components/mei';
+import './css/font.css';
 
 export interface SvgMusicNotationProp {
     config: SvgSheetConfig;
-    source: MeiModel | Music | MeiHead;
+    source: MeiModel | Mei;
 }
 export class SvgMusicNotation extends React.Component<SvgMusicNotationProp, DimensionModel> {
-    // simplify the interface
-    // 3 things to done on interface
-    // 1. provide 1 React Component to render sheet
-    // 2. user can input a source and a config for the sheet
-    // 3. provide a way that user can use to get current source of the sheet
     smnRef: React.RefObject<SVGSVGElement>;
     constructor(props: SvgMusicNotationProp) {
         super(props);
@@ -23,12 +18,11 @@ export class SvgMusicNotation extends React.Component<SvgMusicNotationProp, Dime
     }
 
     componentDidMount() {
-        // getting and setting svg demension
         const svgNode = ReactDOM.findDOMNode(this.smnRef.current) as Element;
         const clientRect: DOMRect = svgNode.getBoundingClientRect();
         this.setState({
-                width: clientRect.width,
-                height: clientRect.height
+            width: clientRect.width,
+            height: clientRect.height
         });
     }
 

@@ -18,7 +18,6 @@ import { clefBuilder } from '@builder/clef-builder';
 import { timeSignatureBuilder } from '@builder/time-signature-builder';
 import { slurBuilder } from '@builder/slur-builder';
 import { DistanceType, distanceMap, lastEleDisUnit } from './mapping/distance.map';
-import { next } from '@utils/idGenerator';
 import { beamBuilder } from '@builder/beam-builder';
 import HeadNote from '@base/note/head';
 import { TrebleMidOrder } from './mapping/treble.note.map';
@@ -169,11 +168,6 @@ export default function Stave({ x = 0, y = 0, elements = [], slurs = [], width }
                 // start point stem is up => under
                 // start point stem is down => over
                 const { x, y, width, isStemUp } = element;
-                if (isStemUp) {
-                    previous.push(slurBuilder({ id: next(), x1: x + width, y1: y + width, x2: toElement.x, y2: toElement.y + width, place: 'under' }));
-                } else {
-                    previous.push(slurBuilder({ id: next(), x1: x + width, y1: y, x2: toElement.x, y2: toElement.y, place: 'over' }));
-                }
             }
     }
         return previous;
