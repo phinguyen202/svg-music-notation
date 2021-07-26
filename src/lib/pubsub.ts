@@ -1,11 +1,12 @@
 // this code based on https://css-tricks.com/build-a-state-management-system-with-vanilla-javascript/
 
 export default class PubSub {
+    events: any;
     constructor() {
         this.events = {};
     }
 
-    subscribe(event, callback) {
+    subscribe(event: any, callback: any) {
         if (!this.events.hasOwnProperty(event)) {
             this.events[event] = [];
         }
@@ -13,10 +14,10 @@ export default class PubSub {
         return this.events[event].push(callback);
     }
 
-    publish(event, data = {}) {
+    publish(event: any, data = {}) {
         if (!this.events.hasOwnProperty(event)) {
             return [];
         }
-        return this.events[event].map(callback => callback(data));
+        return this.events[event].map((callback: Function) => callback(data));
     }
 }

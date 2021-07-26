@@ -22,7 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
 
 export default class Store {
-    constructor(params) {
+    private actions: any;
+    private mutations: any;
+    private state: any;
+    private callbacks: Function[];
+    private status: String;
+    constructor(params: any) {
         // Add some default objects to hold our actions, mutations and state
         this.actions = {};
         this.mutations = {};
@@ -74,7 +79,7 @@ export default class Store {
      * @returns {boolean}
      * @memberof Store
      */
-    dispatch(actionKey, payload) {
+    dispatch(actionKey: string, payload: any) {
         // Run a quick check to see if the action actually exists
         // before we try to run it
         if (typeof this.actions[actionKey] !== 'function') {
@@ -98,7 +103,7 @@ export default class Store {
      * @returns {boolean}
      * @memberof Store
      */
-    commit(mutationKey, payload) {
+    commit(mutationKey: string, payload: any) {
         // Run a quick check to see if this mutation actually exists
         // before trying to run it
         if (typeof this.mutations[mutationKey] !== 'function') {
@@ -126,7 +131,7 @@ export default class Store {
      * @param {object} data
      * @returns {boolean}
      */
-    processCallbacks(data) {
+    processCallbacks(data: any) {
         if (!this.callbacks.length) {
             return false;
         }
@@ -144,7 +149,7 @@ export default class Store {
      * @param {function} callback
      * @returns {boolean}
      */
-    subscribe(callback) {
+    subscribe(callback: Function) {
 
         if (typeof callback !== 'function') {
             console.error('You can only subscribe to Store changes with a valid function');
