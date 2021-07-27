@@ -36,6 +36,9 @@
       ],
       "@exception/*": [
         "exception/*"
+      ],
+      "@css/*": [
+        "css/*"
       ]
     }
   }
