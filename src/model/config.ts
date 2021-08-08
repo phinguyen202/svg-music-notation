@@ -1,5 +1,5 @@
 export interface SvgSheetConfig {
-    height: string;
-    width: string;
-    mei: any;
+    height?: number;
+    width?: number;
+    fontSize?: string;
 }
