@@ -5,7 +5,3 @@ export class SvgError extends Error {
         this.message = `${this.prefix} ${message}`;
     }
 }
-
-export class RenderError extends SvgError {
-
-}
