@@ -1,27 +1,22 @@
 import Store from '@lib/store';
 
-interface Props {
-    store?: Store;
+interface Props<T> {
+    store?: T;
     parent?: any;
 }
 
-export default abstract class Component {
+export default class Component<T> {
     protected props: any;
     public element: HTMLElement;
-    constructor(props: Props = {}) {
+    constructor(props: Props<T> = {}) {
         this.props = props;
-
-        // this.props.store.subscribe(() => {
-        //     // replace the older when received an event
-        //     const newElement = this.render();
-        //     this.element.replaceWith(newElement);
-        //     this.element = newElement;
-        // });
 
         // render the first time
         this.element = this.render();
         this.props.parent.appendChild(this.element);
     }
 
-    protected abstract render(): any;
+    protected render(): any {
+        throw new Error('Not Implemented!')
+    }
 }

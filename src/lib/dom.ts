@@ -6,7 +6,7 @@ type Type = keyof HTMLElementTagNameMap | keyof SVGElementTagNameMap | keyof HTM
 type ChildType<T> = string | HTMLElement | ComponentChildType<T>;
 
 interface ComponentChildType<T> {
-    fn: Function;
+    comp: typeof Component;
     store?: T;
 }
 
@@ -19,8 +19,8 @@ export function elt<T>(type: Type, props: any, ...children: Array<ChildType<T>>)
         } else if (typeof child === 'string') {
             dom.appendChild(document.createTextNode(child));
         } else if (typeof child === 'object') {
-            const { fn, store } = child;
-            fn({ store, parent: dom });
+            const { comp, store } = child;
+            new comp<T>({ store, parent: dom });
         } else {
             throw new SvgError('Child param must be "string or Function or HTMLElement"');
         }

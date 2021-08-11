@@ -23,7 +23,7 @@ export class SvgMusicNotation {
             ...config
         };
 
-        if (!config.width || config.height) {
+        if (!sheetConfig.width || !sheetConfig.height) {
             const clientRect: DOMRect = parent.getBoundingClientRect();
             if (!sheetConfig.width) { sheetConfig.width = clientRect.width }
             if (!sheetConfig.height) { sheetConfig.height = clientRect.height }
@@ -32,7 +32,8 @@ export class SvgMusicNotation {
         // listening resize event: ResizeObserver => updateConfig()
 
         // init store
-        this.store = new Store({ source, config });
+        this.store = new Store({ initialState: { source, config: sheetConfig }});
+        
         // Spread data into main component
         this.sheet = new Sheet({
             store: this.store,

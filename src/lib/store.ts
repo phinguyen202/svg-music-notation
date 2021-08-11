@@ -28,22 +28,11 @@ export default class Store {
     private status: string;
     constructor(params: any) {
         // Add some default objects to hold our actions, mutations and state
-        this.actions = {};
-        this.mutations = {};
-        this.state = {};
+        this.actions = params.actions ? params.actions : {};
+        this.mutations = params.mutations ? params.mutations : {};
 
         // A status enum to set during actions and mutations
         this.status = 'resting';
-
-        // Look in the passed params object for actions and mutations
-        // that might have been passed in
-        if (params.hasOwnProperty('actions')) {
-            this.actions = params.actions;
-        }
-
-        if (params.hasOwnProperty('mutations')) {
-            this.mutations = params.mutations;
-        }
 
         // Set our state to be a Proxy. We are setting the default state by
         // checking the params and defaulting to an empty object if no default
