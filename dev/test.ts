@@ -1,6 +1,6 @@
 import { SvgMusicNotation } from 'index';
+import { sourceSample } from './sample';
 
-const parent = document.getElementById('test');
-const source = {};
+const container = document.getElementById('test');
 const config = {};
-const svg = new SvgMusicNotation({ parent, source, config });
+const svg = new SvgMusicNotation({ container, source: sourceSample, config });
