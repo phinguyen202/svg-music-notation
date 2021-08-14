@@ -1,16 +1,8 @@
-import { SvgError } from "@exception/root";
 import Component from "./component";
 
 type Type = keyof HTMLElementTagNameMap | keyof SVGElementTagNameMap | keyof HTMLElementDeprecatedTagNameMap;
 
-type ChildType<T> = string | HTMLElement | ComponentChildType<T>;
-
-interface ComponentChildType<T> {
-    comp: typeof Component;
-    store?: T;
-}
-
-export function elt<T>(type: Type, props: any, ...children: Array<ChildType<T>>) {
+export function elt<T>(type: Type, props: any, ...children: Array<HTMLElement | string | Component<T>>) {
     let dom = document.createElement(type);
     if (props) Object.assign(dom, props);
     for (let child of children) {
@@ -18,11 +10,8 @@ export function elt<T>(type: Type, props: any, ...children: Array<ChildType<T>>)
             dom.appendChild(child);
         } else if (typeof child === 'string') {
             dom.appendChild(document.createTextNode(child));
-        } else if (typeof child === 'object') {
-            const { comp, store } = child;
-            new comp<T>({ store, parent: dom });
-        } else {
-            throw new SvgError('Child param must be "string or Function or HTMLElement"');
+        } else if (child instanceof Component) {
+            dom.appendChild(child.element);
         }
     }
     return dom;

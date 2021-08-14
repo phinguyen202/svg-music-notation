@@ -1,16 +1,21 @@
 import '@css/font.css';
-import Component from '@lib/component';
+import Component, { Props } from '@lib/component';
 import { elt } from '@lib/dom';
-import ScorePartwise from './score-partwise';
+import { SvgSheetConfig } from '@model/config';
+import { MusicXML } from '@model/musicXML';
+import { ScorePartwiseComp } from './score-partwise';
 
-export class Sheet extends Component<any> {
-    constructor(props: any) {
+interface SheetProps extends Props {
+    source: MusicXML,
+    config: SvgSheetConfig
+}
+export class Sheet extends Component<SheetProps> {
+    constructor(props: SheetProps) {
         super(props);
     }
 
     render() {
-        const { store } = this.props;
-        const { source, config } = store.state;
+        const { source, config } = this.props;
         const { width, height, fontSize } = config;
 
         return elt('svg', {
@@ -19,9 +24,6 @@ export class Sheet extends Component<any> {
             width,
             height,
             fontSize
-        }, {
-            comp: ScorePartwise,
-            store: source
-        });
+        }, new ScorePartwiseComp({ source: source['score-partwise'], config }));
     }
 }

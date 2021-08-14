@@ -1,22 +1,14 @@
-import Store from '@lib/store';
+export interface Props { }
 
-interface Props<T> {
-    store?: T;
-    parent?: any;
-}
-
-export default class Component<T> {
+export default abstract class Component<T> {
     protected props: any;
     public element: HTMLElement;
-    constructor(props: Props<T> = {}) {
+    constructor(props: T) {
         this.props = props;
 
         // render the first time
         this.element = this.render();
-        this.props.parent.appendChild(this.element);
     }
 
-    protected render(): any {
-        throw new Error('Not Implemented!')
-    }
+    protected abstract render(): HTMLElement;
 }

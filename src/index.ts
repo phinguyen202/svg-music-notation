@@ -1,21 +1,22 @@
 import { InvalidError } from '@exception/invalid';
-import Store from '@lib/store';
 import { SvgSheetConfig } from '@model/config';
 import { Sheet } from '@components/index';
 import { defaultConfig } from '@config/index';
+import { MusicXML } from '@model/musicXML';
 
 export interface SvgMusicNotationProp {
-    parent: HTMLElement;
+    container: HTMLElement;
     config: SvgSheetConfig;
     source: any;
 }
 
 export class SvgMusicNotation {
-    private store: Store;
+    private container: HTMLElement;
+    private source: MusicXML;
     private sheet: Sheet;
-    constructor({ parent, source, config }: SvgMusicNotationProp) {
-        if (!parent || !(parent instanceof HTMLElement)) {
-            throw new InvalidError(`Parent param should be HTMLElement, but found ${parent && parent.constructor.name}!`);
+    constructor({ container, source, config }: SvgMusicNotationProp) {
+        if (!container || !(container instanceof HTMLElement)) {
+            throw new InvalidError(`Container param should be HTMLElement, but found ${container && container.constructor.name}!`);
         }
 
         const sheetConfig: SvgSheetConfig = {
@@ -24,21 +25,22 @@ export class SvgMusicNotation {
         };
 
         if (!sheetConfig.width || !sheetConfig.height) {
-            const clientRect: DOMRect = parent.getBoundingClientRect();
+            const clientRect: DOMRect = container.getBoundingClientRect();
             if (!sheetConfig.width) { sheetConfig.width = clientRect.width }
             if (!sheetConfig.height) { sheetConfig.height = clientRect.height }
         }
 
         // listening resize event: ResizeObserver => updateConfig()
 
-        // init store
-        this.store = new Store({ initialState: { source, config: sheetConfig }});
-        
+        this.container = container;
+        this.source = source;
         // Spread data into main component
         this.sheet = new Sheet({
-            store: this.store,
-            parent
+            source,
+            config: sheetConfig,
         });
+
+        container.appendChild(this.sheet.element);
     }
 
     public updateConfig(config: SvgSheetConfig) {

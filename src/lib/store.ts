@@ -21,10 +21,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
 
-export default class Store {
+export default class Store<T> {
     private actions: any;
     private mutations: any;
-    private state: any;
+    private state: T;
     private status: string;
     constructor(params: any) {
         // Add some default objects to hold our actions, mutations and state
