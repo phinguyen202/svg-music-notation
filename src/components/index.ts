@@ -1,6 +1,6 @@
 import '@css/font.css';
 import Component, { Props } from '@lib/component';
-import { elt } from '@lib/dom';
+import { elt, eltNS } from '@lib/dom';
 import { SvgSheetConfig } from '@model/config';
 import { MusicXML } from '@model/musicXML';
 import { ScorePartwiseComp } from './score-partwise';
@@ -18,12 +18,13 @@ export class Sheet extends Component<SheetProps> {
         const { source, config } = this.props;
         const { width, height, fontSize } = config;
 
-        return elt('svg', {
+        return eltNS('svg', {
             xmlns: "http://www.w3.org/2000/svg",
-            fontFamily: "Bravura, BravuraText",
+            'font-family': 'Bravura, BravuraText',
             width,
             height,
-            fontSize
+            stroke: 'black',
+            'font-size': fontSize
         }, new ScorePartwiseComp({ source: source['score-partwise'], config }));
     }
 }
