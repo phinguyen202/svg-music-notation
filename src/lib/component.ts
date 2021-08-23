@@ -1,7 +1,7 @@
 export interface Props { }
 
 export default abstract class Component<T> {
-    protected props: any;
+    protected props: T;
     public element: HTMLElement | SVGElement;
     constructor(props: T) {
         this.props = props;
