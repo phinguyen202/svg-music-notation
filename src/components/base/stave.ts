@@ -2,13 +2,13 @@ import Component, { Props } from '@lib/component';
 import { eltNS } from '@lib/dom';
 import { CoordinateModel } from '@model/common.model';
 
-interface StaffProps extends Props, CoordinateModel {
+interface StaveProps extends Props, CoordinateModel {
     lineNumber: number;
     width: number;
 }
 
-export class Staff extends Component<StaffProps> {
-    constructor(props: StaffProps) {
+export class Staff extends Component<StaveProps> {
+    constructor(props: StaveProps) {
         super(props);
     }
 
