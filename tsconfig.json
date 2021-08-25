@@ -22,8 +22,8 @@
       "@base/*": [
         "components/base/*"
       ],
-      "@builder/*": [
-        "components/builder/*"
+      "@group/*": [
+        "components/group/*"
       ],
       "@stave/*": [
         "components/stave/*"

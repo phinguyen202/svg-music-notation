@@ -1,10 +1,11 @@
 import { eltNS } from '@lib/dom';
-import Component, { Props } from '@lib/component';
+import Component from '@lib/component';
 import { SvgSheetConfig } from '@model/config';
 import { Part } from '@model/musicXML';
-import { Staff } from '@base/stave';
+import { Stave } from '@base/stave';
+import { MeasureGroup } from '@group/measure';
 
-interface PartProps extends Props {
+interface PartProps {
     source: Part,
     config: SvgSheetConfig
 }
@@ -17,8 +18,13 @@ export class PartCom extends Component<PartProps> {
     render() {
         const { source, config } = this.props;
         const { _id, measure } = source;
+
         return eltNS("g", {
-            id: _id
-        }, new Staff({ lineNumber: 5, width: config.width }));
+            id: _id,
+            transform: `translate(${50}, ${50})`
+        },
+            new Stave({ lineNumber: 5, width: config.width }),
+            MeasureGroup({ source: measure, config: config }),
+        );
     }
 }
