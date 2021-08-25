@@ -26,13 +26,17 @@ export interface Attributes {
     clef: Clef;
 }
 
+export type SignType = 'G' | 'F' | 'C' | 'percussion' | 'TAB';
 export interface Clef {
-    sign: string;
+    sign: SignType;
     line: string;
 }
 
+export type FifthsType = -7 | -6 | -5 | -4 | -3 | -2 | -1 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+export type TimeSignatureLowerType = 2 | 3 | 4 | 6;
+export type TimeSignatureUpperType = 2 | 4 | 8;
 export interface Key {
-    fifths: string;
+    fifths: FifthsType;
 }
 
 export interface Time {

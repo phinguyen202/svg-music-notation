@@ -2,12 +2,12 @@ import Component, { Props } from '@lib/component';
 import { eltNS } from '@lib/dom';
 import { CoordinateModel } from '@model/common.model';
 
-interface StaveProps extends Props, CoordinateModel {
+interface StaveProps extends CoordinateModel {
     lineNumber: number;
     width: number;
 }
 
-export class Staff extends Component<StaveProps> {
+export class Stave extends Component<StaveProps> {
     constructor(props: StaveProps) {
         super(props);
     }

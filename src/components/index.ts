@@ -1,11 +1,11 @@
 import '@css/font.css';
-import Component, { Props } from '@lib/component';
-import { elt, eltNS } from '@lib/dom';
+import Component from '@lib/component';
+import { eltNS } from '@lib/dom';
 import { SvgSheetConfig } from '@model/config';
 import { MusicXML } from '@model/musicXML';
-import { ScorePartwiseComp } from './score-partwise';
+import { ScorePartwiseGroup } from '@group/score-partwise';
 
-interface SheetProps extends Props {
+interface SheetProps {
     source: MusicXML,
     config: SvgSheetConfig
 }
@@ -25,6 +25,6 @@ export class Sheet extends Component<SheetProps> {
             height,
             stroke: 'black',
             'font-size': fontSize
-        }, new ScorePartwiseComp({ source: source['score-partwise'], config }));
+        }, ScorePartwiseGroup({ source: source['score-partwise'], config }));
     }
 }
