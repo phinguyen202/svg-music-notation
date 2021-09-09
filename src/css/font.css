@@ -5,9 +5,9 @@
         url('../fonts/Bravura.woff2') format('woff2');
 }
 
-@font-face {
+/* @font-face {
     font-family: 'BravuraText';
     src: local('BravuraText'),
         url('../fonts/BravuraText.woff') format('woff'),
         url('../fonts/BravuraText.woff2') format('woff2');
-}
+} */
