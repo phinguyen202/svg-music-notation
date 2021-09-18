@@ -27,6 +27,7 @@ export class PartCom extends Component<PartProps, Glyph> {
     render() {
         const { source, config } = this.props;
         const { _id, measure } = source;
+        const { padding } = config;
 
         const elements: Component<any, Glyph>[] = (Array.isArray(measure) ? measure : [measure])
             .reduce((acc: Component<any, Glyph>[], m: Measure) => {
@@ -37,19 +38,17 @@ export class PartCom extends Component<PartProps, Glyph> {
         let x = 0;
         elements.forEach((element: Component<any, Glyph>, index: number) => {
             console.log(x);
-            // WHY multiple with 16?
-            // I don't know => just try and it seems to be "ok"
-            // ref: https://en.wikipedia.org/wiki/Em_(typography)
-            element.updateProps({ x: x * 16 });
+            // 4px => 1 unit
+            element.updateProps({ x: x * 16});
             x += element.state.width;
         })
 
         // calculating and setting x-coordinate for elements
         return eltNS("g", {
             id: _id,
-            transform: `translate(${50}, ${50})`
+            transform: `translate(${padding}, ${padding})`
         },
-            new Stave({ lineNumber: 5, width: config.width }),
+            new Stave({ lineNumber: 5, width: config.width - padding*2 }),
             ...elements,
         );
     }

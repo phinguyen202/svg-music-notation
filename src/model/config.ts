@@ -1,5 +1,6 @@
 export interface SvgSheetConfig {
     height?: number;
     width?: number;
-    fontSize?: string;
+    size?: number; // 1 => 4px
+    padding?: number;
 }

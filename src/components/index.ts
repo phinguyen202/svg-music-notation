@@ -9,14 +9,20 @@ interface SheetProps {
     source: MusicXML,
     config: SvgSheetConfig
 }
-export class Sheet extends Component<SheetProps> {
+export class Sheet extends Component<SheetProps, any> {
     constructor(props: SheetProps) {
         super(props);
+
+        // calculate matrix and padding based on size
+        // padding default = 50
+        props.config.padding /= props.config.size;
+        props.config.width /= props.config.size;
+        props.config.height /= props.config.size;
     }
 
     render() {
         const { source, config } = this.props;
-        const { width, height, fontSize } = config;
+        const { width, height, size } = config;
 
         return eltNS('svg', {
             xmlns: "http://www.w3.org/2000/svg",
@@ -24,7 +30,8 @@ export class Sheet extends Component<SheetProps> {
             width,
             height,
             stroke: 'black',
-            'font-size': fontSize
+            'font-size': `4em`, // => 4 * 4 = 16 (multiple width of glyph)
+            transform: `matrix(${size}, 0, 0, ${size}, ${width/2 * (size - 1)},  ${height/2 * (size - 1)})`
         }, ScorePartwiseGroup({ source: source['score-partwise'], config }));
     }
 }
