@@ -23,7 +23,7 @@ export interface XCoordinate {
 }
 
 export interface YCoordinate {
-	y?: number;
+	y?: number | string;
 }
 
 export interface CoordinateModel extends XCoordinate, YCoordinate{

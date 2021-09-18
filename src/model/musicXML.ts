@@ -9,13 +9,13 @@ export interface ScorePartwise {
 }
 
 export interface Part {
-    measure: Measure;
+    measure: Measure | Measure[];
     _id: string;
 }
 
 export interface Measure {
     attributes: Attributes;
-    note: Note;
+    note: Note | Note[];
     _number: string;
 }
 
@@ -47,12 +47,15 @@ export interface Time {
 export interface Note {
     pitch: Pitch;
     duration: string;
-    type: string;
+    type?: string;
 }
 
+export type Step = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G';
+
+export type Octave = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 export interface Pitch {
-    step: string;
-    octave: string;
+    step: Step;
+    octave: Octave;
 }
 
 export interface PartList {

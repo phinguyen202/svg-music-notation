@@ -7,16 +7,16 @@ interface StaveProps extends CoordinateModel {
     width: number;
 }
 
-export class Stave extends Component<StaveProps> {
+export class Stave extends Component<StaveProps, any> {
     constructor(props: StaveProps) {
         super(props);
     }
 
     render() {
-        const { y = 0, x = 0, width, lineNumber } = this.props;
+        const { x = 0, y = 0, width, lineNumber } = this.props;
 
-        const lines = (new Array(lineNumber)).fill(0).map((data: any, index: number) => {
-            const yLine = index * 0.25;
+        const lines = (new Array(lineNumber)).fill(undefined).map((data: any, index: number) => {
+            const yLine = index  * 0.25;
             return eltNS('line',
                 {
                     x2: width,
@@ -28,7 +28,7 @@ export class Stave extends Component<StaveProps> {
 
         return eltNS("g", {
             transform: `translate(${x}, ${y})`,
-            strokeWidth: '0.5'
+            ['stroke-width']: '0.5'
         }, ...lines);
     }
 }

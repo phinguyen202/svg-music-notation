@@ -1,4 +1,4 @@
-import { PartCom } from '@components/base/part';
+import { PartCom } from '@components/part';
 import Component from '@lib/component';
 import { SvgSheetConfig } from '@model/config';
 import { ScorePartwise } from '@model/musicXML';
@@ -8,7 +8,7 @@ interface ScorePartwiseProps {
     config: SvgSheetConfig
 }
 
-export function ScorePartwiseGroup<T>(props: ScorePartwiseProps): Array<Component<any>> {
+export function ScorePartwiseGroup(props: ScorePartwiseProps): Array<Component<any, any>> {
     const { source, config } = props;
     // const partList = source['part-list'];
     const { part } = source;

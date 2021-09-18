@@ -40,7 +40,7 @@ export class SvgMusicNotation {
             config: sheetConfig,
         });
 
-        container.appendChild(this.sheet.element);
+        container.appendChild(this.sheet.render());
     }
 
     public updateConfig(config: SvgSheetConfig) {

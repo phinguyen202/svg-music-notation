@@ -1,14 +1,18 @@
 export interface Props { }
 
-export default abstract class Component<T> {
+export default abstract class Component<T, S> {
+    public state: S;
     protected props: T;
-    public element: HTMLElement | SVGElement;
     constructor(props: T) {
         this.props = props;
-
-        // render the first time
-        this.element = this.render();
     }
 
-    protected abstract render(): HTMLElement | SVGElement;
+    public updateProps(obj: object) {
+        this.props = {
+            ...this.props,
+            ...obj
+        }
+    }
+
+    public abstract render(): HTMLElement | SVGElement;
 }

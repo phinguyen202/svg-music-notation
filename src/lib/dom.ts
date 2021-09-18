@@ -1,6 +1,6 @@
 import Component from "./component";
 
-export function elt(type: keyof HTMLElementTagNameMap, props: any, ...children: Array<HTMLElement | string | Component<any>>) {
+export function elt(type: keyof HTMLElementTagNameMap, props: any, ...children: Array<HTMLElement | string | Component<any, any>>) {
     let dom = document.createElement(type);
     if (props) Object.assign(dom, props);
     for (let child of children) {
@@ -9,13 +9,13 @@ export function elt(type: keyof HTMLElementTagNameMap, props: any, ...children: 
         } else if (typeof child === 'string') {
             dom.appendChild(document.createTextNode(child));
         } else if (child instanceof Component) {
-            dom.appendChild(child.element);
+            dom.appendChild(child.render());
         }
     }
     return dom;
 }
 
-type SVGElementChild = SVGElement | string | Component<any>;
+type SVGElementChild = SVGElement | string | Component<any, any>;
 const NS = "http://www.w3.org/2000/svg";
 export function eltNS(type: keyof SVGElementTagNameMap, props: any, ...children: Array<SVGElementChild | Array<SVGElementChild>>) {
     let dom = document.createElementNS(NS, type);
@@ -38,7 +38,7 @@ export function eltNS(type: keyof SVGElementTagNameMap, props: any, ...children:
 
 function addChild(dom: SVGElement, child: SVGElementChild) {
     if (child instanceof Component) {
-        dom.appendChild(child.element);
+        dom.appendChild(child.render());
     } else if (typeof child === 'string') {
         dom.appendChild(document.createTextNode(child));
     } else if (child instanceof SVGElement) {
