@@ -1,3 +1,5 @@
+import { SPACE_TYPE } from './enum/space';
+
 export interface Identity<T> {
 	id: T;
 }
@@ -26,16 +28,24 @@ export interface YCoordinate {
 	y?: number | string;
 }
 
-export interface CoordinateModel extends XCoordinate, YCoordinate{
+export interface CoordinateModel extends XCoordinate, YCoordinate {
 }
 
 export interface HeightDimension {
-    height: number;
+	height: number;
 }
 
 export interface WidthDimension {
-    width: number;
+	width: number;
 }
 
-export interface DimensionModel extends WidthDimension, HeightDimension{
+export interface DimensionModel extends WidthDimension, HeightDimension { }
+
+export interface SpaceUnit {
+	type: SPACE_TYPE;
+	length: number;
+}
+
+export interface Glyph extends WidthDimension{
+	codepoint: string;
 }

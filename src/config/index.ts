@@ -1,6 +1,6 @@
-import { SvgSheetConfig } from "@model/config";
+import { SvgSheetConfig } from '@model/config';
 
 export const defaultConfig: SvgSheetConfig = {
-    size: 1,
-    padding: 100,
+    size: 0.5,
+    padding: 50,
 }

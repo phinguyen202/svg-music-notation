@@ -16,7 +16,7 @@ export function elt(type: keyof HTMLElementTagNameMap, props: any, ...children: 
 }
 
 type SVGElementChild = SVGElement | string | Component<any, any>;
-const NS = "http://www.w3.org/2000/svg";
+const NS = 'http://www.w3.org/2000/svg';
 export function eltNS(type: keyof SVGElementTagNameMap, props: any, ...children: Array<SVGElementChild | Array<SVGElementChild>>) {
     let dom = document.createElementNS(NS, type);
     if (props) {

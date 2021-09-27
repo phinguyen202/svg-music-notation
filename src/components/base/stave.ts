@@ -1,4 +1,4 @@
-import Component, { Props } from '@lib/component';
+import Component from '@lib/component';
 import { eltNS } from '@lib/dom';
 import { CoordinateModel } from '@model/common.model';
 
@@ -15,8 +15,8 @@ export class Stave extends Component<StaveProps, any> {
     render() {
         const { x = 0, y = 0, width, lineNumber } = this.props;
 
-        const lines = (new Array(lineNumber)).fill(undefined).map((data: any, index: number) => {
-            const yLine = index  * 0.25;
+        const lines = (new Array(lineNumber)).fill(undefined).map((_, index: number) => {
+            const yLine = index * 0.25;
             return eltNS('line',
                 {
                     x2: width,
@@ -26,9 +26,9 @@ export class Stave extends Component<StaveProps, any> {
                 })
         });
 
-        return eltNS("g", {
+        return eltNS('g', {
             transform: `translate(${x}, ${y})`,
-            ['stroke-width']: '0.5'
+            'stroke-width': '0.5'
         }, ...lines);
     }
 }

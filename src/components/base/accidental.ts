@@ -1,6 +1,6 @@
 import { eltNS } from '@lib/dom';
 import Component from '@lib/component';
-import { CoordinateModel } from '@model/common.model';
+import { CoordinateModel, Glyph } from '@model/common.model';
 import { bravuraMetadata, glyphNames } from '@glyph/index';
 
 export type AccidentalType = 'sharp' | 'flat' | 'natural';

@@ -12,7 +12,6 @@ interface SheetProps {
 export class Sheet extends Component<SheetProps, any> {
     constructor(props: SheetProps) {
         super(props);
-
         // calculate matrix and padding based on size
         // padding default = 50
         props.config.padding /= props.config.size;
@@ -25,12 +24,12 @@ export class Sheet extends Component<SheetProps, any> {
         const { width, height, size } = config;
 
         return eltNS('svg', {
-            xmlns: "http://www.w3.org/2000/svg",
+            xmlns: 'http://www.w3.org/2000/svg',
             'font-family': 'Bravura, BravuraText',
             width,
             height,
             stroke: 'black',
-            'font-size': `4em`, // => 4 * 4 = 16 (multiple width of glyph)
+            'font-size': '6em', // => 4 * 6 = 24 (multiple width of glyph)
             transform: `matrix(${size}, 0, 0, ${size}, ${width/2 * (size - 1)},  ${height/2 * (size - 1)})`
         }, ScorePartwiseGroup({ source: source['score-partwise'], config }));
     }

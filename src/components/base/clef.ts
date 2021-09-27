@@ -1,12 +1,13 @@
 import { eltNS } from '@lib/dom';
-import Component from '@lib/component';
 import { Clef, SignType } from '@model/musicXML';
-import { XCoordinate } from '@model/common.model';
+import { Glyph, XCoordinate } from '@model/common.model';
 import { bravuraMetadata, glyphNames } from '@glyph/index';
+import BaseComponent from '@lib/base.component';
 
 interface ClefProps extends Clef, XCoordinate { }
 
-export class ClefCom extends Component<ClefProps, Glyph> {
+export class ClefCom extends BaseComponent<ClefProps, Glyph> {
+    public partKey: string = 'clef';
     constructor(props: ClefProps) {
         super(props);
         this.state = clefMap.get(props.sign);

@@ -1,10 +1,10 @@
 import { eltNS } from '@lib/dom';
-import Component from '@lib/component';
-import { XCoordinate } from '@model/common.model';
+import { Glyph, XCoordinate } from '@model/common.model';
 import { bravuraMetadata, glyphNames } from '@glyph/index';
 import { Note } from '@model/musicXML';
 import { NoteConfig, noteMap } from '@config/treble';
 import { NOTE_DURATION, NOTE_DURATION_NUMBER, NOTE_PITCH } from '@model/enum';
+import BaseComponent from '@lib/base.component';
 
 const noteDurationMap: Map<NOTE_DURATION, Glyph> = new Map<NOTE_DURATION, Glyph>([
     [NOTE_DURATION.whole, {
@@ -48,7 +48,7 @@ interface NoteState extends Glyph, NoteConfig {
     durationNumber: NOTE_DURATION_NUMBER;
 }
 
-export class NoteCom extends Component<NoteProps, NoteState> {
+export class NoteCom extends BaseComponent<NoteProps, NoteState> {
     constructor(props: NoteProps) {
         super(props);
         const { pitch, duration, type, divisions } = props;
@@ -62,6 +62,7 @@ export class NoteCom extends Component<NoteProps, NoteState> {
             durationNumber,
             ...noteDurationMap.get(noteType as NOTE_DURATION)
         };
+        this.partKey = `note.${noteType}`;
     }
 
     render() {
@@ -72,7 +73,7 @@ export class NoteCom extends Component<NoteProps, NoteState> {
             return eltNS('g',
                 { transform: `translate(${x}`, y },
                 eltNS('text', { x, y }, `${this.state.codepoint}${glyphNames.stem.codepoint}`),
-                eltNS('text', { x: x + this.state.width }, `${glyphNames.flag8thUp.codepoint}`))
+                eltNS('text', { x: x + this.state.width * 24 }, `${glyphNames.flag8thUp.codepoint}`))
         } else {
             return eltNS('text',
                 { x, y },

@@ -1,14 +1,15 @@
 import { eltNS } from '@lib/dom';
-import Component from '@lib/component';
-import { CoordinateModel } from '@model/common.model';
+import { CoordinateModel, Glyph } from '@model/common.model';
 import { bravuraMetadata } from '@glyph/index';
 import { Time } from '@model/musicXML';
 import { noteMap } from '@config/treble';
 import { NOTE_PITCH } from '@model/enum';
+import BaseComponent from '@lib/base.component';
 
 interface TimeSignatureProps extends Time, CoordinateModel { }
 
-export class TimeSignatureCom extends Component<TimeSignatureProps, Glyph> {
+export class TimeSignatureCom extends BaseComponent<TimeSignatureProps, Glyph> {
+    public partKey: string = 'time-signature';
     constructor(props: TimeSignatureProps) {
         super(props);
         const timeKey: string = `timeSig${props.beats}over${props['beat-type']}`;
