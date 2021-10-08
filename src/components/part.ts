@@ -42,7 +42,10 @@ export class PartCom extends Component<PartProps, Glyph> {
         const { source, config } = this.props;
         const { _id, measure } = source;
         const { padding, width } = config;
+        
+        const staveWidth = width - padding * 2;
 
+        // building Measures
         const elements: BaseComponent<any, WidthDimension>[] = (Array.isArray(measure) ? measure : [measure])
             .reduce((acc: BaseComponent<any, WidthDimension>[], m: Measure) => {
                 return acc.concat(MeasureGroup({ source: m, config: config }))
@@ -50,34 +53,28 @@ export class PartCom extends Component<PartProps, Glyph> {
 
         let x = 0.5 * 24; // margin left
 
-        const { totalEleWidth, rel } = elements.reduce((acc: any, element: BaseComponent<any, WidthDimension>) => {
+        const { fixedWidth, totalRelUnit } = elements.reduce((acc: any, element: BaseComponent<any, WidthDimension>) => {
             const space = spaceMap.get(element.partKey);
             if (space) {
                 if (space.type === SPACE_TYPE.Absolute) {
-                    acc.totalEleWidth += space.length * 24;
+                    acc.fixedWidth += (space.length + element.state.width) * 24;
                 } else {
-                    acc.rel += space.length;
+                    acc.totalRelUnit += space.length;
                 }
-                acc.totalEleWidth += element.state.width * 24;
             }
             return acc;
-        }, { totalEleWidth: x, rel: 0 })
+        }, { fixedWidth: x, totalRelUnit: 0 })
 
-
-        const staveWidth = width - padding * 2;
-        const widthPerUnit = (staveWidth - totalEleWidth) / rel;
+        const perUnit = (staveWidth - fixedWidth) / totalRelUnit;
 
         elements.forEach((element: BaseComponent<any, WidthDimension>) => {
             element.updateProps({ x });
-
             const space = spaceMap.get(element.partKey);
-            let spacing;
             if (space.type === SPACE_TYPE.Absolute) {
-                spacing = space.length * 24;
+                x += (space.length + element.state.width) * 24;
             } else {
-                spacing = space.length * widthPerUnit;
+                x += space.length * perUnit;
             }
-            x += element.state.width * 24 + spacing;
         })
 
         return eltNS('g', {
