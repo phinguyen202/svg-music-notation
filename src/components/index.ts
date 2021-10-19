@@ -14,14 +14,17 @@ export class Sheet extends Component<SheetProps, any> {
         super(props);
         // calculate matrix and padding based on size
         // padding default = 50
-        props.config.padding /= props.config.size;
-        props.config.width /= props.config.size;
-        props.config.height /= props.config.size;
+        props.config.padding /= props.config.scale;
+        props.config.width /= props.config.scale;
+        props.config.height /= props.config.scale;
     }
 
     render() {
         const { source, config } = this.props;
-        const { width, height, size } = config;
+        const { width, height, scale, fontSizeInPx } = config;
+
+        // a five-line stave height = fontSizeInPx * scale
+        // example 96 * 0.5 = 48 (unit of coordinate)
 
         return eltNS('svg', {
             xmlns: 'http://www.w3.org/2000/svg',
@@ -29,8 +32,8 @@ export class Sheet extends Component<SheetProps, any> {
             width,
             height,
             stroke: 'black',
-            'font-size': '6em', // => 4 * 6 = 24 (multiple width of glyph)
-            transform: `matrix(${size}, 0, 0, ${size}, ${width/2 * (size - 1)},  ${height/2 * (size - 1)})`
+            'font-size': `${fontSizeInPx}px`,
+            transform: `matrix(${scale}, 0, 0, ${scale}, ${width / 2 * (scale - 1)},  ${height / 2 * (scale - 1)})`
         }, ScorePartwiseGroup({ source: source['score-partwise'], config }));
     }
 }

@@ -1,6 +1,7 @@
 export interface SvgSheetConfig {
     height?: number;
     width?: number;
-    size?: number; // 1 => 4px
+    scale?: number;
+    fontSizeInPx?: number;
     padding?: number;
 }

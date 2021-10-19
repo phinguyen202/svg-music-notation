@@ -1,6 +1,7 @@
 import { SvgSheetConfig } from '@model/config';
 
 export const defaultConfig: SvgSheetConfig = {
-    size: 0.5,
+    scale: 0.5,
+    fontSizeInPx: 96,
     padding: 50,
 }
