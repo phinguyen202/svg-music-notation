@@ -34,6 +34,7 @@ export class SvgMusicNotation {
 
         this.container = container;
         this.source = source;
+        
         // Spread data into main component
         this.sheet = new Sheet({
             source,

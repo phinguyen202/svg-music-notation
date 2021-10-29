@@ -20,7 +20,7 @@ export class TimeSignatureCom extends BaseComponent<TimeSignatureProps, Glyph> {
     }
 
     render() {
-        const { x , y = noteMap.get(NOTE_PITCH.E4).y } = this.props;
+        const { x , y = '1em' } = this.props;
 
         return eltNS('text',
             { x, y },

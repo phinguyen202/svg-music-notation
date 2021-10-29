@@ -27,7 +27,7 @@ export class Stave extends Component<StaveProps, any> {
         });
 
         return eltNS('g', {
-            transform: `translate(${x}, ${y})`,
+            transform: `translate(${x} ${y})`,
             'stroke-width': '0.5'
         }, ...lines);
     }

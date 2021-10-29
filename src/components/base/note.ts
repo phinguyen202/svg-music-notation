@@ -5,27 +5,39 @@ import { Note } from '@model/musicXML';
 import { NoteConfig, noteMap } from '@config/treble';
 import { NOTE_DURATION, NOTE_DURATION_NUMBER, NOTE_PITCH } from '@model/enum';
 import BaseComponent from '@lib/base.component';
+import { Stem } from '@base/stem';
 
-const noteDurationMap: Map<NOTE_DURATION, Glyph> = new Map<NOTE_DURATION, Glyph>([
+interface NoteMeta {
+    stemHeight?: number;
+    flagCodepoint?: string;
+}
+
+const noteDurationMap: Map<NOTE_DURATION, Glyph> = new Map<NOTE_DURATION, Glyph & NoteMeta>([
     [NOTE_DURATION.whole, {
         codepoint: glyphNames.noteWhole.codepoint,
         width: bravuraMetadata.glyphAdvanceWidths.noteWhole
     }],
     [NOTE_DURATION.half, {
-        codepoint: glyphNames.noteHalfUp.codepoint,
-        width: bravuraMetadata.glyphAdvanceWidths.noteHalfUp
+        codepoint: glyphNames.noteheadBlack.codepoint,
+        width: bravuraMetadata.glyphAdvanceWidths.noteheadBlack,
+        stemHeight: 32
     }],
     [NOTE_DURATION.quarter, {
-        codepoint: glyphNames.noteQuarterUp.codepoint,
-        width: bravuraMetadata.glyphAdvanceWidths.noteQuarterUp
+        codepoint: glyphNames.noteheadBlack.codepoint,
+        width: bravuraMetadata.glyphAdvanceWidths.noteheadBlack,
+        stemHeight: 32
     }],
     [NOTE_DURATION.eighth, {
         codepoint: glyphNames.noteheadBlack.codepoint,
-        width: bravuraMetadata.glyphAdvanceWidths.noteheadBlack
+        width: bravuraMetadata.glyphAdvanceWidths.noteheadBlack,
+        stemHeight: 32,
+        flagCodepoint: glyphNames.flag8thUp.codepoint
     }],
     [NOTE_DURATION.sixteenth, {
         codepoint: glyphNames.noteheadBlack.codepoint,
-        width: bravuraMetadata.glyphAdvanceWidths.noteheadBlack
+        width: bravuraMetadata.glyphAdvanceWidths.noteheadBlack,
+        stemHeight: 32,
+        flagCodepoint: glyphNames.flag16thUp.codepoint
     }],
 ]);
 
@@ -37,13 +49,11 @@ const noteTypeMap: Map<NOTE_DURATION_NUMBER, NOTE_DURATION> = new Map<NOTE_DURAT
     [NOTE_DURATION_NUMBER.whole, NOTE_DURATION.whole],
 ]);
 
-const flagNotes = [NOTE_DURATION.sixteenth, NOTE_DURATION.eighth];
-
 interface NoteProps extends Note, XCoordinate {
     divisions: string;
 }
 
-interface NoteState extends Glyph, NoteConfig {
+interface NoteState extends Glyph, NoteMeta, NoteConfig {
     duration: NOTE_DURATION;
     durationNumber: NOTE_DURATION_NUMBER;
 }
@@ -67,17 +77,18 @@ export class NoteCom extends BaseComponent<NoteProps, NoteState> {
 
     render() {
         const { x } = this.props;
-        const { y, duration } = this.state;
+        const { codepoint, duration, stemHeight, flagCodepoint } = this.state;
+        let { y } = this.state;
+        y = y * 96;
+        console.log(y);
+        
+        const elements: Array<any> = [eltNS('text', undefined, `${codepoint}`)];
+        stemHeight && elements.push(new Stem({ type: 'up', x: this.state.width * 36, height: stemHeight }));
+        flagCodepoint && elements.push(eltNS('text', { x: this.state.width * 36, y: -72 }, `${glyphNames.flag8thUp.codepoint}`));
 
-        if (flagNotes.some(d => d == duration)) {
-            return eltNS('g',
-                { transform: `translate(${x}`, y },
-                eltNS('text', { x, y }, `${this.state.codepoint}${glyphNames.stem.codepoint}`),
-                eltNS('text', { x: x + this.state.width * 24 }, `${glyphNames.flag8thUp.codepoint}`))
-        } else {
-            return eltNS('text',
-                { x, y },
-                `${this.state.codepoint}`);
-        }
+        return eltNS('g',
+            { transform: `translate(${x} ${y})` },
+            ...elements,
+        )
     }
 }

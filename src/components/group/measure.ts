@@ -1,4 +1,3 @@
-import Component from '@lib/component';
 import { SvgSheetConfig } from '@model/config';
 import { Measure, Note } from '@model/musicXML';
 import { ClefCom, KeySignature, TimeSignatureCom, NoteCom } from '@base/index';

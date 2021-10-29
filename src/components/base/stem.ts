@@ -2,11 +2,12 @@ import Component from '@lib/component';
 import { eltNS } from '@lib/dom';
 import { CoordinateModel, HeightDimension } from '@model/common.model';
 
+const width = 0.12; // why this number ?
 interface StemProps extends CoordinateModel, HeightDimension {
     type: 'up' | 'down';
 }
 
-export class Stave extends Component<StemProps, any> {
+export class Stem extends Component<StemProps, any> {
     constructor(props: StemProps) {
         super(props);
     }
@@ -14,9 +15,12 @@ export class Stave extends Component<StemProps, any> {
     render() {
         const { x = 0, y = 0, type = 'up', height } = this.props;
 
-        return eltNS('line',
-            {
-                y2: height,
-            })
+        if (type === 'up') {
+            return eltNS('path',
+                {
+                    // d: `M${x} ${y} V ${-height} H ${width} V ${height} Z`,
+                    d: `M${x} ${y} v ${-72} h ${width} v ${72} Z`, // 96*3/4
+                })
+        }
     }
 }

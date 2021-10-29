@@ -51,13 +51,13 @@ export class PartCom extends Component<PartProps, Glyph> {
                 return acc.concat(MeasureGroup({ source: m, config: config }))
             }, []);
 
-        let x = 0.5 * 24; // margin left
+        let x = 0.5 * 36; // margin left
 
         const { fixedWidth, totalRelUnit } = elements.reduce((acc: any, element: BaseComponent<any, WidthDimension>) => {
             const space = spaceMap.get(element.partKey);
             if (space) {
                 if (space.type === SPACE_TYPE.Absolute) {
-                    acc.fixedWidth += (space.length + element.state.width) * 24;
+                    acc.fixedWidth += (space.length + element.state.width) * 36;
                 } else {
                     acc.totalRelUnit += space.length;
                 }
@@ -71,7 +71,7 @@ export class PartCom extends Component<PartProps, Glyph> {
             element.updateProps({ x });
             const space = spaceMap.get(element.partKey);
             if (space.type === SPACE_TYPE.Absolute) {
-                x += (space.length + element.state.width) * 24;
+                x += (space.length + element.state.width) * 36;
             } else {
                 x += space.length * perUnit;
             }
@@ -79,7 +79,7 @@ export class PartCom extends Component<PartProps, Glyph> {
 
         return eltNS('g', {
             id: _id,
-            transform: `translate(${padding}, ${padding})`
+            transform: `translate(${padding} ${padding})`
         },
             new Stave({ lineNumber: 5, width: staveWidth }),
             ...elements,

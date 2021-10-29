@@ -21,7 +21,7 @@ export class KeySignature extends Component<KeySignatureProps, WidthDimension> {
             this.elements = sharpOrder.slice(0, fifthsNub).map((note: string) => {
                 const y = noteMap.get(note as NOTE_PITCH).y;
                 const acc = new AccidentalCom({ type, x, y });
-                x += acc.state.width * 24;
+                x += acc.state.width * 36;
                 return acc
             });
         } else if (fifthsNub < 0) {
@@ -29,7 +29,7 @@ export class KeySignature extends Component<KeySignatureProps, WidthDimension> {
             this.elements = flatOrder.slice(0, Math.abs(fifthsNub)).map((note: string) => {
                 const y = noteMap.get(note as NOTE_PITCH).y;
                 const acc = new AccidentalCom({ type, x, y });
-                x += acc.state.width * 24;
+                x += acc.state.width * 36;
                 return acc
             });
         }
