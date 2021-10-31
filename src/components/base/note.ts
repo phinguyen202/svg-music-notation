@@ -3,13 +3,14 @@ import { Glyph, XCoordinate } from '@model/common.model';
 import { bravuraMetadata, glyphNames } from '@glyph/index';
 import { Note } from '@model/musicXML';
 import { NoteConfig, noteMap } from '@config/treble';
-import { NOTE_DURATION, NOTE_DURATION_NUMBER, NOTE_PITCH } from '@model/enum';
+import { NOTE_DURATION, NOTE_DURATION_NUMBER, NOTE_PITCH, STEM_DIRECTION } from '@model/enum';
 import BaseComponent from '@lib/base.component';
 import { Stem } from '@base/stem';
 
 interface NoteMeta {
     stemHeight?: number;
-    flagCodepoint?: string;
+    flagUp?: string;
+    flagDown?: string;
 }
 
 const noteDurationMap: Map<NOTE_DURATION, Glyph> = new Map<NOTE_DURATION, Glyph & NoteMeta>([
@@ -30,14 +31,16 @@ const noteDurationMap: Map<NOTE_DURATION, Glyph> = new Map<NOTE_DURATION, Glyph 
     [NOTE_DURATION.eighth, {
         codepoint: glyphNames.noteheadBlack.codepoint,
         width: bravuraMetadata.glyphAdvanceWidths.noteheadBlack,
-        stemHeight: 0.75,
-        flagCodepoint: glyphNames.flag8thUp.codepoint
+        stemHeight: 0.8,
+        flagUp: glyphNames.flag8thUp.codepoint,
+        flagDown: glyphNames.flag8thDown.codepoint
     }],
     [NOTE_DURATION.sixteenth, {
         codepoint: glyphNames.noteheadBlack.codepoint,
         width: bravuraMetadata.glyphAdvanceWidths.noteheadBlack,
-        stemHeight: 0.75,
-        flagCodepoint: glyphNames.flag16thUp.codepoint
+        stemHeight: 0.8,
+        flagUp: glyphNames.flag16thUp.codepoint,
+        flagDown: glyphNames.flag16thDown.codepoint
     }],
 ]);
 
@@ -79,15 +82,21 @@ export class NoteCom extends BaseComponent<NoteProps, NoteState> {
 
     render() {
         const { x, fontSize, widthUnit } = this.props;
-        const { codepoint, duration, stemHeight, flagCodepoint } = this.state;
+        const { codepoint, isStemUp, stemHeight, flagUp, flagDown } = this.state;
         const { y } = this.state;
         const caledY = y * fontSize;
         const caledStemHeight = stemHeight * fontSize;
-        
-        const elements: Array<any> = [eltNS('text', undefined, `${codepoint}`)];
-        stemHeight && elements.push(new Stem({ type: 'up', x: this.state.width * widthUnit, height: caledStemHeight }));
-        flagCodepoint && elements.push(eltNS('text', { x: this.state.width * widthUnit, y: -caledStemHeight }, flagCodepoint));
 
+        const elements: Array<any> = [eltNS('text', undefined, `${codepoint}`)];
+        if (stemHeight) {
+            if (isStemUp) {
+                elements.push(new Stem({ direction: STEM_DIRECTION.UP, x: this.state.width * widthUnit, height: caledStemHeight }));
+                flagUp && elements.push(eltNS('text', { x: this.state.width * widthUnit, y: -caledStemHeight }, flagUp));
+            } else {
+                stemHeight && elements.push(new Stem({ direction: STEM_DIRECTION.DOWN, height: caledStemHeight }));
+                flagDown && elements.push(eltNS('text', { y: caledStemHeight }, flagDown));
+            }
+        }
         return eltNS('g',
             { transform: `translate(${x} ${caledY})` },
             ...elements,

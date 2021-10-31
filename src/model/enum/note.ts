@@ -6,6 +6,11 @@ export enum NOTE_DURATION {
     sixteenth = 'sixteenth',
 }
 
+export enum STEM_DIRECTION {
+    UP = 'up',
+    DOWN = 'down',
+}
+
 export enum NOTE_DURATION_NUMBER {
     whole = 4,
     half = 2,
