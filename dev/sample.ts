@@ -25,7 +25,7 @@ export const sourceSample = {
                 'note': [
                     {
                         'pitch': {
-                            'step': 'D',
+                            'step': 'C',
                             'octave': '4'
                         },
                         'duration': '4',
@@ -33,139 +33,115 @@ export const sourceSample = {
                     },
                     {
                         'pitch': {
-                            'step': 'C',
-                            'octave': '5'
-                        },
-                        'duration': '4',
-                        'type': 'quarter'
-                    },
-                    {
-                        'pitch': {
-                            'step': 'G',
+                            'step': 'D',
                             'octave': '4'
                         },
-                        'duration': '4',
-                        'type': 'eighth'
-                    },
-                    {
-                        'pitch': {
-                            'step': 'G',
-                            'octave': '4'
-                        },
-                        'duration': '4',
-                        'type': 'eighth'
-                    },
-                    {
-                        'pitch': {
-                            'step': 'G',
-                            'octave': '4'
-                        },
-                        'duration': '4',
-                        'type': 'eighth'
-                    },
-                    {
-                        'pitch': {
-                            'step': 'G',
-                            'octave': '4'
-                        },
-                        'duration': '4',
-                        'type': 'eighth'
-                    },
-                    {
-                        'pitch': {
-                            'step': 'G',
-                            'octave': '4'
-                        },
-                        'duration': '4',
-                        'type': 'eighth'
-                    },
-                    {
-                        'pitch': {
-                            'step': 'G',
-                            'octave': '4'
-                        },
-                        'duration': '4',
-                        'type': 'eighth'
-                    },
-                    {
-                        'pitch': {
-                            'step': 'G',
-                            'octave': '4'
-                        },
-                        'duration': '4',
-                        'type': 'eighth'
-                    },
-                    {
-                        'pitch': {
-                            'step': 'G',
-                            'octave': '4'
-                        },
-                        'duration': '4',
-                        'type': 'eighth'
-                    },
-                    {
-                        'pitch': {
-                            'step': 'G',
-                            'octave': '4'
-                        },
-                        'duration': '4',
-                        'type': 'eighth'
-                    },
-                    {
-                        'pitch': {
-                            'step': 'G',
-                            'octave': '4'
-                        },
-                        'duration': '4',
-                        'type': 'eighth'
-                    },
-                    {
-                        'pitch': {
-                            'step': 'G',
-                            'octave': '4'
-                        },
-                        'duration': '4',
-                        'type': 'eighth'
-                    },
-                    {
-                        'pitch': {
-                            'step': 'G',
-                            'octave': '4'
-                        },
-                        'duration': '4',
-                        'type': 'eighth'
-                    },
-                    {
-                        'pitch': {
-                            'step': 'G',
-                            'octave': '4'
-                        },
-                        'duration': '4',
-                        'type': 'eighth'
-                    },
-                    {
-                        'pitch': {
-                            'step': 'G',
-                            'octave': '4'
-                        },
-                        'duration': '4',
-                        'type': 'eighth'
-                    },
-                    {
-                        'pitch': {
-                            'step': 'G',
-                            'octave': '4'
-                        },
-                        'duration': '4',
-                        'type': 'eighth'
+                        'duration': '2',
+                        'type': 'half'
                     },
                     {
                         'pitch': {
                             'step': 'E',
                             'octave': '4'
                         },
-                        'duration': '4',
+                        'duration': '1',
+                        'type': 'quarter'
+                    },
+                    {
+                        'pitch': {
+                            'step': 'F',
+                            'octave': '4'
+                        },
+                        'duration': '0.5',
                         'type': 'eighth'
+                    },
+                    {
+                        'pitch': {
+                            'step': 'G',
+                            'octave': '4'
+                        },
+                        'duration': '0.25',
+                        'type': 'sixteenth'
+                    },
+                    {
+                        'pitch': {
+                            'step': 'A',
+                            'octave': '4'
+                        },
+                        'duration': '0.25',
+                        'type': 'sixteenth'
+                    },
+                    {
+                        'pitch': {
+                            'step': 'B',
+                            'octave': '4'
+                        },
+                        'duration': '0.25',
+                        'type': 'sixteenth'
+                    },
+                    {
+                        'pitch': {
+                            'step': 'C',
+                            'octave': '5'
+                        },
+                        'duration': '0.25',
+                        'type': 'sixteenth'
+                    },
+                    {
+                        'pitch': {
+                            'step': 'D',
+                            'octave': '5'
+                        },
+                        'duration': '0.25',
+                        'type': 'sixteenth'
+                    },
+                    {
+                        'pitch': {
+                            'step': 'E',
+                            'octave': '5'
+                        },
+                        'duration': '0.25',
+                        'type': 'sixteenth'
+                    },
+                    {
+                        'pitch': {
+                            'step': 'F',
+                            'octave': '5'
+                        },
+                        'duration': '0.25',
+                        'type': 'sixteenth'
+                    },
+                    {
+                        'pitch': {
+                            'step': 'G',
+                            'octave': '5'
+                        },
+                        'duration': '0.25',
+                        'type': 'sixteenth'
+                    },
+                    {
+                        'pitch': {
+                            'step': 'A',
+                            'octave': '5'
+                        },
+                        'duration': '0.25',
+                        'type': 'sixteenth'
+                    },
+                    {
+                        'pitch': {
+                            'step': 'B',
+                            'octave': '5'
+                        },
+                        'duration': '0.25',
+                        'type': 'sixteenth'
+                    },
+                    {
+                        'pitch': {
+                            'step': 'C',
+                            'octave': '6'
+                        },
+                        'duration': '0.25',
+                        'type': 'sixteenth'
                     }
                 ],
                 '_number': '1'

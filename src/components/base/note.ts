@@ -18,8 +18,8 @@ const noteDurationMap: Map<NOTE_DURATION, Glyph> = new Map<NOTE_DURATION, Glyph 
         width: bravuraMetadata.glyphAdvanceWidths.noteWhole
     }],
     [NOTE_DURATION.half, {
-        codepoint: glyphNames.noteheadBlack.codepoint,
-        width: bravuraMetadata.glyphAdvanceWidths.noteheadBlack,
+        codepoint: glyphNames.noteheadHalf.codepoint,
+        width: bravuraMetadata.glyphAdvanceWidths.noteheadHalf,
         stemHeight: 0.75
     }],
     [NOTE_DURATION.quarter, {
@@ -86,7 +86,7 @@ export class NoteCom extends BaseComponent<NoteProps, NoteState> {
         
         const elements: Array<any> = [eltNS('text', undefined, `${codepoint}`)];
         stemHeight && elements.push(new Stem({ type: 'up', x: this.state.width * widthUnit, height: caledStemHeight }));
-        flagCodepoint && elements.push(eltNS('text', { x: this.state.width * widthUnit, y: -caledStemHeight }, `${glyphNames.flag8thUp.codepoint}`));
+        flagCodepoint && elements.push(eltNS('text', { x: this.state.width * widthUnit, y: -caledStemHeight }, flagCodepoint));
 
         return eltNS('g',
             { transform: `translate(${x} ${caledY})` },
