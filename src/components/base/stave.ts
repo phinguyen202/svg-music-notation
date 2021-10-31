@@ -1,10 +1,9 @@
 import Component from '@lib/component';
 import { eltNS } from '@lib/dom';
-import { CoordinateModel } from '@model/common.model';
+import { CoordinateModel, WidthDimension } from '@model/common.model';
 
-interface StaveProps extends CoordinateModel {
+interface StaveProps extends CoordinateModel, WidthDimension {
     lineNumber: number;
-    width: number;
 }
 
 export class Stave extends Component<StaveProps, any> {

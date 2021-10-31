@@ -12,7 +12,7 @@ export const noteMap: Map<NOTE_PITCH, NoteConfig> = new Map<NOTE_PITCH, NoteConf
         y: 1.25,
         isStemUp: true,
         order: 1,
-        ledgers: [5]
+        ledgers: [0]
     }],
     [NOTE_PITCH.D4, {
         y: 1.125,
@@ -73,19 +73,19 @@ export const noteMap: Map<NOTE_PITCH, NoteConfig> = new Map<NOTE_PITCH, NoteConf
         y: -0.25,
         isStemUp: false,
         order: 13,
-        ledgers: [5]
+        ledgers: [0]
     }],
     [NOTE_PITCH.B5, {
         y: -0.375,
         isStemUp: false,
         order: 14,
-        ledgers: [10]
+        ledgers: [0.125]
     }],
     [NOTE_PITCH.C6, {
         y: -0.5,
         isStemUp: false,
         order: 15,
-        ledgers: [5, 15]
+        ledgers: [0, 0.25]
     }]
 ])
 

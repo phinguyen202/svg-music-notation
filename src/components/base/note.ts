@@ -6,6 +6,7 @@ import { NoteConfig, noteMap } from '@config/treble';
 import { NOTE_DURATION, NOTE_DURATION_NUMBER, NOTE_PITCH, STEM_DIRECTION } from '@model/enum';
 import BaseComponent from '@lib/base.component';
 import { Stem } from '@base/stem';
+import { Ledger } from '@base/ledger';
 
 interface NoteMeta {
     stemHeight?: number;
@@ -82,23 +83,27 @@ export class NoteCom extends BaseComponent<NoteProps, NoteState> {
 
     render() {
         const { x, fontSize, widthUnit } = this.props;
-        const { codepoint, isStemUp, stemHeight, flagUp, flagDown } = this.state;
+        const { width, codepoint, isStemUp, ledgers, stemHeight, flagUp, flagDown } = this.state;
         const { y } = this.state;
-        const caledY = y * fontSize;
-        const caledStemHeight = stemHeight * fontSize;
+        const calWidth = width * widthUnit;
+        const calY = y * fontSize;
+        const calStemHeight = stemHeight * fontSize;
 
         const elements: Array<any> = [eltNS('text', undefined, `${codepoint}`)];
         if (stemHeight) {
             if (isStemUp) {
-                elements.push(new Stem({ direction: STEM_DIRECTION.UP, x: this.state.width * widthUnit, height: caledStemHeight }));
-                flagUp && elements.push(eltNS('text', { x: this.state.width * widthUnit, y: -caledStemHeight }, flagUp));
+                elements.push(new Stem({ direction: STEM_DIRECTION.UP, x: calWidth, height: calStemHeight }));
+                flagUp && elements.push(eltNS('text', { x: calWidth, y: -calStemHeight }, flagUp));
             } else {
-                stemHeight && elements.push(new Stem({ direction: STEM_DIRECTION.DOWN, height: caledStemHeight }));
-                flagDown && elements.push(eltNS('text', { y: caledStemHeight }, flagDown));
+                stemHeight && elements.push(new Stem({ direction: STEM_DIRECTION.DOWN, height: calStemHeight }));
+                flagDown && elements.push(eltNS('text', { y: calStemHeight }, flagDown));
             }
         }
+        if (ledgers) {
+            elements.push(...ledgers.map((y: number) => new Ledger({ y, width: calWidth })));
+        }
         return eltNS('g',
-            { transform: `translate(${x} ${caledY})` },
+            { transform: `translate(${x} ${calY})` },
             ...elements,
         )
     }
