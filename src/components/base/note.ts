@@ -20,23 +20,23 @@ const noteDurationMap: Map<NOTE_DURATION, Glyph> = new Map<NOTE_DURATION, Glyph 
     [NOTE_DURATION.half, {
         codepoint: glyphNames.noteheadBlack.codepoint,
         width: bravuraMetadata.glyphAdvanceWidths.noteheadBlack,
-        stemHeight: 32
+        stemHeight: 0.75
     }],
     [NOTE_DURATION.quarter, {
         codepoint: glyphNames.noteheadBlack.codepoint,
         width: bravuraMetadata.glyphAdvanceWidths.noteheadBlack,
-        stemHeight: 32
+        stemHeight: 0.75
     }],
     [NOTE_DURATION.eighth, {
         codepoint: glyphNames.noteheadBlack.codepoint,
         width: bravuraMetadata.glyphAdvanceWidths.noteheadBlack,
-        stemHeight: 32,
+        stemHeight: 0.75,
         flagCodepoint: glyphNames.flag8thUp.codepoint
     }],
     [NOTE_DURATION.sixteenth, {
         codepoint: glyphNames.noteheadBlack.codepoint,
         width: bravuraMetadata.glyphAdvanceWidths.noteheadBlack,
-        stemHeight: 32,
+        stemHeight: 0.75,
         flagCodepoint: glyphNames.flag16thUp.codepoint
     }],
 ]);
@@ -51,6 +51,8 @@ const noteTypeMap: Map<NOTE_DURATION_NUMBER, NOTE_DURATION> = new Map<NOTE_DURAT
 
 interface NoteProps extends Note, XCoordinate {
     divisions: string;
+    widthUnit: number;
+    fontSize: number;
 }
 
 interface NoteState extends Glyph, NoteMeta, NoteConfig {
@@ -76,18 +78,18 @@ export class NoteCom extends BaseComponent<NoteProps, NoteState> {
     }
 
     render() {
-        const { x } = this.props;
+        const { x, fontSize, widthUnit } = this.props;
         const { codepoint, duration, stemHeight, flagCodepoint } = this.state;
-        let { y } = this.state;
-        y = y * 96;
-        console.log(y);
+        const { y } = this.state;
+        const caledY = y * fontSize;
+        const caledStemHeight = stemHeight * fontSize;
         
         const elements: Array<any> = [eltNS('text', undefined, `${codepoint}`)];
-        stemHeight && elements.push(new Stem({ type: 'up', x: this.state.width * 36, height: stemHeight }));
-        flagCodepoint && elements.push(eltNS('text', { x: this.state.width * 36, y: -72 }, `${glyphNames.flag8thUp.codepoint}`));
+        stemHeight && elements.push(new Stem({ type: 'up', x: this.state.width * widthUnit, height: caledStemHeight }));
+        flagCodepoint && elements.push(eltNS('text', { x: this.state.width * widthUnit, y: -caledStemHeight }, `${glyphNames.flag8thUp.codepoint}`));
 
         return eltNS('g',
-            { transform: `translate(${x} ${y})` },
+            { transform: `translate(${x} ${caledY})` },
             ...elements,
         )
     }

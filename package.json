@@ -6,7 +6,7 @@
   "module": "lib/index.es.js",
   "scripts": {
     "build": "rollup -c",
-    "start": "./node_modules/.bin/webpack-dev-server --port 9000 --open --hot --inline --content-base dev",
+    "start": "webpack-dev-server --port 9000 --open --hot --inline --content-base dev",
     "prepublishOnly": "rmdir /Q /S lib && npm run build"
   },
   "repository": {

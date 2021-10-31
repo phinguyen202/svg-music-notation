@@ -41,7 +41,7 @@ export class PartCom extends Component<PartProps, Glyph> {
     render() {
         const { source, config } = this.props;
         const { _id, measure } = source;
-        const { padding, width } = config;
+        const { padding, width, widthUnit } = config;
         
         const staveWidth = width - padding * 2;
 
@@ -51,13 +51,13 @@ export class PartCom extends Component<PartProps, Glyph> {
                 return acc.concat(MeasureGroup({ source: m, config: config }))
             }, []);
 
-        let x = 0.5 * 36; // margin left
+        let x = 0.5 * widthUnit; // margin left
 
         const { fixedWidth, totalRelUnit } = elements.reduce((acc: any, element: BaseComponent<any, WidthDimension>) => {
             const space = spaceMap.get(element.partKey);
             if (space) {
                 if (space.type === SPACE_TYPE.Absolute) {
-                    acc.fixedWidth += (space.length + element.state.width) * 36;
+                    acc.fixedWidth += (space.length + element.state.width) * widthUnit;
                 } else {
                     acc.totalRelUnit += space.length;
                 }
@@ -71,7 +71,7 @@ export class PartCom extends Component<PartProps, Glyph> {
             element.updateProps({ x });
             const space = spaceMap.get(element.partKey);
             if (space.type === SPACE_TYPE.Absolute) {
-                x += (space.length + element.state.width) * 36;
+                x += (space.length + element.state.width) * widthUnit;
             } else {
                 x += space.length * perUnit;
             }

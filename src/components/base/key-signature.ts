@@ -6,14 +6,16 @@ import { flatOrder, sharpOrder, noteMap } from '@config/treble';
 import { NOTE_PITCH } from '@model/enum';
 import { eltNS } from '@lib/dom';
 
-interface KeySignatureProps extends Key, XCoordinate { }
+interface KeySignatureProps extends Key, XCoordinate { 
+    widthUnit: number;
+}
 
 export class KeySignature extends Component<KeySignatureProps, WidthDimension> {
     public partKey: string = 'key-signature';
     private elements: Component<any, Glyph>[];
     constructor(props: KeySignatureProps) {
         super(props);
-        const { fifths } = this.props;
+        const { fifths, widthUnit } = this.props;
         const fifthsNub = +fifths;
         let x: number = 0;
         if (fifthsNub > 0) {
@@ -21,7 +23,7 @@ export class KeySignature extends Component<KeySignatureProps, WidthDimension> {
             this.elements = sharpOrder.slice(0, fifthsNub).map((note: string) => {
                 const y = noteMap.get(note as NOTE_PITCH).y;
                 const acc = new AccidentalCom({ type, x, y });
-                x += acc.state.width * 36;
+                x += acc.state.width * widthUnit;
                 return acc
             });
         } else if (fifthsNub < 0) {
@@ -29,7 +31,7 @@ export class KeySignature extends Component<KeySignatureProps, WidthDimension> {
             this.elements = flatOrder.slice(0, Math.abs(fifthsNub)).map((note: string) => {
                 const y = noteMap.get(note as NOTE_PITCH).y;
                 const acc = new AccidentalCom({ type, x, y });
-                x += acc.state.width * 36;
+                x += acc.state.width * widthUnit;
                 return acc
             });
         }

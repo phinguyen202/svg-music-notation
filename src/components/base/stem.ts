@@ -19,7 +19,7 @@ export class Stem extends Component<StemProps, any> {
             return eltNS('path',
                 {
                     // d: `M${x} ${y} V ${-height} H ${width} V ${height} Z`,
-                    d: `M${x} ${y} v ${-72} h ${width} v ${72} Z`, // 96*3/4
+                    d: `M${x} ${y} v ${-height} h ${width} v ${height} Z`, // 96*3/4
                 })
         }
     }
