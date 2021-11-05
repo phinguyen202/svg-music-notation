@@ -2,6 +2,7 @@ import { SvgSheetConfig } from '@model/config';
 import { Measure, Note } from '@model/musicXML';
 import { ClefCom, KeySignature, TimeSignatureCom, NoteCom } from '@base/index';
 import BaseComponent from '@lib/base.component';
+import { Barline } from '@base/barline';
 
 interface MeasureProps {
     source: Measure,
@@ -11,20 +12,23 @@ interface MeasureProps {
 export function MeasureGroup<T>(props: MeasureProps): Array<BaseComponent<any, any>> {
     const { source, config } = props;
     const { attributes, note, _number } = source;
-    const { clef, key, divisions, time, } = attributes;
     const { fontSize, widthUnit } = config;
-
+    
     const elements: BaseComponent<any, any>[] = [];
-    clef && elements.push(new ClefCom({ ...clef }));
-    key && key.fifths !== '0' && elements.push(new KeySignature({ ...key, widthUnit }));
-    time && elements.push(new TimeSignatureCom(time));
+    if (attributes) {
+        const { clef, key, divisions, time, } = attributes;
+        clef && elements.push(new ClefCom({ ...clef }));
+        key && key.fifths !== '0' && elements.push(new KeySignature({ ...key, widthUnit }));
+        time && elements.push(new TimeSignatureCom(time));
+    }
     note && elements.push(...(
         (Array.isArray(note) ? note : [note])
             .reduce((acc: BaseComponent<any, any>[], n: Note) => {
-                acc.push(new NoteCom({ ...n, divisions, widthUnit, fontSize }));
+                acc.push(new NoteCom({ ...n, divisions: attributes? attributes.divisions : '1', widthUnit, fontSize }));
                 return acc;
             }, [])
     ));
+    elements.push(new Barline({ height: fontSize }));
 
     return elements;
 }

@@ -7,7 +7,8 @@ export const sourceSample = {
             }
         },
         'part': {
-            'measure': {
+            'measure': [
+                {
                 'attributes': {
                     'divisions': '1',
                     'key': {
@@ -30,7 +31,12 @@ export const sourceSample = {
                         },
                         'duration': '4',
                         'type': 'whole'
-                    },
+                    }
+                ],
+                '_number': '1'
+            },
+            {
+                'note': [
                     {
                         'pitch': {
                             'step': 'D',
@@ -70,7 +76,12 @@ export const sourceSample = {
                         },
                         'duration': '0.25',
                         'type': 'sixteenth'
-                    },
+                    }
+                ],
+                '_number': '2'
+            },
+            {
+                'note': [
                     {
                         'pitch': {
                             'step': 'B',
@@ -144,8 +155,9 @@ export const sourceSample = {
                         'type': 'sixteenth'
                     }
                 ],
-                '_number': '1'
-            },
+                '_number': '3'
+            }
+        ],
             '_id': 'P1'
         },
         '_version': '4.0'

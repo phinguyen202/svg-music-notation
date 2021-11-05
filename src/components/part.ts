@@ -22,6 +22,7 @@ const spaceMap: Map<string, SpaceUnit> = new Map<string, SpaceUnit>([
     ['note.quarter', { type: SPACE_TYPE.Relative, length: 1 }],
     ['note.eighth', { type: SPACE_TYPE.Relative, length: 0.5 }],
     ['note.sixteenth', { type: SPACE_TYPE.Relative, length: 0.25 }],
+    ['barline', { type: SPACE_TYPE.None, length: 0 }],
 ])
 
 /**
@@ -42,7 +43,7 @@ export class PartCom extends Component<PartProps, Glyph> {
         const { source, config } = this.props;
         const { _id, measure } = source;
         const { padding, width, widthUnit } = config;
-        
+
         const staveWidth = width - padding * 2;
 
         // building Measures
@@ -58,7 +59,7 @@ export class PartCom extends Component<PartProps, Glyph> {
             if (space) {
                 if (space.type === SPACE_TYPE.Absolute) {
                     acc.fixedWidth += (space.length + element.state.width) * widthUnit;
-                } else {
+                } else if (space.type === SPACE_TYPE.Relative) {
                     acc.totalRelUnit += space.length;
                 }
             }
@@ -67,15 +68,21 @@ export class PartCom extends Component<PartProps, Glyph> {
 
         const perUnit = (staveWidth - fixedWidth) / totalRelUnit;
 
-        elements.forEach((element: BaseComponent<any, WidthDimension>) => {
-            element.updateProps({ x });
+        elements.reduce((prev: any, element: BaseComponent<any, WidthDimension>) => {
+            prev.start = x;
             const space = spaceMap.get(element.partKey);
             if (space.type === SPACE_TYPE.Absolute) {
+                element.updateProps({ x });
                 x += (space.length + element.state.width) * widthUnit;
-            } else {
+                prev.end = x;
+            } else if (space.type === SPACE_TYPE.Relative) {
+                element.updateProps({ x });
                 x += space.length * perUnit;
+            } else if (space.type === SPACE_TYPE.None) {
+                element.updateProps({ x: prev.start + (prev.end - prev.start) / 2 });
             }
-        })
+            return prev;
+        }, { start: 0, end: 0 });
 
         return eltNS('g', {
             id: _id,
