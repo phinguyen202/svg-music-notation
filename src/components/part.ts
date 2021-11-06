@@ -52,7 +52,7 @@ export class PartCom extends Component<PartProps, Glyph> {
                 return acc.concat(MeasureGroup({ source: m, config: config }))
             }, []);
 
-        let x = 0.5 * widthUnit; // margin left
+        let marginLeft = 0.5 * widthUnit; // margin left
 
         const { fixedWidth, totalRelUnit } = elements.reduce((acc: any, element: BaseComponent<any, WidthDimension>) => {
             const space = spaceMap.get(element.partKey);
@@ -64,25 +64,28 @@ export class PartCom extends Component<PartProps, Glyph> {
                 }
             }
             return acc;
-        }, { fixedWidth: x, totalRelUnit: 0 })
+        }, { fixedWidth: marginLeft, totalRelUnit: 0 })
 
         const perUnit = (staveWidth - fixedWidth) / totalRelUnit;
 
-        elements.reduce((prev: any, element: BaseComponent<any, WidthDimension>) => {
-            prev.start = x;
+        const totalElement = elements.length - 1;
+        elements.reduce((x: any, element: BaseComponent<any, WidthDimension>, index: number) => {
             const space = spaceMap.get(element.partKey);
             if (space.type === SPACE_TYPE.Absolute) {
                 element.updateProps({ x });
                 x += (space.length + element.state.width) * widthUnit;
-                prev.end = x;
             } else if (space.type === SPACE_TYPE.Relative) {
                 element.updateProps({ x });
                 x += space.length * perUnit;
             } else if (space.type === SPACE_TYPE.None) {
-                element.updateProps({ x: prev.start + (prev.end - prev.start) / 2 });
+                if (index === totalElement) {
+                    element.updateProps({ x });
+                } else {
+                    element.updateProps({ x: x - marginLeft });
+                }
             }
-            return prev;
-        }, { start: 0, end: 0 });
+            return x;
+        }, marginLeft);
 
         return eltNS('g', {
             id: _id,
