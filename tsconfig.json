@@ -46,6 +46,9 @@
       ],
       "@glyph/*": [
         "glyph/*"
+      ],
+      "@modules/*": [
+        "modules/*"
       ]
     }
   }
