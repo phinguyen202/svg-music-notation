@@ -4,7 +4,7 @@ import { bravuraMetadata, glyphNames } from '@glyph/index';
 import { Note } from '@model/musicXML';
 import { NoteConfig, noteMap } from '@config/treble';
 import { NOTE_DURATION, NOTE_DURATION_NUMBER, NOTE_PITCH, STEM_DIRECTION } from '@model/enum';
-import BaseComponent from '@lib/base.component';
+import Component from '@lib/base.component';
 import { Stem } from '@base/stem';
 import { Ledger } from '@base/ledger';
 
@@ -64,7 +64,7 @@ interface NoteState extends Glyph, NoteMeta, NoteConfig {
     durationNumber: NOTE_DURATION_NUMBER;
 }
 
-export class NoteCom extends BaseComponent<NoteProps, NoteState> {
+export class NoteCom extends Component {
     constructor(props: NoteProps) {
         super(props);
         const { pitch, duration, type, divisions } = props;

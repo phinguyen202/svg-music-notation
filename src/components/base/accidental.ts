@@ -22,7 +22,7 @@ const accidentalMap: Map<AccidentalType, Glyph> = new Map<AccidentalType, Glyph>
     }]
 ]);
 
-export class AccidentalCom extends Component<AccidentalProps, Glyph> {
+export class AccidentalCom extends Component {
     constructor(props: AccidentalProps) {
         super(props);
         this.state = accidentalMap.get(props.type);

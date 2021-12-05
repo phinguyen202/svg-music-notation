@@ -5,3 +5,11 @@ export const defaultConfig: SvgSheetConfig = {
     fontSize: 96,
     padding: 50,
 }
+
+export let GlobalConfig: SvgSheetConfig;
+
+export function setGlobalConfig(config: SvgSheetConfig) {
+    if (config) { 
+        GlobalConfig = config;
+    }
+}

@@ -4,7 +4,7 @@ import { CoordinateModel, HeightDimension } from '@model/common.model';
 
 interface BarlineProps extends CoordinateModel, HeightDimension { }
 
-export class Barline extends Component<BarlineProps, any> {
+export class Barline extends Component {
     public partKey: string = 'barline';
     constructor(props: BarlineProps) {
         super(props);

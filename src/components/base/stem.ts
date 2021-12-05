@@ -8,7 +8,7 @@ interface StemProps extends CoordinateModel, HeightDimension {
     direction: STEM_DIRECTION;
 }
 
-export class Stem extends Component<StemProps, any> {
+export class Stem extends Component {
     constructor(props: StemProps) {
         super(props);
     }

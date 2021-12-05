@@ -4,7 +4,7 @@ import { CoordinateModel, WidthDimension } from '@model/common.model';
 
 interface LedgerProps extends CoordinateModel, WidthDimension { }
 
-export class Ledger extends Component<LedgerProps, any> {
+export class Ledger extends Component {
     constructor(props: LedgerProps) {
         super(props);
     }

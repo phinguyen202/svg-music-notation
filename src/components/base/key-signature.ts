@@ -10,9 +10,9 @@ interface KeySignatureProps extends Key, XCoordinate {
     widthUnit: number;
 }
 
-export class KeySignature extends Component<KeySignatureProps, WidthDimension> {
+export class KeySignature extends Component {
     public partKey: string = 'key-signature';
-    private elements: Component<any, Glyph>[];
+    private elements: Component[];
     constructor(props: KeySignatureProps) {
         super(props);
         const { fifths, widthUnit } = this.props;

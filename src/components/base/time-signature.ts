@@ -1,29 +1,29 @@
-import { eltNS } from '@lib/dom';
+import { Component, eltSVG } from 'source-renderer';
 import { CoordinateModel, Glyph } from '@model/common.model';
 import { bravuraMetadata } from '@glyph/index';
 import { Time } from '@model/musicXML';
 import { noteMap } from '@config/treble';
 import { NOTE_PITCH } from '@model/enum';
-import BaseComponent from '@lib/base.component';
 
 interface TimeSignatureProps extends Time, CoordinateModel { }
 
-export class TimeSignatureCom extends BaseComponent<TimeSignatureProps, Glyph> {
+export class TimeSignatureCom extends Component {
     public partKey: string = 'time-signature';
-    constructor(props: TimeSignatureProps) {
-        super(props);
-        const timeKey: string = `timeSig${props.beats}over${props['beat-type']}`;
-        this.state = {
+    private glyph: Glyph;
+    private x: string | number = 0;
+    private y: string = '1em';
+    constructor(time: Time) {
+        super();
+        const timeKey: string = `timeSig${time.beats}over${time['beat-type']}`;
+        this.glyph = {
             codepoint: bravuraMetadata.optionalGlyphs[timeKey].codepoint,
             width: bravuraMetadata.glyphAdvanceWidths[timeKey]
         };
     }
 
     render() {
-        const { x , y = '1em' } = this.props;
-
-        return eltNS('text',
-            { x, y },
-            this.state.codepoint);
+        return eltSVG('text',
+            { x: this.x, y: this.y },
+            this.glyph.codepoint);
     }
 }

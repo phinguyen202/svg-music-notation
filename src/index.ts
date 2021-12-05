@@ -4,7 +4,6 @@ import { Sheet } from '@components/index';
 import { defaultConfig } from '@config/index';
 import { MusicXML } from '@model/musicXML';
 import { Module } from '@modules/interface';
-
 export interface SvgMusicNotationProp {
     container: HTMLElement;
     config: SvgSheetConfig;
@@ -38,10 +37,7 @@ export class SvgMusicNotation {
         this.source = source;
         
         // Spread data into main component
-        this.sheet = new Sheet({
-            source,
-            config: sheetConfig,
-        });
+        this.sheet = new Sheet(source, sheetConfig);
 
         container.appendChild(this.sheet.render());
 
@@ -51,10 +47,6 @@ export class SvgMusicNotation {
                 module.register(this);
             }
         });
-
-        // do "global" app init config
-        // - scale number
-        // - type of base component, ex: whole note: type: Relative, length: 4
     }
 
     public updateConfig(config: SvgSheetConfig) {

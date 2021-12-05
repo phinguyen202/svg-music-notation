@@ -1,15 +1,10 @@
 import { eltSVG, Component } from 'source-renderer';
-import { SvgSheetConfig } from '@model/config';
 import { Measure, Part } from '@model/musicXML';
 import { Stave } from '@base/index';
 import { MeasureGroup } from '@group/measure';
 import { Glyph, SpaceUnit, WidthDimension } from '@model/common.model';
 import { SPACE_TYPE } from '@model/enum/space';
-
-interface PartProps {
-    source: Part,
-    config: SvgSheetConfig
-}
+import { GlobalConfig } from '@config/index';
 
 const spaceMap: Map<string, SpaceUnit> = new Map<string, SpaceUnit>([
     ['clef', { type: SPACE_TYPE.Absolute, length: 0.5 }],
@@ -30,29 +25,27 @@ const spaceMap: Map<string, SpaceUnit> = new Map<string, SpaceUnit>([
  * @author phinguyen202
  * @export
  * @class PartCom
- * @extends {Component<PartProps>}
+ * @extends {Component}
  */
-export class PartCom extends Component<PartProps, Glyph> {
-    constructor(props: PartProps) {
-        super(props, undefined);
+export class PartCom extends Component {
+    constructor(private part: Part) {
+        super();
     }
 
     render() {
-        const { source, config } = this.props;
-        const { _id, measure } = source;
-        const { padding, width, widthUnit } = config;
+        const { _id, measure } = this.part;
+        const { padding, width, widthUnit } = GlobalConfig;
 
         const staveWidth = width - padding * 2;
 
         // building Measures
-        const elements: BaseComponent<any, WidthDimension>[] = (Array.isArray(measure) ? measure : [measure])
-            .reduce((acc: BaseComponent<any, WidthDimension>[], m: Measure) => {
-                return acc.concat(MeasureGroup({ source: m, config: config }))
-            }, []);
+        const elements: Component[] = (Array.isArray(measure) ? measure : [measure]).reduce((acc: Component[], measure: Measure) => {
+            return acc.concat(MeasureGroup(measure));
+        }, []);
 
         const marginLeft = 0.5 * widthUnit; // margin left
 
-        const { fixedWidth, totalRelUnit } = elements.reduce((acc: any, element: BaseComponent<any, WidthDimension>) => {
+        const { fixedWidth, totalRelUnit } = elements.reduce((acc: any, element: Component) => {
             const space = spaceMap.get(element.partKey);
             if (space) {
                 if (space.type === SPACE_TYPE.Absolute) {
@@ -67,7 +60,7 @@ export class PartCom extends Component<PartProps, Glyph> {
         const perUnit = (staveWidth - fixedWidth) / totalRelUnit;
 
         const totalElement = elements.length - 1;
-        elements.reduce((x: any, element: BaseComponent<any, WidthDimension>, index: number) => {
+        elements.reduce((x: any, element: Component) => {
             const space = spaceMap.get(element.partKey);
             if (space.type === SPACE_TYPE.Absolute) {
                 element.updateProps({ x });

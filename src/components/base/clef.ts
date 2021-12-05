@@ -1,24 +1,21 @@
-import { eltNS } from '@lib/dom';
+import { Component, eltSVG } from 'source-renderer';
 import { Clef, SignType } from '@model/musicXML';
 import { Glyph, XCoordinate } from '@model/common.model';
 import { bravuraMetadata, glyphNames } from '@glyph/index';
-import BaseComponent from '@lib/base.component';
 
-interface ClefProps extends Clef, XCoordinate { }
-
-export class ClefCom extends BaseComponent<ClefProps, Glyph> {
+export class ClefCom extends Component {
     public partKey: string = 'clef';
-    constructor(props: ClefProps) {
-        super(props);
-        this.state = clefMap.get(props.sign);
+    private glyph: Glyph;
+    public x: XCoordinate;
+    constructor(private clef: Clef) {
+        super();
+        this.glyph = clefMap.get(clef.sign);
     }
 
     render() {
-        const { x = 0, line } = this.props;
-
-        return eltNS('text',
-            { x, y: lineMap.get(+line) },
-            this.state.codepoint);
+        return eltSVG('text',
+            { x: this.x, y: lineMap.get(+this.clef.line) },
+            this.glyph.codepoint);
     }
 }
 

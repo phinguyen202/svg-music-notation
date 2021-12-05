@@ -8,12 +8,9 @@ interface ScorePartwiseProps {
     config: SvgSheetConfig
 }
 
-export function ScorePartwiseGroup(props: ScorePartwiseProps): Array<Component<any, any>> {
-    const { source, config } = props;
-    // const partList = source['part-list'];
-    const { part } = source;
-
+export function ScorePartwiseGroup(scorePart: ScorePartwise): Array<Component> {
     return [
-        new PartCom({ source: part, config })
+        new PartCom(scorePart.part)
     ];
+    
 }

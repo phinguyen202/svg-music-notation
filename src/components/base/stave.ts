@@ -6,7 +6,7 @@ interface StaveProps extends CoordinateModel, WidthDimension {
     lineNumber: number;
 }
 
-export class Stave extends Component<StaveProps, any> {
+export class Stave extends Component {
     constructor(props: StaveProps) {
         super(props);
     }
