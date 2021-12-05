@@ -1,3 +1,5 @@
+import { Module } from '@modules/interface';
+
 export interface SvgSheetConfig {
     height?: number;
     width?: number;
@@ -5,4 +7,5 @@ export interface SvgSheetConfig {
     fontSize?: number;
     widthUnit?: number;
     padding?: number;
+    additionalModules?: Module[];
 }

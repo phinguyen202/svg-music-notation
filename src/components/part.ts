@@ -1,12 +1,10 @@
-import { eltNS } from '@lib/dom';
-import Component from '@lib/component';
+import { eltSVG, Component } from 'source-renderer';
 import { SvgSheetConfig } from '@model/config';
 import { Measure, Part } from '@model/musicXML';
 import { Stave } from '@base/index';
 import { MeasureGroup } from '@group/measure';
 import { Glyph, SpaceUnit, WidthDimension } from '@model/common.model';
 import { SPACE_TYPE } from '@model/enum/space';
-import BaseComponent from '@lib/base.component';
 
 interface PartProps {
     source: Part,
@@ -36,7 +34,7 @@ const spaceMap: Map<string, SpaceUnit> = new Map<string, SpaceUnit>([
  */
 export class PartCom extends Component<PartProps, Glyph> {
     constructor(props: PartProps) {
-        super(props);
+        super(props, undefined);
     }
 
     render() {
@@ -52,7 +50,7 @@ export class PartCom extends Component<PartProps, Glyph> {
                 return acc.concat(MeasureGroup({ source: m, config: config }))
             }, []);
 
-        let marginLeft = 0.5 * widthUnit; // margin left
+        const marginLeft = 0.5 * widthUnit; // margin left
 
         const { fixedWidth, totalRelUnit } = elements.reduce((acc: any, element: BaseComponent<any, WidthDimension>) => {
             const space = spaceMap.get(element.partKey);
@@ -87,7 +85,7 @@ export class PartCom extends Component<PartProps, Glyph> {
             return x;
         }, marginLeft);
 
-        return eltNS('g', {
+        return eltSVG('g', {
             id: _id,
             transform: `translate(${padding} ${padding})`
         },

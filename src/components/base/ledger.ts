@@ -1,4 +1,4 @@
-import Component from '@lib/component';
+import { Component } from 'source-renderer';
 import { eltNS } from '@lib/dom';
 import { CoordinateModel, WidthDimension } from '@model/common.model';
 

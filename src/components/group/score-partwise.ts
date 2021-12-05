@@ -1,5 +1,5 @@
 import { PartCom } from '@components/part';
-import Component from '@lib/component';
+import { Component } from 'source-renderer';
 import { SvgSheetConfig } from '@model/config';
 import { ScorePartwise } from '@model/musicXML';
 

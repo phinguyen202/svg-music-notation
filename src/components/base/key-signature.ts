@@ -1,4 +1,4 @@
-import Component from '@lib/component';
+import { Component } from 'source-renderer';
 import { Key } from '@model/musicXML';
 import { Glyph, WidthDimension, XCoordinate } from '@model/common.model';
 import { AccidentalCom, AccidentalType } from '@components/base/accidental';

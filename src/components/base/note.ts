@@ -1,4 +1,4 @@
-import { eltNS } from '@lib/dom';
+import { eltSVG, Component } from 'source-renderer';
 import { Glyph, XCoordinate } from '@model/common.model';
 import { bravuraMetadata, glyphNames } from '@glyph/index';
 import { Note } from '@model/musicXML';
@@ -89,20 +89,20 @@ export class NoteCom extends BaseComponent<NoteProps, NoteState> {
         const calY = y * fontSize;
         const calStemHeight = stemHeight * fontSize;
 
-        const elements: Array<any> = [eltNS('text', undefined, `${codepoint}`)];
+        const elements: Array<any> = [eltSVG('text', undefined, `${codepoint}`)];
         if (stemHeight) {
             if (isStemUp) {
                 elements.push(new Stem({ direction: STEM_DIRECTION.UP, x: calWidth, height: calStemHeight }));
-                flagUp && elements.push(eltNS('text', { x: calWidth, y: -calStemHeight }, flagUp));
+                flagUp && elements.push(eltSVG('text', { x: calWidth, y: -calStemHeight }, flagUp));
             } else {
                 stemHeight && elements.push(new Stem({ direction: STEM_DIRECTION.DOWN, height: calStemHeight }));
-                flagDown && elements.push(eltNS('text', { y: calStemHeight }, flagDown));
+                flagDown && elements.push(eltSVG('text', { y: calStemHeight }, flagDown));
             }
         }
         if (ledgers) {
             elements.push(...ledgers.map((y: number) => new Ledger({ y, width: calWidth })));
         }
-        return eltNS('g',
+        return eltSVG('g',
             { transform: `translate(${x} ${calY})` },
             ...elements,
         )

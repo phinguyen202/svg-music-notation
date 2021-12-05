@@ -1,5 +1,4 @@
-import { eltNS } from '@lib/dom';
-import Component from '@lib/component';
+import { eltSVG, Component } from 'source-renderer';
 import { CoordinateModel, Glyph } from '@model/common.model';
 import { bravuraMetadata, glyphNames } from '@glyph/index';
 
@@ -32,7 +31,7 @@ export class AccidentalCom extends Component<AccidentalProps, Glyph> {
     render() {
         const { x, y } = this.props;
 
-        return eltNS('text',
+        return eltSVG('text',
             { x, y },
             this.state.codepoint);
     }
