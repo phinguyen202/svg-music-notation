@@ -8,9 +8,14 @@ export interface Order<T> {
 	order: T;
 }
 
-export interface PointModel {
+export interface Position {
 	x: number;
 	y: number;
+}
+
+export interface YRelativePosition {
+	x: number;
+	y: number| string;
 }
 
 export interface TwoPointModel {

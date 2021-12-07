@@ -98,6 +98,7 @@ export const sharpOrder = [
     NOTE_PITCH.E5,
     NOTE_PITCH.B4
 ];
+
 export const flatOrder = [
     NOTE_PITCH.B4,
     NOTE_PITCH.E5,

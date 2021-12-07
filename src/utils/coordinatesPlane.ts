@@ -1,15 +1,15 @@
-import { PointModel } from '@model/common.model';
+import { Position } from '@model/common.model';
 import TrigonometryMath from '@utils/math';
 import { QuadraticEquationResult, quadraticEquationSolver } from './quadraticEquation';
 
 export interface TwoPointBaseLine {
-    outside: PointModel;
-    between: PointModel;
+    outside: Position;
+    between: Position;
 }
 
 export interface TwoPointByPosition {
-    above: PointModel;
-    under: PointModel;
+    above: Position;
+    under: Position;
 }
 
 export interface DxModel {
@@ -22,10 +22,10 @@ export type Relative2Lines = 'Coincident' | 'Parallel' | 'Secant';
 
 export interface Relative2LinesResult {
     result: Relative2Lines;
-    intersectingPoint?: PointModel;
+    intersectingPoint?: Position;
 }
 
-export function dx(A: PointModel, B: PointModel): DxModel {
+export function dx(A: Position, B: Position): DxModel {
     // called AB: y = ax + b
     // yA = axA + b
     const a = !(B.y - A.y) || !(B.x - A.x) ? 0 : (B.y - A.y) / (B.x - A.x);
@@ -68,12 +68,12 @@ export function intersectingPointOf2Dxs(dx1: DxModel, dx2: DxModel): Relative2Li
  * @description finding 2 point (C) that ^BAC = degrees
  * @author Phi Nguyen
  * @export
- * @param {PointModel} A
- * @param {PointModel} B
+ * @param {Position} A
+ * @param {Position} B
  * @param {number} degrees
  * @returns {TwoPointByPosition}
  */
-export function findPerpendicularPointsBasedOnAB(A: PointModel, B: PointModel, degrees: number): TwoPointByPosition {
+export function findPerpendicularPointsBasedOnAB(A: Position, B: Position, degrees: number): TwoPointByPosition {
     // called AB: y = ax + b
     // yA = axA + b
     // yB = axB + b
@@ -98,11 +98,11 @@ export function findPerpendicularPointsBasedOnAB(A: PointModel, B: PointModel, d
     // => b = -2xH + 2a1b1 -2a1yH = -2(xH -a1b1 + ayH);
     // => c = -(dHC^2) + xH^2 + yH^2 + b1^2 - 2b1yH
     const re: QuadraticEquationResult = quadraticEquationSolver(1 + Math.pow(a1, 2), -2 * (xH - a1 * b1 + a1 * yH), -(Math.pow(dHC, 2)) + Math.pow(xH, 2) + Math.pow(yH, 2) + Math.pow(b1, 2) - 2 * b1 * yH);
-    const c1: PointModel = {
+    const c1: Position = {
         x: re.result1,
         y: a1 * re.result1 + b1
     };
-    const c2: PointModel = {
+    const c2: Position = {
         x: re.result2,
         y: a1 * re.result2 + b1
     };
@@ -124,12 +124,12 @@ export function findPerpendicularPointsBasedOnAB(A: PointModel, B: PointModel, d
  * @description finding 2 point (C() which is on dAB and distance of dAC = d
  * @author Phi Nguyen
  * @export
- * @param {PointModel} A
- * @param {PointModel} B
+ * @param {Position} A
+ * @param {Position} B
  * @param {number} d
  * @returns {TwoPointBaseLine}
  */
-export function findPointsOnAB(A: PointModel, B: PointModel, d: number): TwoPointBaseLine {
+export function findPointsOnAB(A: Position, B: Position, d: number): TwoPointBaseLine {
     // dAB
     const a = (B.y - A.y) / (B.x - A.x);
     const b = A.y - a * A.x;
@@ -141,11 +141,11 @@ export function findPointsOnAB(A: PointModel, B: PointModel, d: number): TwoPoin
     // => b = -2xA + 2ab -2ayA = -2(xA -ab + ayA);
     // => c = -(d^2) + xA^2 + yA^2 + b^2 - 2byA
     const re: QuadraticEquationResult = quadraticEquationSolver(1 + Math.pow(a, 2), -2 * (A.x - a * b + a * A.y), -(Math.pow(d, 2)) + Math.pow(A.x, 2) + Math.pow(A.y, 2) + Math.pow(b, 2) - 2 * b * A.y);
-    const c1: PointModel = {
+    const c1: Position = {
         x: re.result1,
         y: a * re.result1 + b
     };
-    const c2: PointModel = {
+    const c2: Position = {
         x: re.result2,
         y: a * re.result2 + b
     };
@@ -167,10 +167,10 @@ export function findPointsOnAB(A: PointModel, B: PointModel, d: number): TwoPoin
  * @description calcular distance between A and B
  * @author Phi Nguyen
  * @export
- * @param {PointModel} A
- * @param {PointModel} B
+ * @param {Position} A
+ * @param {Position} B
  * @returns {number}
  */
-export function calculatedAB(A: PointModel, B: PointModel): number {
+export function calculatedAB(A: Position, B: Position): number {
     return Math.sqrt(Math.pow(A.x - B.x, 2) + Math.pow(A.y - B.y, 2));
 }
