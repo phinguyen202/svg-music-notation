@@ -13,7 +13,7 @@ export interface Position {
 	y: number;
 }
 
-export interface YRelativePosition {
+export interface YRelativePosition{
 	x: number;
 	y: number| string;
 }
