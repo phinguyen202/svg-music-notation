@@ -7,15 +7,7 @@ import { SPACE_TYPE } from '@model/enum/space';
 import { GlobalConfig } from '@config/index';
 
 const spaceMap: Map<string, SpaceUnit> = new Map<string, SpaceUnit>([
-    ['clef', { type: SPACE_TYPE.Absolute, length: 0.5 }],
-    ['key-signature', { type: SPACE_TYPE.Absolute, length: 0.5 }],
-    ['time-signature', { type: SPACE_TYPE.Absolute, length: 0.5 }],
-    ['note.whole', { type: SPACE_TYPE.Relative, length: 4 }],
-    ['note.half', { type: SPACE_TYPE.Relative, length: 2 }],
-    ['note.quarter', { type: SPACE_TYPE.Relative, length: 1 }],
-    ['note.eighth', { type: SPACE_TYPE.Relative, length: 0.5 }],
-    ['note.sixteenth', { type: SPACE_TYPE.Relative, length: 0.25 }],
-    ['barline', { type: SPACE_TYPE.None, length: 0 }],
+    ['time-signature', ],
 ])
 
 /**

@@ -1,24 +1,27 @@
-import { Component } from 'source-renderer';
-import { eltNS } from '@lib/dom';
-import { CoordinateModel, HeightDimension } from '@model/common.model';
+import { eltSVG } from 'source-renderer';
+import { BaseComponent } from '@base/interface/base.component';
+import { HeightDimension } from '@model/common.model';
+import { GlobalConfig } from '@config/index';
+import { SPACE_TYPE } from '@model/enum/space';
 
-interface BarlineProps extends CoordinateModel, HeightDimension { }
+interface BarlineProps extends HeightDimension { }
 
-export class Barline extends Component {
-    public partKey: string = 'barline';
-    constructor(props: BarlineProps) {
-        super(props);
+export class Barline extends BaseComponent {
+    constructor(private props: BarlineProps) {
+        super();
+        this.space = { type: SPACE_TYPE.None, length: 0 };
+        this.width = 0;
     }
 
     render() {
-        const { x = 0, y = 0, height } = this.props;
-        return eltNS('line',
+        const { x = 0, y = 0 } = this.position;
+        return eltSVG('line', 
             {
                 x1: x,
                 x2: x,
                 y1: y,
-                y2: '1em',
-                'stroke-width': '0.5'
+                y2: this.props.height,
+                'stroke-width': GlobalConfig.barline.strokeWidth,
             })
     }
 }

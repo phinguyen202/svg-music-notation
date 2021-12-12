@@ -1,28 +1,27 @@
-import { Component } from 'source-renderer';
-import { eltNS } from '@lib/dom';
-import { CoordinateModel, HeightDimension } from '@model/common.model';
+import { eltSVG, Component } from 'source-renderer';
+import { OptionalPosition, HeightDimension } from '@model/common.model';
 import { STEM_DIRECTION } from '@model/enum';
 
 const width = 0.12; // why this number ?
-interface StemProps extends CoordinateModel, HeightDimension {
+interface StemProps extends OptionalPosition, HeightDimension {
     direction: STEM_DIRECTION;
 }
 
 export class Stem extends Component {
-    constructor(props: StemProps) {
-        super(props);
+    constructor(private props: StemProps) {
+        super();
     }
 
     render() {
         const { x = 0, y = 0, direction = 'up', height } = this.props;
 
         if (direction === 'up') {
-            return eltNS('path',
+            return eltSVG('path',
                 {
                     d: `M${x} ${y} v ${-height} h ${width} v ${height} Z`,
                 })
         } else {
-            return eltNS('path',
+            return eltSVG('path',
                 {
                     d: `M${x} ${y} v ${height} h ${width} v ${-height} Z`,
                 })

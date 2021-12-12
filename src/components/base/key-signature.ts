@@ -1,20 +1,26 @@
-import { Component } from 'source-renderer';
+import { eltSVG, Component } from 'source-renderer';
+import { BaseComponent } from '@base/interface/base.component';
 import { Key } from '@model/musicXML';
-import { Glyph, WidthDimension, XCoordinate } from '@model/common.model';
+import { Glyph, WidthDimension, OptionalPosition } from '@model/common.model';
 import { AccidentalCom, AccidentalType } from '@components/base/accidental';
 import { flatOrder, sharpOrder, noteMap } from '@config/treble';
 import { NOTE_PITCH } from '@model/enum';
-import { eltNS } from '@lib/dom';
+import { SPACE_TYPE } from '@model/enum/space';
 
-interface KeySignatureProps extends Key, XCoordinate { 
+interface KeySignatureProps extends Key, OptionalPosition { 
     widthUnit: number;
 }
 
-export class KeySignature extends Component {
-    public partKey: string = 'key-signature';
-    private elements: Component[];
-    constructor(props: KeySignatureProps) {
-        super(props);
+export class KeySignature extends BaseComponent {
+    private elements: AccidentalCom[];
+    constructor(private props: KeySignatureProps) {
+        super();
+        this.init();
+    }
+    
+    private init() {
+        this.space = { type: SPACE_TYPE.Absolute, length: 0.5 };
+        
         const { fifths, widthUnit } = this.props;
         const fifthsNub = +fifths;
         let x: number = 0;
@@ -39,16 +45,14 @@ export class KeySignature extends Component {
         if (this.elements) {
             width = Math.abs(fifthsNub) * this.elements[0].state.width;
         }
-
-        this.state = {
-            width,
-        }
+    
+        this.width = width;
     }
 
     render() {
-        const { x } = this.props;
+        const { x = 0 } = this.position;
 
-        return eltNS('g',
+        return eltSVG('g',
             { transform: `translate(${x})` },
             ...this.elements);
     }

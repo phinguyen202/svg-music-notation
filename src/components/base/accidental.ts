@@ -1,9 +1,10 @@
-import { eltSVG, Component } from 'source-renderer';
-import { CoordinateModel, Glyph } from '@model/common.model';
+import { eltSVG } from 'source-renderer';
+import { BaseComponent } from '@base/interface/base.component';
+import { Glyph, Position } from '@model/common.model';
 import { bravuraMetadata, glyphNames } from '@glyph/index';
 
 export type AccidentalType = 'sharp' | 'flat' | 'natural';
-interface AccidentalProps extends CoordinateModel {
+interface AccidentalProps extends Position {
     type: AccidentalType
 }
 
@@ -22,14 +23,23 @@ const accidentalMap: Map<AccidentalType, Glyph> = new Map<AccidentalType, Glyph>
     }]
 ]);
 
-export class AccidentalCom extends Component {
-    constructor(props: AccidentalProps) {
-        super(props);
-        this.state = accidentalMap.get(props.type);
+export class AccidentalCom extends BaseComponent {
+    public state: Glyph;
+    constructor(private props: AccidentalProps) {
+        super();
+        this.init();
+    }
+
+    private init() {
+        this.state = accidentalMap.get(this.props.type);
+        this.position = {
+            x: this.props.x,
+            y: this.props.y
+        }
     }
 
     render() {
-        const { x, y } = this.props;
+        const { x, y } = this.position;
 
         return eltSVG('text',
             { x, y },

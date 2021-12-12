@@ -13,27 +13,9 @@ export interface Position {
 	y: number;
 }
 
-export interface YRelativePosition{
-	x: number;
-	y: number| string;
-}
-
-export interface TwoPointModel {
-	x1: number;
-	y1: number;
-	x2: number;
-	y2: number;
-}
-
-export interface XCoordinate {
-	x?: number;
-}
-
-export interface YCoordinate {
-	y?: number | string;
-}
-
-export interface CoordinateModel extends XCoordinate, YCoordinate {
+export interface OptionalPosition {
+    x?: number;
+    y?: number;
 }
 
 export interface HeightDimension {

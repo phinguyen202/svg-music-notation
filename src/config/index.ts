@@ -4,6 +4,9 @@ export const defaultConfig: SvgSheetConfig = {
     scale: 0.5,
     fontSize: 96,
     padding: 50,
+    barline: {
+        strokeWidth: 0.5,
+    }
 }
 
 export let GlobalConfig: SvgSheetConfig;

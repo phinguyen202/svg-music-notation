@@ -1,29 +1,33 @@
-import { Component, eltSVG } from 'source-renderer';
-import { CoordinateModel, Glyph } from '@model/common.model';
+import { eltSVG } from 'source-renderer';
+import { BaseComponent } from './interface/base.component';
+import { OptionalPosition, Glyph } from '@model/common.model';
 import { bravuraMetadata } from '@glyph/index';
 import { Time } from '@model/musicXML';
-import { noteMap } from '@config/treble';
-import { NOTE_PITCH } from '@model/enum';
+import { GlobalConfig } from '@config/index';
+import { SPACE_TYPE } from '@model/enum/space';
 
-interface TimeSignatureProps extends Time, CoordinateModel { }
-
-export class TimeSignatureCom extends Component {
-    public partKey: string = 'time-signature';
-    private glyph: Glyph;
-    private x: string | number = 0;
-    private y: string = '1em';
-    constructor(time: Time) {
+export class TimeSignatureCom extends BaseComponent {
+    private codepoint: string;
+    constructor(private time: Time) {
         super();
-        const timeKey: string = `timeSig${time.beats}over${time['beat-type']}`;
-        this.glyph = {
-            codepoint: bravuraMetadata.optionalGlyphs[timeKey].codepoint,
-            width: bravuraMetadata.glyphAdvanceWidths[timeKey]
-        };
+        this.init();
+    }
+
+    private init() {
+        this.space = { type: SPACE_TYPE.Absolute, length: 0.5 };
+        const timeKey: string = `timeSig${this.time.beats}over${this.time['beat-type']}`;
+        this.width = bravuraMetadata.glyphAdvanceWidths[timeKey];
+        this.codepoint = bravuraMetadata.optionalGlyphs[timeKey].codepoint;
+        this.position = {
+            x: 0,
+            y: GlobalConfig.fontSize
+        }
     }
 
     render() {
+        const { x = 0, y = 0 } = this.position;
         return eltSVG('text',
-            { x: this.x, y: this.y },
-            this.glyph.codepoint);
+            { x, y },
+            this.codepoint);
     }
 }

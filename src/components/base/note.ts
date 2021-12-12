@@ -1,5 +1,6 @@
-import { eltSVG, Component } from 'source-renderer';
-import { CoordinateModel, Glyph, SpaceUnit, XCoordinate } from '@model/common.model';
+import { eltSVG } from 'source-renderer';
+import { BaseComponent } from '@base/interface/base.component';
+import { OptionalPosition, Glyph, SpaceUnit } from '@model/common.model';
 import { bravuraMetadata, glyphNames } from '@glyph/index';
 import { Note } from '@model/musicXML';
 import { NoteConfig, noteMap } from '@config/treble';
@@ -64,30 +65,40 @@ const noteTypeMap: Map<NOTE_DURATION_NUMBER, NOTE_DURATION> = new Map<NOTE_DURAT
     [NOTE_DURATION_NUMBER.whole, NOTE_DURATION.whole],
 ]);
 
-interface NoteProps extends Note, XCoordinate {
+interface NoteProps extends Note, OptionalPosition {
     divisions: string;
 }
 
-export class NoteCom extends Component {
+export class NoteCom extends BaseComponent {
     private pitchMetric: NoteConfig;
     private durationNum: NOTE_DURATION_NUMBER;
     private durationStr: NOTE_DURATION | string;
     private durationMetric: DurationMetric;
-    private location: CoordinateModel;
+    
     constructor(protected props: NoteProps) {
         super();
-        const { pitch, duration, type, divisions } = props;
+        this.init();
+    }
+
+    private init() {
+        const { pitch, duration, type, divisions } = this.props;
         const { step, octave } = pitch;
 
         this.durationNum = +duration / +divisions;
         this.durationStr = type ? type : noteTypeMap.get(this.durationNum);
         this.pitchMetric = noteMap.get(`${step}${octave}` as NOTE_PITCH);
         this.durationMetric = durationMetricMap.get(this.durationStr as NOTE_DURATION);
+        this.space = this.durationMetric.space;
+        this.position = {
+            x: this.props.x,
+            y: this.pitchMetric.y
+        };
+        this.width = this.durationMetric.width;
     }
 
     render() {
         const { fontSize, widthUnit } = GlobalConfig;
-        const { x, y } = this.location;
+        const { x, y } = this.position;
         const { isStemUp, ledgers } = this.pitchMetric;
         const { width, codepoint, stemHeight, flagUp, flagDown } = this.durationMetric;
 

@@ -1,14 +1,13 @@
-import { Component } from 'source-renderer';
-import { eltNS } from '@lib/dom';
-import { CoordinateModel, WidthDimension } from '@model/common.model';
+import { eltSVG, Component } from 'source-renderer';
+import { OptionalPosition, WidthDimension } from '@model/common.model';
 
-interface StaveProps extends CoordinateModel, WidthDimension {
+interface StaveProps extends OptionalPosition, WidthDimension {
     lineNumber: number;
 }
 
 export class Stave extends Component {
-    constructor(props: StaveProps) {
-        super(props);
+    constructor(private props: StaveProps) {
+        super();
     }
 
     render() {
@@ -16,7 +15,7 @@ export class Stave extends Component {
 
         const lines = (new Array(lineNumber)).fill(undefined).map((_, index: number) => {
             const yLine = index * 0.25;
-            return eltNS('line',
+            return eltSVG('line',
                 {
                     x2: width,
                     y1: `${yLine}em`,
@@ -25,7 +24,7 @@ export class Stave extends Component {
                 })
         });
 
-        return eltNS('g', {
+        return eltSVG('g', {
             transform: `translate(${x} ${y})`,
             'stroke-width': '0.5'
         }, ...lines);

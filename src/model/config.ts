@@ -8,4 +8,9 @@ export interface SvgSheetConfig {
     widthUnit?: number;
     padding?: number;
     additionalModules?: Module[];
+    barline: BarlineConfig;
+}
+
+interface BarlineConfig {
+    strokeWidth: number;
 }
