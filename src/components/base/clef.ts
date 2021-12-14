@@ -1,14 +1,14 @@
 import { eltSVG } from 'source-renderer';
 import { BaseComponent } from '@base/interface/base.component';
 import { Clef, SignType } from '@model/musicXML';
-import { Glyph } from '@model/common.model';
+import { Glyph, Position } from '@model/common.model';
 import { bravuraMetadata, glyphNames } from '@glyph/index';
 import { SPACE_TYPE } from '@model/enum/space';
 
 export class ClefCom extends BaseComponent {
     private codepoint: string;
-    constructor(private props: Clef) {
-        super();
+    constructor(private props: Clef, position?: Position) {
+        super(position);
         this.init();
     }
 

@@ -5,10 +5,7 @@ import { MeasureGroup } from '@group/measure';
 import { Glyph, SpaceUnit, WidthDimension } from '@model/common.model';
 import { SPACE_TYPE } from '@model/enum/space';
 import { GlobalConfig } from '@config/index';
-
-const spaceMap: Map<string, SpaceUnit> = new Map<string, SpaceUnit>([
-    ['time-signature', ],
-])
+import { BaseComponent } from './base/interface/base.component';
 
 /**
  * @description This Component hold a list of primary element
@@ -37,11 +34,11 @@ export class PartCom extends Component {
 
         const marginLeft = 0.5 * widthUnit; // margin left
 
-        const { fixedWidth, totalRelUnit } = elements.reduce((acc: any, element: Component) => {
-            const space = spaceMap.get(element.partKey);
+        const { fixedWidth, totalRelUnit } = elements.reduce((acc: any, element: BaseComponent) => {
+            const { space } = element;
             if (space) {
                 if (space.type === SPACE_TYPE.Absolute) {
-                    acc.fixedWidth += (space.length + element.state.width) * widthUnit;
+                    acc.fixedWidth += (space.length + element.width) * widthUnit;
                 } else if (space.type === SPACE_TYPE.Relative) {
                     acc.totalRelUnit += space.length;
                 }
@@ -52,19 +49,19 @@ export class PartCom extends Component {
         const perUnit = (staveWidth - fixedWidth) / totalRelUnit;
 
         const totalElement = elements.length - 1;
-        elements.reduce((x: any, element: Component) => {
-            const space = spaceMap.get(element.partKey);
+        elements.reduce((x: any, element: BaseComponent, index: number) => {
+            const { space } = element;
             if (space.type === SPACE_TYPE.Absolute) {
-                element.updateProps({ x });
-                x += (space.length + element.state.width) * widthUnit;
+                element.setPosition({ x });
+                x += (space.length + element.width) * widthUnit;
             } else if (space.type === SPACE_TYPE.Relative) {
-                element.updateProps({ x });
+                element.setPosition({ x });
                 x += space.length * perUnit;
             } else if (space.type === SPACE_TYPE.None) {
                 if (index === totalElement) {
-                    element.updateProps({ x });
+                    element.setPosition({ x });
                 } else {
-                    element.updateProps({ x: x - marginLeft });
+                    element.setPosition({ x: x - marginLeft });
                 }
             }
             return x;

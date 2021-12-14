@@ -1,15 +1,18 @@
 import { eltSVG, Component } from 'source-renderer';
-import { OptionalPosition, WidthDimension } from '@model/common.model';
+import { OptionalPosition, Position, WidthDimension } from '@model/common.model';
+import { BaseComponent } from '@base/interface/base.component';
 
-interface LedgerProps extends OptionalPosition, WidthDimension { }
+interface LedgerProps extends WidthDimension { }
 
-export class Ledger extends Component {
-    constructor(private props: LedgerProps) {
-        super();
+export class Ledger extends BaseComponent {
+    constructor(private props: LedgerProps, position?: Position) {
+        super(position);
     }
 
     render() {
-        const { x = 0, y = 0, width } = this.props;
+        const { x = 0, y = 0 } = this.position;
+        const { width } = this.props;
+        
         return eltSVG('line',
             {
                 x1: x - width / 2,

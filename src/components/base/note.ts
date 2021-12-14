@@ -1,6 +1,6 @@
 import { eltSVG } from 'source-renderer';
 import { BaseComponent } from '@base/interface/base.component';
-import { OptionalPosition, Glyph, SpaceUnit } from '@model/common.model';
+import { OptionalPosition, Glyph, SpaceUnit, Position } from '@model/common.model';
 import { bravuraMetadata, glyphNames } from '@glyph/index';
 import { Note } from '@model/musicXML';
 import { NoteConfig, noteMap } from '@config/treble';
@@ -74,9 +74,9 @@ export class NoteCom extends BaseComponent {
     private durationNum: NOTE_DURATION_NUMBER;
     private durationStr: NOTE_DURATION | string;
     private durationMetric: DurationMetric;
-    
-    constructor(protected props: NoteProps) {
-        super();
+
+    constructor(protected props: NoteProps, position?: Position) {
+        super(position);
         this.init();
     }
 
@@ -90,9 +90,9 @@ export class NoteCom extends BaseComponent {
         this.durationMetric = durationMetricMap.get(this.durationStr as NOTE_DURATION);
         this.space = this.durationMetric.space;
         this.position = {
-            x: this.props.x,
-            y: this.pitchMetric.y
-        };
+            x: 0,
+            y: this.pitchMetric.y,
+        }
         this.width = this.durationMetric.width;
     }
 
@@ -117,7 +117,7 @@ export class NoteCom extends BaseComponent {
             }
         }
         if (ledgers) {
-            elements.push(...ledgers.map((y: number) => new Ledger({ y, width: calWidth })));
+            elements.push(...ledgers.map((y: number) => new Ledger({ width: calWidth }, { x: 0, y })));
         }
         return eltSVG('g',
             { transform: `translate(${x} ${calY})` },

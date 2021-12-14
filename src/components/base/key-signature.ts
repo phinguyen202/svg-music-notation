@@ -1,7 +1,7 @@
-import { eltSVG, Component } from 'source-renderer';
+import { eltSVG } from 'source-renderer';
 import { BaseComponent } from '@base/interface/base.component';
 import { Key } from '@model/musicXML';
-import { Glyph, WidthDimension, OptionalPosition } from '@model/common.model';
+import { OptionalPosition, Position } from '@model/common.model';
 import { AccidentalCom, AccidentalType } from '@components/base/accidental';
 import { flatOrder, sharpOrder, noteMap } from '@config/treble';
 import { NOTE_PITCH } from '@model/enum';
@@ -13,8 +13,8 @@ interface KeySignatureProps extends Key, OptionalPosition {
 
 export class KeySignature extends BaseComponent {
     private elements: AccidentalCom[];
-    constructor(private props: KeySignatureProps) {
-        super();
+    constructor(private props: KeySignatureProps, position?: Position) {
+        super(position);
         this.init();
     }
     

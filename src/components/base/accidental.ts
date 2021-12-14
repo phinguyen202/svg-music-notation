@@ -25,17 +25,13 @@ const accidentalMap: Map<AccidentalType, Glyph> = new Map<AccidentalType, Glyph>
 
 export class AccidentalCom extends BaseComponent {
     public state: Glyph;
-    constructor(private props: AccidentalProps) {
-        super();
+    constructor(private props: AccidentalProps, position?: Position) {
+        super(position);
         this.init();
     }
 
     private init() {
         this.state = accidentalMap.get(this.props.type);
-        this.position = {
-            x: this.props.x,
-            y: this.props.y
-        }
     }
 
     render() {

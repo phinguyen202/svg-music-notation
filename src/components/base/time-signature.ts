@@ -1,6 +1,5 @@
 import { eltSVG } from 'source-renderer';
 import { BaseComponent } from './interface/base.component';
-import { OptionalPosition, Glyph } from '@model/common.model';
 import { bravuraMetadata } from '@glyph/index';
 import { Time } from '@model/musicXML';
 import { GlobalConfig } from '@config/index';
