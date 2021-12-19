@@ -2,14 +2,13 @@ import { eltSVG, Component } from 'source-renderer';
 import { Measure, Part } from '@model/musicXML';
 import { Stave } from '@base/index';
 import { MeasureGroup } from '@group/measure';
-import { Glyph, SpaceUnit, WidthDimension } from '@model/common.model';
 import { SPACE_TYPE } from '@model/enum/space';
 import { GlobalConfig } from '@config/index';
 import { BaseComponent } from './base/interface/base.component';
 
 /**
  * @description This Component hold a list of primary element
- * 1. calculate coordinate for each element based on part width and element's width
+ * 1. calculate coordinate for each element based on part width and element width
  * 2. calculate total height of part
  * @author phinguyen202
  * @export
@@ -23,7 +22,7 @@ export class PartCom extends Component {
 
     render() {
         const { _id, measure } = this.part;
-        const { padding, width, widthUnit } = GlobalConfig;
+        const { padding, width, widthUnit, stave } = GlobalConfig;
 
         const staveWidth = width - padding * 2;
 
@@ -32,7 +31,7 @@ export class PartCom extends Component {
             return acc.concat(MeasureGroup(measure));
         }, []);
 
-        const marginLeft = 0.5 * widthUnit; // margin left
+        const marginLeft = stave.marginLeft * widthUnit; // margin left
 
         const { fixedWidth, totalRelUnit } = elements.reduce((acc: any, element: BaseComponent) => {
             const { space } = element;
