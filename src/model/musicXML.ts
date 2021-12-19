@@ -1,9 +1,9 @@
 export interface MusicXML {
-    "score-partwise": ScorePartwise;
+    'score-partwise': ScorePartwise;
 }
 
 export interface ScorePartwise {
-    "part-list": PartList; // lists the different musical parts in the score
+    'part-list': PartList; // lists the different musical parts in the score
     part: Part;
     _version: string;
 }
@@ -59,10 +59,10 @@ export interface Pitch {
 }
 
 export interface PartList {
-    "score-part": ScorePart;
+    'score-part': ScorePart;
 }
 
 export interface ScorePart {
-    "part-name": string;
+    'part-name': string;
     _id: string;
 }

@@ -1,13 +1,5 @@
 import { SPACE_TYPE } from './enum/space';
 
-export interface Identity<T> {
-	id: T;
-}
-
-export interface Order<T> {
-	order: T;
-}
-
 export interface Position {
 	x: number;
 	y: number;
