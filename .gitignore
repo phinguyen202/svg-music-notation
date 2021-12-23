@@ -1,2 +1,5 @@
 /node_modules
-.vscode/symbols.json
+debug.log
+/.vscode
+src/.DS_Store
+.DS_Store

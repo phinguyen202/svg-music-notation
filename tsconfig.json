@@ -2,20 +2,54 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "noImplicitAny": true,
-    "module": "es6",
-    "target": "es5",
-    "jsx": "react",
+    "module": "ES6",
+    "target": "ES6",
     "allowJs": true,
     "importHelpers": false,
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "moduleResolution": "Node",
     "baseUrl": "src",
     "paths": {
-      "@base/*": ["components/base/*"],
-      "@model/*": ["model/*"],
-      "@builder/*": ["components/builder/*"],
-      "@switcher/*": ["components/switcher/*"],
-      "@store/*": ["store/*"],
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@model/*": [
+        "model/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@base/*": [
+        "components/base/*"
+      ],
+      "@group/*": [
+        "components/group/*"
+      ],
+      "@stave/*": [
+        "components/stave/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@store/*": [
+        "store/*"
+      ],
+      "@exception/*": [
+        "exception/*"
+      ],
+      "@css/*": [
+        "css/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ],
+      "@glyph/*": [
+        "glyph/*"
+      ],
+      "@modules/*": [
+        "modules/*"
+      ]
     }
   }
 }
