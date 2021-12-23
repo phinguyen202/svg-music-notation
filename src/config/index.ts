@@ -1,7 +1,7 @@
 import { SvgSheetConfig } from '@model/config';
 
 export const defaultConfig: SvgSheetConfig = {
-    scale: 0.5,
+    scale: 0.5, // scale not work in Safari, so always is 1
     fontSize: 96,
     padding: 50,
     barline: {
