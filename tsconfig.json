@@ -9,6 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "moduleResolution": "Node",
+    "declaration": true,
     "baseUrl": "src",
     "paths": {
       "@lib/*": [
@@ -50,6 +51,18 @@
       "@modules/*": [
         "modules/*"
       ]
-    }
-  }
+    },
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths"
+      }
+    ]
+  },
+  "exclude": [
+    "dev",
+    "test",
+    "dist",
+    "webpack.config.js",
+    "rollup.config.js",
+  ]
 }

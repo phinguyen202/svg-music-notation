@@ -1,0 +1,10 @@
+export declare type ClefType = 'treble' | 'bass' | 'alto' | 'tenor';
+export declare type BarLineType = 'single' | 'double' | 'bold double';
+export declare type AccidentalType = 'flat' | 'sharp' | 'natural' | 'double flat' | 'double sharp';
+export declare type AccidentalKeySignature = 'flat' | 'sharp';
+export declare type DurationType = 'whole' | 'half' | 'quarter' | 'eighth' | 'sixteenth';
+export declare type DotType = 'single' | 'double' | 'triple';
+export declare type PitchType = 'C4' | 'D4' | 'G4' | 'E4' | 'F4' | 'G4' | 'A4' | 'B4' | 'C5' | 'D5' | 'G5' | 'E5' | 'F5' | 'G5' | 'A5' | 'B5' | 'C6';
+export declare type KeySignatureType = -7 | -6 | -5 | -4 | -3 | -2 | -1 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+export declare type TimeSignatureLowerType = 2 | 3 | 4 | 6;
+export declare type TimeSignatureUpperType = 2 | 4 | 8;
