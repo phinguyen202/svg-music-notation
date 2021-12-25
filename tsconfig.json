@@ -62,7 +62,6 @@
     "dev",
     "test",
     "dist",
-    "webpack.config.js",
-    "rollup.config.js",
+    "webpack.config.js"
   ]
 }
