@@ -4,7 +4,7 @@ import { Glyph, Position } from '@model/common.model';
 import { bravuraMetadata, glyphNames } from '@glyph/index';
 
 export type AccidentalType = 'sharp' | 'flat' | 'natural';
-interface AccidentalProps extends Position {
+interface AccidentalProps {
     type: AccidentalType
 }
 

@@ -1,6 +1,6 @@
 import { InvalidError } from '@exception/invalid';
 import { SvgSheetConfig } from '@model/config';
-import { Sheet } from '@components/index';
+import { Sheet } from '@components/sheet';
 import { defaultConfig } from '@config/index';
 import { MusicXML } from '@model/musicXML';
 import { Module } from '@modules/interface';

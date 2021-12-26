@@ -28,7 +28,7 @@ export class KeySignature extends BaseComponent {
             const type: AccidentalType = 'sharp';
             this.elements = sharpOrder.slice(0, fifthsNub).map((note: string) => {
                 const y = noteMap.get(note as NOTE_PITCH).y;
-                const acc = new AccidentalCom({ type, x, y });
+                const acc = new AccidentalCom({ type }, { x, y });
                 x += acc.state.width * widthUnit;
                 return acc
             });
@@ -36,7 +36,7 @@ export class KeySignature extends BaseComponent {
             const type: AccidentalType = 'flat';
             this.elements = flatOrder.slice(0, Math.abs(fifthsNub)).map((note: string) => {
                 const y = noteMap.get(note as NOTE_PITCH).y;
-                const acc = new AccidentalCom({ type, x, y });
+                const acc = new AccidentalCom({ type}, { x, y });
                 x += acc.state.width * widthUnit;
                 return acc
             });
