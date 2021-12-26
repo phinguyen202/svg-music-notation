@@ -20,8 +20,8 @@ export class PartCom extends Component {
         super();
     }
 
-    render() {
-        const { _id, measure } = this.part;
+    public buildElements() {
+        const { measure } = this.part;
         const { padding, width, widthUnit, stave } = GlobalConfig;
 
         const staveWidth = width - padding * 2;
@@ -65,6 +65,17 @@ export class PartCom extends Component {
             }
             return x;
         }, marginLeft);
+
+        return elements;
+    }
+
+    render() {
+        const { _id } = this.part;
+        const { padding, width } = GlobalConfig;
+        
+        const staveWidth = width - padding * 2;
+
+        const elements = this.buildElements();
 
         return eltSVG('g', {
             id: _id,
