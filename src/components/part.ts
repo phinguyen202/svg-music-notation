@@ -3,8 +3,8 @@ import { Measure, Part } from '@model/musicXML';
 import { Stave } from '@base/index';
 import { MeasureGroup } from '@group/measure';
 import { SPACE_TYPE } from '@model/enum/space';
-import { GlobalConfig } from '@config/index';
 import { BaseComponent } from './base/interface/base.component';
+import { SvgSheetConfig } from '@model/config';
 
 /**
  * @description This Component hold a list of primary element
@@ -16,23 +16,16 @@ import { BaseComponent } from './base/interface/base.component';
  * @extends {Component}
  */
 export class PartCom extends Component {
-    constructor(private part: Part) {
+    constructor(private part: Part, private config: SvgSheetConfig) {
         super();
     }
 
-    public buildElements() {
-        const { measure } = this.part;
-        const { padding, width, widthUnit, stave } = GlobalConfig;
+    private locateElements(elements: Component[]): Component[] {
+        const { padding, width, widthUnit, stave } = this.config;
 
         const staveWidth = width - padding * 2;
-
-        // building Measures
-        const elements: Component[] = (Array.isArray(measure) ? measure : [measure]).reduce((acc: Component[], measure: Measure) => {
-            return acc.concat(MeasureGroup(measure));
-        }, []);
-
         const marginLeft = stave.marginLeft * widthUnit; // margin left
-
+    
         const { fixedWidth, totalRelUnit } = elements.reduce((acc: any, element: BaseComponent) => {
             const { space } = element;
             if (space) {
@@ -44,9 +37,9 @@ export class PartCom extends Component {
             }
             return acc;
         }, { fixedWidth: marginLeft, totalRelUnit: 0 })
-
+    
         const perUnit = (staveWidth - fixedWidth) / totalRelUnit;
-
+    
         const totalElement = elements.length - 1;
         elements.reduce((x: any, element: BaseComponent, index: number) => {
             const { space } = element;
@@ -65,17 +58,24 @@ export class PartCom extends Component {
             }
             return x;
         }, marginLeft);
-
+    
         return elements;
+    }
+
+    public buildElements(): Component[] {
+        const { measure } = this.part;
+        return <Component[]>(Array.isArray(measure) ? measure : [measure]).reduce((acc: Component[], measure: Measure) => {
+            return acc.concat(MeasureGroup(measure, this.config));
+        }, []);
     }
 
     render() {
         const { _id } = this.part;
-        const { padding, width } = GlobalConfig;
+        const { padding, width } = this.config;
         
         const staveWidth = width - padding * 2;
 
-        const elements = this.buildElements();
+        const elements = this.locateElements(this.buildElements());
 
         return eltSVG('g', {
             id: _id,

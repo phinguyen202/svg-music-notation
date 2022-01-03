@@ -8,7 +8,6 @@ import { NOTE_DURATION, NOTE_DURATION_NUMBER, NOTE_PITCH, STEM_DIRECTION } from 
 import { Stem } from '@base/stem';
 import { Ledger } from '@base/ledger';
 import { SPACE_TYPE } from '@model/enum/space';
-import { GlobalConfig } from '@config/index';
 
 interface NoteMeta {
     stemHeight?: number;
@@ -75,7 +74,7 @@ export class NoteCom extends BaseComponent {
     private durationStr: NOTE_DURATION | string;
     private durationMetric: DurationMetric;
 
-    constructor(protected props: NoteProps, position?: Position) {
+    constructor(protected props: NoteProps, private fontSize: number, private widthUnit: number, position?: Position) {
         super(position);
         this.init();
     }
@@ -97,14 +96,13 @@ export class NoteCom extends BaseComponent {
     }
 
     render() {
-        const { fontSize, widthUnit } = GlobalConfig;
         const { x, y } = this.position;
         const { isStemUp, ledgers } = this.pitchMetric;
         const { width, codepoint, stemHeight, flagUp, flagDown } = this.durationMetric;
 
-        const calWidth = width * widthUnit;
-        const calY = y * fontSize;
-        const calStemHeight = stemHeight * fontSize;
+        const calWidth = width * this.widthUnit;
+        const calY = y * this.fontSize;
+        const calStemHeight = stemHeight * this.fontSize;
 
         const elements: Array<any> = [eltSVG('text', undefined, `${codepoint}`)];
         if (stemHeight) {

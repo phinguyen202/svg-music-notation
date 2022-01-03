@@ -2,12 +2,11 @@ import { eltSVG } from 'source-renderer';
 import { BaseComponent } from './interface/base.component';
 import { bravuraMetadata } from '@glyph/index';
 import { Time } from '@model/musicXML';
-import { GlobalConfig } from '@config/index';
 import { SPACE_TYPE } from '@model/enum/space';
 
 export class TimeSignatureCom extends BaseComponent {
     private codepoint: string;
-    constructor(private time: Time) {
+    constructor(private time: Time, private fontSize: number) {
         super();
         this.init();
     }
@@ -19,7 +18,7 @@ export class TimeSignatureCom extends BaseComponent {
         this.codepoint = bravuraMetadata.optionalGlyphs[timeKey].codepoint;
         this.position = {
             x: 0,
-            y: GlobalConfig.fontSize
+            y: this.fontSize
         }
     }
 
