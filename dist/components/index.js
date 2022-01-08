@@ -1,34 +1,38 @@
-import '../css/font.css';
-import { eltSVG, Component } from 'source-renderer';
+import { Sheet } from "./sheet";
+import { Component } from 'source-renderer';
+import { AccidentalCom, ClefCom, KeySignature, NoteCom, Stave, TimeSignatureCom } from './base';
+import { Barline } from "./base/barline";
+import { Ledger } from "./base/ledger";
+import { Stem } from "./base/stem";
+import { MeasureGroup } from "./group/measure";
 import { ScorePartwiseGroup } from "./group/score-partwise";
-import { defaultConfig, GlobalConfig, setGlobalConfig } from "../config/index";
-export class Sheet extends Component {
-    constructor(source, config) {
-        super();
-        this.source = source;
-        this.config = config;
-        this.setConfig(this.config);
+import { PartCom } from "./part";
+const setFn = function (key, com) {
+    if (!(key || this.hasOwnProperty(key))) {
+        throw new Error(`Cannot replace the element [${key}]. The key is not exist or not found!`);
     }
-    setConfig(config) {
-        const analyzedConfig = this.analyzeConfig(config);
-        setGlobalConfig(analyzedConfig);
+    else if (!(com instanceof Component)) {
+        throw new Error(`Cannot replace the element [${key}]. The component must be a Component!`);
     }
-    analyzeConfig(config) {
-        const analyzedConfig = Object.assign(Object.assign({}, defaultConfig), config);
-        return Object.assign(Object.assign({}, analyzedConfig), { padding: analyzedConfig.padding / analyzedConfig.scale, width: analyzedConfig.width / analyzedConfig.scale, height: analyzedConfig.height / analyzedConfig.scale, widthUnit: analyzedConfig.fontSize / 4 // why 4?
-         });
-    }
-    render() {
-        const { width, height, scale, fontSize } = GlobalConfig;
-        // a five-line stave height = fontSize
-        return eltSVG('svg', {
-            xmlns: 'http://www.w3.org/2000/svg',
-            'font-family': 'Bravura, BravuraText',
-            width,
-            height,
-            stroke: 'black',
-            'font-size': `${fontSize}px`,
-            transform: `matrix(${scale}, 0, 0, ${scale}, ${width / 2 * (scale - 1)},  ${height / 2 * (scale - 1)})`
-        }, ...ScorePartwiseGroup(this.source['score-partwise']));
-    }
-}
+    this[key] = com;
+};
+export default {
+    // base
+    Accidental: AccidentalCom,
+    Barline: Barline,
+    Clef: ClefCom,
+    KeySignature: KeySignature,
+    Ledger: Ledger,
+    Note: NoteCom,
+    Stave: Stave,
+    Stem: Stem,
+    TimeSignature: TimeSignatureCom,
+    // group
+    Measure: MeasureGroup,
+    ScorePartwise: ScorePartwiseGroup,
+    // interface
+    Part: PartCom,
+    Sheet: Sheet,
+    // Methods
+    set: setFn
+};

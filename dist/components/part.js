@@ -2,7 +2,6 @@ import { eltSVG, Component } from 'source-renderer';
 import { Stave } from "./base/index";
 import { MeasureGroup } from "./group/measure";
 import { SPACE_TYPE } from "../model/enum/space";
-import { GlobalConfig } from "../config/index";
 /**
  * @description This Component hold a list of primary element
  * 1. calculate coordinate for each element based on part width and element width
@@ -13,18 +12,14 @@ import { GlobalConfig } from "../config/index";
  * @extends {Component}
  */
 export class PartCom extends Component {
-    constructor(part) {
+    constructor(part, config) {
         super();
         this.part = part;
+        this.config = config;
     }
-    render() {
-        const { _id, measure } = this.part;
-        const { padding, width, widthUnit, stave } = GlobalConfig;
+    locateElements(elements) {
+        const { padding, width, widthUnit, stave } = this.config;
         const staveWidth = width - padding * 2;
-        // building Measures
-        const elements = (Array.isArray(measure) ? measure : [measure]).reduce((acc, measure) => {
-            return acc.concat(MeasureGroup(measure));
-        }, []);
         const marginLeft = stave.marginLeft * widthUnit; // margin left
         const { fixedWidth, totalRelUnit } = elements.reduce((acc, element) => {
             const { space } = element;
@@ -60,6 +55,19 @@ export class PartCom extends Component {
             }
             return x;
         }, marginLeft);
+        return elements;
+    }
+    buildElements() {
+        const { measure } = this.part;
+        return (Array.isArray(measure) ? measure : [measure]).reduce((acc, measure) => {
+            return acc.concat(MeasureGroup(measure, this.config));
+        }, []);
+    }
+    render() {
+        const { _id } = this.part;
+        const { padding, width } = this.config;
+        const staveWidth = width - padding * 2;
+        const elements = this.locateElements(this.buildElements());
         return eltSVG('g', {
             id: _id,
             transform: `translate(${padding} ${padding})`

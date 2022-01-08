@@ -1,6 +1,6 @@
 import { PartCom } from "../part";
-export function ScorePartwiseGroup(scorePart) {
+export function ScorePartwiseGroup(scorePart, config) {
     return [
-        new PartCom(scorePart.part)
+        new PartCom(scorePart.part, config)
     ];
 }

@@ -1,10 +1,13 @@
 import { InvalidError } from "./exception/invalid";
-import { Sheet } from "./components/index";
+import { Sheet } from "./components/sheet";
 import { defaultConfig } from "./config/index";
 export class SvgMusicNotation {
-    constructor({ container, source, config, additionalModules }) {
+    constructor(container, source, config) {
+        this.container = container;
+        this.source = source;
+        this.config = config;
         if (!container || !(container instanceof HTMLElement)) {
-            throw new InvalidError(`Container param should be HTMLElement, but found ${container && container.constructor.name}!`);
+            throw new InvalidError(`Container param should be HTMLElement, but found ${container ? 'nothing' : container.constructor.name}!`);
         }
         const sheetConfig = Object.assign(Object.assign({}, defaultConfig), config);
         if (!sheetConfig.width || !sheetConfig.height) {
@@ -16,18 +19,14 @@ export class SvgMusicNotation {
                 sheetConfig.height = clientRect.height;
             }
         }
-        // listening resize event: ResizeObserver => updateConfig()
-        this.container = container;
-        this.source = source;
         // Spread data into main component
-        this.sheet = new Sheet(source, sheetConfig);
+        this.sheet = new Sheet(source, this.analyzeConfig(sheetConfig));
         container.appendChild(this.sheet.render());
-        additionalModules.forEach(module => {
-            if (typeof module.register === 'function') {
-                // observe module
-                module.register(this);
-            }
-        });
+    }
+    analyzeConfig(config) {
+        const analyzedConfig = Object.assign(Object.assign({}, defaultConfig), config);
+        return Object.assign(Object.assign({}, analyzedConfig), { padding: analyzedConfig.padding, width: analyzedConfig.width, height: analyzedConfig.height, widthUnit: analyzedConfig.fontSize / 4 // why 4?
+         });
     }
     updateConfig(config) {
     }

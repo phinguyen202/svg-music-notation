@@ -2,7 +2,6 @@ import { Module } from '@modules/interface';
 export interface SvgSheetConfig {
     height?: number;
     width?: number;
-    scale?: number;
     fontSize?: number;
     widthUnit?: number;
     padding?: number;
@@ -10,10 +9,9 @@ export interface SvgSheetConfig {
     barline: BarlineConfig;
     stave: StaveConfig;
 }
-interface BarlineConfig {
+export interface BarlineConfig {
     strokeWidth: number;
 }
-interface StaveConfig {
+export interface StaveConfig {
     marginLeft: number;
 }
-export {};

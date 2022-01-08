@@ -1,16 +1,12 @@
 import { SvgSheetConfig } from '@model/config';
-import { Module } from '@modules/interface';
-export interface SvgMusicNotationProp {
-    container: HTMLElement;
-    config: SvgSheetConfig;
-    additionalModules?: Module[];
-    source: any;
-}
+import { MusicXML } from '@model/musicXML';
 export declare class SvgMusicNotation {
     private container;
     private source;
+    private config;
     private sheet;
-    constructor({ container, source, config, additionalModules }: SvgMusicNotationProp);
+    constructor(container: HTMLElement, source: MusicXML, config: SvgSheetConfig);
+    private analyzeConfig;
     updateConfig(config: SvgSheetConfig): void;
     updateSource(source: any): void;
 }

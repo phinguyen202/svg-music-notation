@@ -1,3 +1,4 @@
 import { Component } from 'source-renderer';
 import { Measure } from '@model/musicXML';
-export declare function MeasureGroup(measure: Measure): Array<Component>;
+import { SvgSheetConfig } from '@model/config';
+export declare function MeasureGroup(measure: Measure, config: SvgSheetConfig): Array<Component>;

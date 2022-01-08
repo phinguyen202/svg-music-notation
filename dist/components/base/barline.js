@@ -1,11 +1,11 @@
 import { eltSVG } from 'source-renderer';
 import { BaseComponent } from "./interface/base.component";
-import { GlobalConfig } from "../../config/index";
 import { SPACE_TYPE } from "../../model/enum/space";
 export class Barline extends BaseComponent {
-    constructor(props, position) {
+    constructor(props, barline, position) {
         super(position);
         this.props = props;
+        this.barline = barline;
         this.space = { type: SPACE_TYPE.None, length: 0 };
     }
     render() {
@@ -15,7 +15,7 @@ export class Barline extends BaseComponent {
             x2: x,
             y1: y,
             y2: this.props.height,
-            'stroke-width': GlobalConfig.barline.strokeWidth,
+            'stroke-width': this.barline.strokeWidth,
         });
     }
 }

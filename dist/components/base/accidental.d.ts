@@ -1,7 +1,7 @@
 import { BaseComponent } from '@base/interface/base.component';
 import { Glyph, Position } from '@model/common.model';
 export declare type AccidentalType = 'sharp' | 'flat' | 'natural';
-interface AccidentalProps extends Position {
+interface AccidentalProps {
     type: AccidentalType;
 }
 export declare class AccidentalCom extends BaseComponent {

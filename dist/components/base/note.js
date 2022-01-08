@@ -6,7 +6,6 @@ import { NOTE_DURATION, NOTE_DURATION_NUMBER, STEM_DIRECTION } from "../../model
 import { Stem } from "./stem";
 import { Ledger } from "./ledger";
 import { SPACE_TYPE } from "../../model/enum/space";
-import { GlobalConfig } from "../../config/index";
 const durationMetricMap = new Map([
     [NOTE_DURATION.whole, {
             codepoint: glyphNames.noteWhole.codepoint,
@@ -50,9 +49,11 @@ const noteTypeMap = new Map([
     [NOTE_DURATION_NUMBER.whole, NOTE_DURATION.whole],
 ]);
 export class NoteCom extends BaseComponent {
-    constructor(props, position) {
+    constructor(props, fontSize, widthUnit, position) {
         super(position);
         this.props = props;
+        this.fontSize = fontSize;
+        this.widthUnit = widthUnit;
         this.init();
     }
     init() {
@@ -70,13 +71,12 @@ export class NoteCom extends BaseComponent {
         this.width = this.durationMetric.width;
     }
     render() {
-        const { fontSize, widthUnit } = GlobalConfig;
         const { x, y } = this.position;
         const { isStemUp, ledgers } = this.pitchMetric;
         const { width, codepoint, stemHeight, flagUp, flagDown } = this.durationMetric;
-        const calWidth = width * widthUnit;
-        const calY = y * fontSize;
-        const calStemHeight = stemHeight * fontSize;
+        const calWidth = width * this.widthUnit;
+        const calY = y * this.fontSize;
+        const calStemHeight = stemHeight * this.fontSize;
         const elements = [eltSVG('text', undefined, `${codepoint}`)];
         if (stemHeight) {
             if (isStemUp) {
