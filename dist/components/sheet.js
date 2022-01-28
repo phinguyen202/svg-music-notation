@@ -1,4 +1,4 @@
-import '../css/font.css';
+import '@core/css/font.css';
 import { eltSVG, Component } from 'source-renderer';
 import { ScorePartwiseGroup } from "./group/score-partwise";
 export class Sheet extends Component {

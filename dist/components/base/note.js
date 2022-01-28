@@ -61,7 +61,8 @@ export class NoteCom extends BaseComponent {
         const { step, octave } = pitch;
         this.durationNum = +duration / +divisions;
         this.durationStr = type ? type : noteTypeMap.get(this.durationNum);
-        this.pitchMetric = noteMap.get(`${step}${octave}`);
+        this.pitch = `${step}${octave}`;
+        this.pitchMetric = noteMap.get(this.pitch);
         this.durationMetric = durationMetricMap.get(this.durationStr);
         this.space = this.durationMetric.space;
         this.position = {
@@ -69,6 +70,12 @@ export class NoteCom extends BaseComponent {
             y: this.pitchMetric.y,
         };
         this.width = this.durationMetric.width;
+    }
+    getPitch() {
+        return this.pitch;
+    }
+    getDuration() {
+        return this.durationStr;
     }
     render() {
         const { x, y } = this.position;
