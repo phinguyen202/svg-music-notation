@@ -14,7 +14,7 @@ import { Component } from 'source-renderer';
 export declare abstract class BaseComponent extends Component {
     width: number;
     space: SpaceUnit;
-    protected position: Position;
+    position: Position;
     constructor(position?: Position);
     getWidth(): number;
     getSpace(): SpaceUnit;

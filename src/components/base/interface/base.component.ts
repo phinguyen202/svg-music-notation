@@ -15,7 +15,7 @@ import { Component } from 'source-renderer';
 export abstract class BaseComponent extends Component {
     public width: number;
     public space: SpaceUnit;
-    protected position: Position;
+    public position: Position;
     public constructor(position?: Position) {
         super();
         this.position = position;

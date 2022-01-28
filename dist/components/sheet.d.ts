@@ -1,4 +1,4 @@
-import '@core/css/font.css';
+import '../css/font.css';
 import { Component } from 'source-renderer';
 import { SvgSheetConfig } from '@model/config';
 import { MusicXML } from '@model/musicXML';
